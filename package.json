@@ -1,0 +1,19 @@
+{
+  "name": "hamlet-self-serve-protos",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "lucide-react": "^0.526.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  }
+}
