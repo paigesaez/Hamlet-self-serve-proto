@@ -26,9 +26,9 @@ const topics = [
 
 export default function InviteBasedFlow() {
   const [step, setStep] = useState(1);
-  const [selectedLocations, setSelectedLocations] = useState([]);
-  const [selectedBodies, setSelectedBodies] = useState({});
-  const [selectedTopics, setSelectedTopics] = useState([]);
+  const [selectedLocations, setSelectedLocations] = useState<number[]>([]);
+  const [selectedBodies, setSelectedBodies] = useState<Record<string, string[]>>({});
+  const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [inviteCode, setInviteCode] = useState('');
   const [email, setEmail] = useState('');
@@ -185,7 +185,7 @@ export default function InviteBasedFlow() {
     };
 
     const getTotalBodies = () => {
-      return Object.values(selectedBodies).reduce((total, bodies) => total + (bodies?.length || 0), 0);
+      return Object.values(selectedBodies).reduce((total: number, bodies: string[]) => total + (bodies?.length || 0), 0);
     };
 
     const calculatePrice = () => {
@@ -196,7 +196,7 @@ export default function InviteBasedFlow() {
     // Step 1: Select Jurisdictions
     if (step === 10) {
       return (
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-8">
           {/* Left Column - Instructions and Search */}
           <div className="space-y-6">
             <div>
@@ -319,7 +319,7 @@ export default function InviteBasedFlow() {
     // Step 2: Select Governing Bodies
     if (step === 11) {
       return (
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-8">
           {/* Left Column - Instructions */}
           <div className="space-y-6">
             <div>
@@ -389,7 +389,7 @@ export default function InviteBasedFlow() {
     // Step 3: Select Topics
     if (step === 12) {
       return (
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-8">
           {/* Left Column - Instructions and Summary */}
           <div className="space-y-6">
             <div>
@@ -485,12 +485,42 @@ export default function InviteBasedFlow() {
 
   // Email Capture Step
   const EmailCapture = () => (
-    <div className="max-w-lg mx-auto">
+    <div className="grid lg:grid-cols-2 gap-8">
+      {/* Left Column - Information */}
+      <div className="space-y-6">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Account Setup</h2>
+          <p className="text-gray-600">Create your account to receive alerts delivered within 24 hours of agenda publication</p>
+        </div>
+        
+        <div className="bg-blue-50 p-6 rounded-xl">
+          <h3 className="font-semibold mb-4 text-gray-900">What you'll receive:</h3>
+          <ul className="space-y-2 text-sm">
+            <li className="flex items-center">
+              <Check className="w-4 h-4 text-blue-600 mr-3 flex-shrink-0" />
+              <span>Email alerts within 24 hours of agenda publication</span>
+            </li>
+            <li className="flex items-center">
+              <Check className="w-4 h-4 text-blue-600 mr-3 flex-shrink-0" />
+              <span>Full agenda item language with highlighted matches</span>
+            </li>
+            <li className="flex items-center">
+              <Check className="w-4 h-4 text-blue-600 mr-3 flex-shrink-0" />
+              <span>Direct links to meeting materials and documents</span>
+            </li>
+            <li className="flex items-center">
+              <Check className="w-4 h-4 text-blue-600 mr-3 flex-shrink-0" />
+              <span>Meeting date, time, and location information</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      {/* Right Column - Form */}
       <div className="bg-white shadow-xl rounded-2xl p-8 border border-gray-200">
         <div className="text-center mb-6">
           <Mail className="w-16 h-16 text-[#002147] mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">Account Setup</h2>
-          <p className="text-gray-600">Create your account to receive alerts delivered within 24 hours of agenda publication</p>
+          <h3 className="text-xl font-semibold text-gray-900">Enter Your Email</h3>
         </div>
 
         <div className="space-y-4">
@@ -522,12 +552,52 @@ export default function InviteBasedFlow() {
 
   // Billing Information Step
   const BillingInfo = () => (
-    <div className="max-w-2xl mx-auto">
+    <div className="grid lg:grid-cols-2 gap-8">
+      {/* Left Column - Pricing Summary */}
+      <div className="space-y-6">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Billing Information</h2>
+          <p className="text-gray-600">Complete setup to begin tracking development opportunities</p>
+        </div>
+        
+        <div className="bg-gray-50 p-6 rounded-xl">
+          <h3 className="font-semibold mb-4 text-gray-900">Your Subscription Summary</h3>
+          <div className="space-y-3">
+            <div className="flex justify-between items-center">
+              <span className="text-gray-600">Jurisdictions</span>
+              <span className="font-medium">{selectedLocations.length}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-600">Governing Bodies</span>
+              <span className="font-medium">{getTotalBodies()}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-600">Topics Monitored</span>
+              <span className="font-medium">{selectedTopics.length}</span>
+            </div>
+            <div className="border-t pt-3 mt-3">
+              <div className="flex justify-between items-center">
+                <span className="text-lg font-semibold">Monthly Total</span>
+                <span className="text-lg font-bold text-[#002147]">${calculatePrice().toLocaleString()}</span>
+              </div>
+              <p className="text-xs text-gray-500 mt-1">Volume pricing: $1,000 per 20 governing bodies</p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-green-50 p-4 rounded-lg text-sm">
+          <p className="font-medium text-green-900 mb-2">Built for Scale:</p>
+          <p className="text-green-800">
+            Track multiple cities without adding headcount. Volume discounts available as coverage scales.
+          </p>
+        </div>
+      </div>
+      
+      {/* Right Column - Form */}
       <div className="bg-white shadow-xl rounded-2xl p-8 border border-gray-200">
         <div className="text-center mb-6">
           <CreditCard className="w-16 h-16 text-[#002147] mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">Billing Information</h2>
-          <p className="text-gray-600">Complete setup to begin tracking development opportunities</p>
+          <h3 className="text-xl font-semibold text-gray-900">Payment Details</h3>
         </div>
 
         <div className="space-y-6">
@@ -665,14 +735,16 @@ export default function InviteBasedFlow() {
       <TopNavigation />
       
       {step === 1 && (
-        <div className="min-h-screen flex items-center justify-center py-12 px-4">
-          <div className="max-w-lg w-full">
-            <div className="text-center mb-8">
-              <h1 className="text-4xl font-bold text-gray-900 mb-3">Development Intelligence Platform</h1>
-              <p className="text-xl text-gray-600">Invitation-only access for real estate development teams</p>
+        <div className="py-12 px-4">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-12">
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-3">Development Intelligence Platform</h1>
+              <p className="text-xl md:text-2xl text-gray-600">Invitation-only access for real estate development teams</p>
             </div>
             
-            <div className="bg-white shadow-xl rounded-2xl p-8 border border-gray-200">
+            <div className="grid lg:grid-cols-2 gap-8 items-start">
+              {/* Left Column - Information */}
+              <div className="bg-white shadow-xl rounded-2xl p-8 border border-gray-200">
               <div className="text-center mb-6">
                 <Building className="w-16 h-16 text-purple-600 mx-auto mb-4" />
                 <h3 className="text-2xl font-semibold mb-3 text-gray-900">Invite-Only Platform</h3>
@@ -682,7 +754,53 @@ export default function InviteBasedFlow() {
                 </p>
               </div>
               
-              <div className="bg-gray-50 p-6 rounded-xl mb-6">
+              {/* Right Column - Form */}
+              <div className="bg-white shadow-xl rounded-2xl p-8 border border-gray-200">
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-2 text-gray-700">Invitation Code</label>
+                    <input
+                      type="text"
+                      placeholder="Enter your invitation code"
+                      value={inviteCode}
+                      onChange={(e) => setInviteCode(e.target.value)}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+                    />
+                  </div>
+                  
+                  <button
+                    onClick={() => {
+                      if (inviteCode.toLowerCase().includes('demo') || inviteCode.toLowerCase().includes('trial')) {
+                        setStep(10);
+                      } else {
+                        setStep(3);
+                      }
+                    }}
+                    className="w-full bg-purple-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-purple-700 transition-colors shadow-md"
+                  >
+                    Access Platform
+                  </button>
+                </div>
+                
+                <div className="mt-8 pt-6 border-t border-gray-200">
+                  <h4 className="font-medium mb-2 text-gray-900">Need an invitation?</h4>
+                  <p className="text-sm text-gray-600 mb-4 leading-relaxed">
+                    Request access for your development team. We'll review your application and provide an invitation 
+                    if you qualify for our professional monitoring platform.
+                  </p>
+                  <button
+                    onClick={() => setStep(4)}
+                    className="w-full bg-white text-purple-600 py-3 px-6 rounded-lg border border-purple-600 hover:bg-purple-50 transition-colors font-medium"
+                  >
+                    Request Invitation
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            {/* Benefits section moved to left column */}
+            <div className="lg:col-span-1">
+              <div className="bg-gray-50 p-6 rounded-xl">
                 <h4 className="font-semibold mb-4 text-gray-900">Avoid last-minute surprises with:</h4>
                 <ul className="space-y-3 text-sm">
                   <li className="flex items-center">
@@ -706,46 +824,6 @@ export default function InviteBasedFlow() {
                     <span>No more hunting through PDFs—just open your inbox</span>
                   </li>
                 </ul>
-              </div>
-              
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-gray-700">Invitation Code</label>
-                  <input
-                    type="text"
-                    placeholder="Enter your invitation code"
-                    value={inviteCode}
-                    onChange={(e) => setInviteCode(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
-                  />
-                </div>
-                
-                <button
-                  onClick={() => {
-                    if (inviteCode.toLowerCase().includes('demo') || inviteCode.toLowerCase().includes('trial')) {
-                      setStep(10);
-                    } else {
-                      setStep(3);
-                    }
-                  }}
-                  className="w-full bg-purple-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-purple-700 transition-colors shadow-md"
-                >
-                  Access Platform
-                </button>
-              </div>
-              
-              <div className="mt-8 pt-6 border-t border-gray-200">
-                <h4 className="font-medium mb-2 text-gray-900">Need an invitation?</h4>
-                <p className="text-sm text-gray-600 mb-4 leading-relaxed">
-                  Request access for your development team. We'll review your application and provide an invitation 
-                  if you qualify for our professional monitoring platform.
-                </p>
-                <button
-                  onClick={() => setStep(4)}
-                  className="w-full bg-white text-purple-600 py-3 px-6 rounded-lg border border-purple-600 hover:bg-purple-50 transition-colors font-medium"
-                >
-                  Request Invitation
-                </button>
               </div>
             </div>
           </div>
@@ -793,9 +871,9 @@ export default function InviteBasedFlow() {
       )}
 
       {step === 4 && (
-        <div className="min-h-screen bg-gray-50 py-12 px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8">
+        <div className="py-12 px-4">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-8">
               {/* Left Column - Information */}
               <div>
                 <div className="text-center md:text-left mb-8">
