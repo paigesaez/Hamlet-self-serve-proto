@@ -213,3 +213,95 @@ This prototype establishes the core onboarding experience and value communicatio
    - Advanced filtering/search
    - Real-time validation
    - Progressive enhancement
+
+## 🖥️ **Claude CLI Local Installation Setup**
+
+### **Overview**
+This project is configured to use a local Claude CLI installation to avoid conflicts with global installations and ensure consistent behavior across different environments.
+
+### **Installation Structure**
+The local Claude installation is located at:
+- **Installation Path:** `~/.claude/local/`
+- **Executable:** `~/.claude/local/claude`
+- **Node Modules:** `~/.claude/local/node_modules/@anthropic-ai/claude-code/`
+
+### **Shell Configuration Files**
+The following shell configuration files have been created to ensure the local Claude installation is always used:
+
+1. **`.zshrc`** (Primary shell - macOS default)
+   ```bash
+   # Claude local installation configuration
+   export PATH="$HOME/.claude/local:$PATH"
+   alias claude="$HOME/.claude/local/claude"
+   
+   # Source .zprofile if it exists (for brew and other configs)
+   [ -f ~/.zprofile ] && source ~/.zprofile
+   ```
+
+2. **`.bash_profile`** (Bash compatibility)
+   ```bash
+   # Claude local installation configuration for bash
+   export PATH="$HOME/.claude/local:$PATH"
+   alias claude="$HOME/.claude/local/claude"
+   
+   # Source .bashrc if it exists
+   [ -f ~/.bashrc ] && source ~/.bashrc
+   ```
+
+3. **`.profile`** (POSIX shell compatibility)
+   ```bash
+   # Claude local installation configuration for POSIX shells
+   export PATH="$HOME/.claude/local:$PATH"
+   alias claude="$HOME/.claude/local/claude"
+   ```
+
+### **Settings Configuration**
+The project includes a `.claude/settings.local.json` file with:
+- IDE auto-connect configuration
+- Permission settings for allowed bash commands
+- MCP server configuration
+
+### **Troubleshooting**
+
+#### **Verify Installation**
+To verify the local installation is being used:
+```bash
+which claude  # Should show: /Users/[username]/.claude/local/claude
+claude --version
+```
+
+#### **Common Issues**
+
+1. **Command not found after setup**
+   - Solution: Source your shell configuration or open a new terminal
+   ```bash
+   source ~/.zshrc  # For zsh
+   source ~/.bash_profile  # For bash
+   ```
+
+2. **Permission denied errors**
+   - Solution: Ensure the claude executable has proper permissions
+   ```bash
+   chmod +x ~/.claude/local/claude
+   ```
+
+3. **Multiple installations conflict**
+   - Check for multiple installations: `claude doctor`
+   - The local installation should take precedence due to PATH ordering
+
+4. **IDE not auto-connecting**
+   - Ensure `.claude/settings.local.json` contains:
+   ```json
+   "mcp": {
+     "servers": {
+       "ide": {
+         "command": "auto-connect"
+       }
+     }
+   }
+   ```
+
+### **Maintenance**
+- The local installation is self-contained in `~/.claude/local/`
+- Updates can be managed via npm: `cd ~/.claude/local && npm update`
+- Shell configurations ensure persistence across system restarts
