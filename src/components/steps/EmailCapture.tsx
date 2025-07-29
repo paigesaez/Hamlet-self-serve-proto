@@ -5,7 +5,6 @@ import { StepHeader } from '../shared/StepHeader';
 
 export const EmailCapture: React.FC<EmailCaptureProps> = ({ email, setEmail, onBack, onNext }) => (
   <>
-    <div className="max-w-xl mx-auto">
     <StepHeader 
       icon={Mail} 
       title="Create your account" 
@@ -13,7 +12,7 @@ export const EmailCapture: React.FC<EmailCaptureProps> = ({ email, setEmail, onB
     />
 
     {/* Main Card */}
-    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 mb-8">
+    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
       <div className="space-y-6">
         <div>
           <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
@@ -70,33 +69,29 @@ export const EmailCapture: React.FC<EmailCaptureProps> = ({ email, setEmail, onB
         </div>
       </div>
     </div>
-
-    </div>
     
     {/* Sticky Footer */}
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex items-center justify-between">
-          <button
-            onClick={onBack}
-            className="flex items-center space-x-2 px-6 py-3 text-gray-700 hover:text-gray-900 font-medium transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Back</span>
-          </button>
-          
-          <button
-            onClick={onNext}
-            disabled={!email || !email.includes('@')}
-            className={`px-8 py-3 rounded-xl font-semibold transition-all ${
-              !email || !email.includes('@')
-                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg'
-            }`}
-          >
-            Continue to Payment
-          </button>
-        </div>
+    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 lg:px-12 xl:px-20 py-4">
+      <div className="flex items-center justify-between">
+        <button
+          onClick={onBack}
+          className="flex items-center space-x-2 px-6 py-3 text-gray-700 hover:text-gray-900 font-medium transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span>Back</span>
+        </button>
+        
+        <button
+          onClick={onNext}
+          disabled={!email || !email.includes('@')}
+          className={`px-8 py-3 rounded-xl font-semibold transition-all ${
+            !email || !email.includes('@')
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              : 'bg-[#002147] text-white hover:bg-[#003a6b] shadow-md hover:shadow-lg'
+          }`}
+        >
+          Continue to Payment
+        </button>
       </div>
     </div>
   </>

@@ -21,6 +21,7 @@ import { TopNavigation } from './components/shared/TopNavigation';
 export default function InviteBasedFlow() {
   const [step, setStep] = useState(1);
   const [selectedLocations, setSelectedLocations] = useState<number[]>([]);
+  const [selectedPackages, setSelectedPackages] = useState<{ type: 'state' | 'region', name: string }[]>([]);
   const [selectedBodies, setSelectedBodies] = useState<Record<string, string[]>>({});
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -39,6 +40,7 @@ export default function InviteBasedFlow() {
   const resetFlow = () => {
     setStep(1);
     setSelectedLocations([]);
+    setSelectedPackages([]);
     setSelectedBodies({});
     setSelectedTopics([]);
     setSearchTerm('');
@@ -100,7 +102,8 @@ export default function InviteBasedFlow() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <TopNavigation step={step} resetFlow={resetFlow} setStep={setStep} />
+      {/* Only show TopNavigation when not on landing page */}
+      {step !== 1 && <TopNavigation step={step} resetFlow={resetFlow} setStep={setStep} />}
 
       {/* Step 1: Invitation */}
       {step === 1 && (
@@ -141,8 +144,7 @@ export default function InviteBasedFlow() {
       {/* Coverage Flow Steps (10-14) */}
       {(step >= 10 && step <= 14) && (
         <div className="min-h-screen flex flex-col">
-          <div className="flex-1 py-8 px-6 lg:px-12 xl:px-20 pb-32">
-            <div className="max-w-6xl mx-auto">
+          <div className="flex-1 px-6 lg:px-12 xl:px-20 pt-8 pb-32">
               {/* Step 10: Jurisdiction Selection */}
               {step === 10 && (
                 <JurisdictionSelection
@@ -204,7 +206,6 @@ export default function InviteBasedFlow() {
                   onNext={() => setStep(6)}
                 />
               )}
-            </div>
           </div>
         </div>
       )}

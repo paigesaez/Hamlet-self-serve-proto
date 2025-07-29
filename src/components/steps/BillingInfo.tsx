@@ -14,7 +14,6 @@ export const BillingInfo: React.FC<BillingInfoProps> = ({
   onNext 
 }) => (
   <>
-    <div className="max-w-4xl mx-auto">
     <StepHeader 
       icon={CreditCard} 
       title="Complete your setup" 
@@ -179,42 +178,33 @@ export const BillingInfo: React.FC<BillingInfoProps> = ({
         </div>
       </div>
     </div>
-
-    </div>
     
     {/* Sticky Footer */}
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex items-center justify-between">
+    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 lg:px-12 xl:px-20 py-4">
+      <div className="flex items-center justify-between">
+        <button
+          onClick={onBack}
+          className="flex items-center space-x-2 px-6 py-3 text-gray-700 hover:text-gray-900 font-medium transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span>Back</span>
+        </button>
+        
+        <div className="flex items-center gap-4">
+          <p className="text-sm text-gray-600">
+            ${calculatePrice()}/mo
+          </p>
           <button
-            onClick={onBack}
-            className="flex items-center space-x-2 px-6 py-3 text-gray-700 hover:text-gray-900 font-medium transition-colors"
+            onClick={onNext}
+            disabled={!billingInfo.firstName || !billingInfo.lastName || !billingInfo.company || !billingInfo.cardNumber}
+            className={`px-8 py-3 rounded-xl font-semibold transition-all ${
+              !billingInfo.firstName || !billingInfo.lastName || !billingInfo.company || !billingInfo.cardNumber
+                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                : 'bg-[#002147] text-white hover:bg-[#003a6b] shadow-md hover:shadow-lg'
+            }`}
           >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Back</span>
+            Start Monitoring
           </button>
-          
-          <div className="flex items-center space-x-6">
-            <div className="text-right">
-              <p className="text-2xl font-semibold text-gray-900">
-                ${calculatePrice()}/mo
-              </p>
-              <p className="text-sm text-gray-600">
-                {getTotalBodies()} governing bodies
-              </p>
-            </div>
-            <button
-              onClick={onNext}
-              disabled={!billingInfo.firstName || !billingInfo.lastName || !billingInfo.company || !billingInfo.cardNumber}
-              className={`px-8 py-3 rounded-xl font-semibold transition-all ${
-                !billingInfo.firstName || !billingInfo.lastName || !billingInfo.company || !billingInfo.cardNumber
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg'
-              }`}
-            >
-              Start Monitoring
-            </button>
-          </div>
         </div>
       </div>
     </div>

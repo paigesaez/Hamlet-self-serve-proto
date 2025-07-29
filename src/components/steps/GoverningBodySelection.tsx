@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Building, Users, ChevronDown, ChevronUp, Info, Check } from 'lucide-react';
+import { Building, ChevronDown, ChevronUp, Info, Check } from 'lucide-react';
 import { locations } from '../../data/locations';
 import { StepHeader } from '../shared/StepHeader';
 
@@ -55,47 +55,25 @@ export const GoverningBodySelection: React.FC<GoverningBodySelectionProps> = ({
 
   return (
     <>
-      <div className="max-w-6xl mx-auto">
-        <StepHeader 
-          icon={Building} 
-          title="Configure monitoring scope" 
-          subtitle="Select the specific governing bodies you want to monitor in each jurisdiction"
-        />
+      <StepHeader 
+        icon={Building} 
+        title="Configure monitoring scope" 
+        subtitle="Select the specific governing bodies you want to monitor in each jurisdiction"
+      />
 
-        {/* Quick Actions */}
-        <div className="mb-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-serif font-bold text-gray-900">Quick selection</h3>
-            <div className="flex gap-3">
-              <button 
-                onClick={() => {
-                  selectedLocationData.forEach(loc => {
-                    handleSelectAllForLocation(loc.id, ['City Council', 'Planning Commission']);
-                  });
-                }}
-                className="px-4 py-2 bg-white rounded-lg text-sm font-medium text-[#002147] hover:bg-blue-50 transition-colors border border-gray-200"
-              >
-                Essential bodies only
-              </button>
-              <button
-                onClick={() => {
-                  selectedLocationData.forEach(loc => {
-                    handleSelectAllForLocation(loc.id, loc.governingBodies);
-                  });
-                }}
-                className="px-4 py-2 bg-white rounded-lg text-sm font-medium text-purple-700 hover:bg-purple-50 transition-colors border border-purple-200"
-              >
-                Select all bodies
-              </button>
-            </div>
-          </div>
-          <p className="text-sm text-gray-600">
-            <strong>Tip:</strong> Most teams monitor City Council and Planning Commission as they handle 90% of development decisions
-          </p>
+      {/* Jurisdictions List */}
+      {selectedLocationData.length === 0 ? (
+        <div className="text-center py-12">
+          <p className="text-gray-500 text-lg mb-4">No jurisdictions selected</p>
+          <button
+            onClick={onBack}
+            className="text-blue-600 hover:text-blue-700 font-medium"
+          >
+            Go back to select jurisdictions
+          </button>
         </div>
-
-        {/* Jurisdictions List */}
-        <div className="space-y-4 mb-8">
+      ) : (
+        <div className="grid lg:grid-cols-3 gap-4 mb-6">
           {selectedLocationData.map(location => {
             const isExpanded = expandedLocations.includes(location.id);
             const selectedCount = selectedBodies[location.id]?.length || 0;
@@ -159,7 +137,7 @@ export const GoverningBodySelection: React.FC<GoverningBodySelectionProps> = ({
                       </button>
                     </div>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 gap-3">
                       {location.governingBodies.map(body => {
                         const isSelected = selectedBodies[location.id]?.includes(body);
                         return (
@@ -221,9 +199,10 @@ export const GoverningBodySelection: React.FC<GoverningBodySelectionProps> = ({
             );
           })}
         </div>
+      )}
 
-        {/* Help Section */}
-        <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 mb-8 border border-amber-100">
+      {/* Help Section */}
+      <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-100">
           <div className="flex items-start space-x-3">
             <Info className="w-5 h-5 text-amber-600 mt-0.5" />
             <div className="flex-1">
@@ -244,41 +223,33 @@ export const GoverningBodySelection: React.FC<GoverningBodySelectionProps> = ({
             </div>
           </div>
         </div>
-      </div>
       
       {/* Sticky Footer */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex items-center justify-between">
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 lg:px-12 xl:px-20 py-4">
+        <div className="flex items-center justify-between">
+          <button
+            onClick={onBack}
+            className="flex items-center space-x-2 px-6 py-3 text-gray-700 hover:text-gray-900 font-medium transition-colors"
+          >
+            <ChevronDown className="w-4 h-4 rotate-90" />
+            <span>Back</span>
+          </button>
+          
+          <div className="flex items-center gap-4">
+            <p className="text-sm text-gray-600">
+              ${calculatePrice()}/mo • {getTotalBodies()} {getTotalBodies() === 1 ? 'body' : 'bodies'}
+            </p>
             <button
-              onClick={onBack}
-              className="flex items-center space-x-2 px-6 py-3 text-gray-700 hover:text-gray-900 font-medium transition-colors"
+              onClick={onNext}
+              disabled={getTotalBodies() === 0}
+              className={`px-8 py-3 rounded-xl font-semibold transition-all ${
+                getTotalBodies() === 0
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                  : 'bg-[#002147] text-white hover:bg-[#003a6b] shadow-md hover:shadow-lg'
+              }`}
             >
-              <ChevronDown className="w-4 h-4 rotate-90" />
-              <span>Back</span>
+              Continue to Topics
             </button>
-            
-            <div className="flex items-center space-x-6">
-              <div className="text-right">
-                <p className="text-2xl font-semibold text-gray-900">
-                  ${calculatePrice()}/mo
-                </p>
-                <p className="text-sm text-gray-600">
-                  {getTotalBodies()} governing {getTotalBodies() === 1 ? 'body' : 'bodies'}
-                </p>
-              </div>
-              <button
-                onClick={onNext}
-                disabled={getTotalBodies() === 0}
-                className={`px-8 py-3 rounded-xl font-semibold transition-all ${
-                  getTotalBodies() === 0
-                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg'
-                }`}
-              >
-                Continue
-              </button>
-            </div>
           </div>
         </div>
       </div>
