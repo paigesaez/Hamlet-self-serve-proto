@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #002147;
+  --color-primary-hover: #003a6b;
+  --color-primary-light: #e0e7ff;
+}
+
+@layer base {
+  body {
+    @apply text-foreground bg-background;
+  }
+}
