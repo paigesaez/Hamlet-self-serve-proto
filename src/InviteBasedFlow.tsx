@@ -71,6 +71,42 @@ export default function InviteBasedFlow() {
     }
   };
 
+  const togglePackage = (type: 'state' | 'region', name: string) => {
+    const packageId = `${type}-${name}`;
+    const existingIndex = selectedPackages.findIndex(p => p.type === type && p.name === name);
+    
+    if (existingIndex >= 0) {
+      // Remove package
+      setSelectedPackages(prev => prev.filter((_, i) => i !== existingIndex));
+      
+      // Remove all locations from this package
+      if (type === 'state') {
+        const stateLocations = locations.filter(loc => loc.state === name);
+        stateLocations.forEach(loc => {
+          setSelectedLocations(prev => prev.filter(id => id !== loc.id));
+          setSelectedBodies(prev => ({ ...prev, [loc.id]: undefined }));
+        });
+      }
+    } else {
+      // Add package
+      setSelectedPackages(prev => [...prev, { type, name }]);
+      
+      // Add all locations from this package
+      if (type === 'state') {
+        const stateLocations = locations.filter(loc => loc.state === name);
+        stateLocations.forEach(loc => {
+          if (!selectedLocations.includes(loc.id)) {
+            setSelectedLocations(prev => [...prev, loc.id]);
+            setSelectedBodies(prev => ({
+              ...prev,
+              [loc.id]: loc.governingBodies || ['City Council']
+            }));
+          }
+        });
+      }
+    }
+  };
+
   const toggleBody = (locationId: number, body: string) => {
     setSelectedBodies(prev => {
       const current = prev[locationId] || [];
