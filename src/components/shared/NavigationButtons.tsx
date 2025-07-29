@@ -8,28 +8,28 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
   nextDisabled = false,
   nextText = "Continue"
 }) => (
-  <div className="flex flex-col sm:flex-row gap-3 sm:justify-between mt-6">
+  <div className="flex items-center justify-between mt-8">
     <button
       onClick={onBack}
       disabled={backDisabled}
-      className={`px-4 sm:px-6 py-2.5 sm:py-2 rounded-lg font-medium transition-colors w-full sm:w-auto text-sm sm:text-base ${
+      className={`px-4 py-2.5 rounded-lg font-medium transition-colors ${
         backDisabled
-          ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-          : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          ? 'text-gray-400 cursor-not-allowed'
+          : 'text-gray-700 hover:text-gray-900'
       }`}
     >
-      ← Back
+      Back
     </button>
     <button
       onClick={onNext}
       disabled={nextDisabled}
-      className={`px-4 sm:px-6 py-2.5 sm:py-2 rounded-lg font-medium transition-colors w-full sm:w-auto text-sm sm:text-base ${
+      className={`px-6 py-2.5 rounded-lg font-medium transition-colors ${
         nextDisabled
           ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-          : 'bg-[#002147] text-white hover:bg-[#003a6b]'
+          : 'bg-gray-900 text-white hover:bg-gray-800'
       }`}
     >
-      {nextText} →
+      {nextText}
     </button>
   </div>
 );

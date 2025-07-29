@@ -1,7 +1,6 @@
 import React from 'react';
-import { Building } from 'lucide-react';
+import { Building, Users, DollarSign, ArrowLeft } from 'lucide-react';
 import { locations } from '../../data/locations';
-import { NavigationButtons } from '../shared/NavigationButtons';
 
 interface GoverningBodySelectionProps {
   selectedLocations: number[];
@@ -21,85 +20,137 @@ export const GoverningBodySelection: React.FC<GoverningBodySelectionProps> = ({
   calculatePrice,
   onBack,
   onNext
-}) => (
-  <div className="max-w-6xl mx-auto">
-    <div className="grid gap-8 lg:grid-cols-2">
-      {/* Left Column - Instructions */}
-      <div className="space-y-6">
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Select Governing Bodies</h2>
-          <p className="text-gray-600">Choose which governing bodies to monitor in each jurisdiction</p>
-        </div>
+}) => {
+  const selectedLocationData = locations.filter(loc => selectedLocations.includes(loc.id));
 
-        <div className="bg-blue-50 p-4 rounded-lg text-sm">
-          <p className="font-medium text-blue-900 mb-2">Common Governing Bodies:</p>
-          <ul className="space-y-1 text-blue-800">
-            <li>• <strong>City Council:</strong> Primary legislative body for municipal decisions</li>
-            <li>• <strong>Planning Commission:</strong> Reviews development proposals and zoning changes</li>
-            <li>• <strong>Board of Supervisors:</strong> County-level governing body</li>
-            <li>• <strong>Zoning Board:</strong> Handles variances and special permits</li>
-          </ul>
+  return (
+    <div className="max-w-5xl mx-auto">
+      {/* Header */}
+      <div className="text-center mb-8">
+        <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl mb-4">
+          <Building className="w-8 h-8 text-purple-700" />
         </div>
+        <h2 className="text-3xl font-bold text-gray-900 mb-3">
+          Select governing bodies
+        </h2>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          Choose which governing bodies to monitor in each jurisdiction
+        </p>
+      </div>
 
-        <div className="bg-gray-50 p-6 rounded-xl">
-          <h3 className="font-semibold mb-4 text-gray-900">Pricing Summary</h3>
-          <div className="space-y-3">
-            <div className="flex justify-between items-center">
-              <span className="text-gray-600">Total Governing Bodies</span>
-              <span className="font-medium">{getTotalBodies()}</span>
+      {/* Pricing Summary Card */}
+      <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 mb-8 border border-indigo-100">
+        <div className="grid grid-cols-3 gap-6 text-center">
+          <div>
+            <p className="text-3xl font-bold text-gray-900">{selectedLocations.length}</p>
+            <p className="text-sm text-gray-600 mt-1">Jurisdictions</p>
+          </div>
+          <div>
+            <p className="text-3xl font-bold text-gray-900">{getTotalBodies()}</p>
+            <p className="text-sm text-gray-600 mt-1">Governing Bodies</p>
+          </div>
+          <div>
+            <p className="text-3xl font-bold text-gray-900">${calculatePrice()}</p>
+            <p className="text-sm text-gray-600 mt-1">Per Month</p>
+          </div>
+        </div>
+        <div className="mt-4 text-center">
+          <p className="text-sm text-indigo-700 font-medium">
+            Volume pricing: $50 per governing body
+          </p>
+        </div>
+      </div>
+
+      {/* Jurisdictions List */}
+      <div className="space-y-4 mb-8 max-h-[400px] overflow-y-auto px-1">
+        {selectedLocationData.map(location => (
+          <div key={location.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-900">
+                {location.name}, {location.state}
+              </h3>
+              <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
+                location.coverage === 'Active' 
+                  ? 'bg-green-100 text-green-700' 
+                  : location.coverage === 'Available'
+                    ? 'bg-blue-100 text-blue-700'
+                    : 'bg-orange-100 text-orange-700'
+              }`}>
+                {location.coverage}
+              </span>
             </div>
-            <div className="border-t pt-3">
-              <div className="flex justify-between items-center">
-                <span className="text-lg font-semibold">Monthly Cost</span>
-                <span className="text-lg font-bold text-[#002147]">${calculatePrice().toLocaleString()}</span>
-              </div>
-              <p className="text-xs text-gray-500 mt-1">$1,000 per 20 governing bodies</p>
+            
+            <div className="grid grid-cols-2 gap-3">
+              {location.governingBodies.map(body => {
+                const isSelected = selectedBodies[location.id]?.includes(body);
+                return (
+                  <label
+                    key={body}
+                    className={`
+                      flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all
+                      ${isSelected 
+                        ? 'border-purple-500 bg-gradient-to-br from-purple-50 to-purple-100/50' 
+                        : 'border-gray-200 hover:border-gray-300 bg-gray-50'
+                      }
+                    `}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={isSelected}
+                      onChange={() => toggleBody(location.id, body)}
+                      className="w-4 h-4 text-purple-600 border-2 border-gray-300 rounded focus:ring-2 focus:ring-purple-500"
+                    />
+                    <span className={`ml-3 text-sm font-medium ${
+                      isSelected ? 'text-gray-900' : 'text-gray-700'
+                    }`}>
+                      {body}
+                    </span>
+                  </label>
+                );
+              })}
             </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Info Box */}
+      <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-8">
+        <div className="flex items-start space-x-3">
+          <Users className="w-5 h-5 text-amber-600 mt-0.5" />
+          <div className="flex-1">
+            <p className="text-sm font-medium text-amber-900 mb-1">Common governing bodies</p>
+            <p className="text-sm text-amber-800">
+              City Council handles general policy • Planning Commission reviews development proposals • 
+              Board of Supervisors governs counties • Zoning Board manages variances
+            </p>
           </div>
         </div>
       </div>
 
-      {/* Right Column - Body Selection */}
-      <div className="space-y-4">
-        <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2">
-          {selectedLocations.map(locationId => {
-            const location = locations.find(l => l.id === locationId);
-            if (!location) return null;
-
-            return (
-              <div key={locationId} className="bg-white border border-gray-200 rounded-lg p-4">
-                <div className="flex items-center gap-2 mb-3">
-                  <Building className="w-5 h-5 text-gray-600" />
-                  <h3 className="font-medium text-gray-900">{location.name}, {location.state}</h3>
-                </div>
-                <div className="space-y-2">
-                  {location.governingBodies.map(body => (
-                    <label
-                      key={body}
-                      className="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={selectedBodies[locationId]?.includes(body) || false}
-                        onChange={() => toggleBody(locationId, body)}
-                        className="w-4 h-4 text-[#002147] rounded border-gray-300 focus:ring-[#002147]"
-                      />
-                      <span className="text-gray-700">{body}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
+      {/* Footer */}
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div className="flex items-center justify-between">
+          <button
+            onClick={onBack}
+            className="flex items-center space-x-2 px-6 py-3 text-gray-700 hover:text-gray-900 font-medium transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Back</span>
+          </button>
+          
+          <button
+            onClick={onNext}
+            disabled={getTotalBodies() === 0}
+            className={`px-8 py-3 rounded-xl font-semibold transition-all ${
+              getTotalBodies() === 0
+                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg'
+            }`}
+          >
+            Continue
+          </button>
         </div>
-
-        <NavigationButtons
-          onBack={onBack}
-          onNext={onNext}
-          nextDisabled={getTotalBodies() === 0}
-          nextText="Select Topics"
-        />
       </div>
     </div>
-  </div>
-);
+  );
+};

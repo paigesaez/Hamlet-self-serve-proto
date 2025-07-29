@@ -1,83 +1,103 @@
 import React from 'react';
-import { Check, Mail } from 'lucide-react';
+import { Mail, ArrowLeft, Bell, FileText, Calendar } from 'lucide-react';
 import { EmailCaptureProps } from '../../types';
 
 export const EmailCapture: React.FC<EmailCaptureProps> = ({ email, setEmail, onBack, onNext }) => (
-  <div className="max-w-6xl mx-auto">
-    <div className="grid gap-8 lg:grid-cols-2">
-      {/* Left Column - Information */}
+  <div className="max-w-xl mx-auto">
+    {/* Header */}
+    <div className="text-center mb-8">
+      <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl mb-4">
+        <Mail className="w-8 h-8 text-blue-700" />
+      </div>
+      <h2 className="text-3xl font-bold text-gray-900 mb-3">
+        Create your account
+      </h2>
+      <p className="text-lg text-gray-600">
+        Enter your email to receive monitoring alerts
+      </p>
+    </div>
+
+    {/* Main Card */}
+    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 mb-8">
       <div className="space-y-6">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Account Setup</h2>
-          <p className="text-gray-600">Create your account to receive alerts delivered within 24 hours of agenda publication</p>
-        </div>
-        
-        <div className="bg-blue-50 p-4 sm:p-6 rounded-xl">
-          <h3 className="font-semibold mb-4 text-gray-900">What you'll receive:</h3>
-          <ul className="space-y-2 text-sm">
-            <li className="flex items-center">
-              <Check className="w-4 h-4 text-blue-600 mr-3 flex-shrink-0" />
-              <span>Email alerts within 24 hours of agenda publication</span>
-            </li>
-            <li className="flex items-center">
-              <Check className="w-4 h-4 text-blue-600 mr-3 flex-shrink-0" />
-              <span>Full agenda item language with highlighted matches</span>
-            </li>
-            <li className="flex items-center">
-              <Check className="w-4 h-4 text-blue-600 mr-3 flex-shrink-0" />
-              <span>Direct links to meeting materials and documents</span>
-            </li>
-            <li className="flex items-center">
-              <Check className="w-4 h-4 text-blue-600 mr-3 flex-shrink-0" />
-              <span>Meeting date, time, and location information</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-      
-      {/* Right Column - Form */}
-      <div className="bg-white shadow-xl rounded-2xl p-8 border border-gray-200">
-        <div className="text-center mb-6">
-          <Mail className="w-16 h-16 text-[#002147] mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-gray-900">Enter Your Email</h3>
-        </div>
-
-        <div className="space-y-4">
+          <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+            Work email address
+          </label>
           <input
+            id="email"
             type="email"
-            placeholder="Work email address"
+            placeholder="you@company.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#002147] focus:border-[#002147]"
+            className="w-full px-4 py-3.5 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
           />
+          <p className="text-sm text-gray-500 mt-2">
+            We'll use this for alert delivery and account access
+          </p>
+        </div>
+
+        {/* What You'll Receive */}
+        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 space-y-4">
+          <h3 className="font-semibold text-gray-900">What you'll receive</h3>
           
-          <div className="bg-blue-50 p-4 rounded-lg text-sm">
-            <p className="font-medium text-blue-900 mb-2">Email Notification Format:</p>
-            <p className="text-blue-800">
-              Each alert includes the agenda item language, matched topic, and direct link to full agenda materials.
-            </p>
-          </div>
-          
-          <div className="flex flex-col sm:flex-row gap-3 sm:justify-between mt-6">
-            <button
-              onClick={onBack}
-              className="px-4 sm:px-6 py-2.5 sm:py-2 rounded-lg font-medium transition-colors w-full sm:w-auto text-sm sm:text-base bg-gray-200 text-gray-700 hover:bg-gray-300"
-            >
-              ← Back
-            </button>
-            <button
-              onClick={onNext}
-              disabled={!email || !email.includes('@')}
-              className={`px-4 sm:px-6 py-2.5 sm:py-2 rounded-lg font-medium transition-colors w-full sm:w-auto text-sm sm:text-base ${
-                !email || !email.includes('@')
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  : 'bg-[#002147] text-white hover:bg-[#003a6b]'
-              }`}
-            >
-              Add Billing Info →
-            </button>
+          <div className="space-y-3">
+            <div className="flex items-start space-x-3">
+              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm">
+                <Bell className="w-4 h-4 text-blue-600" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-gray-900">24-hour alerts</p>
+                <p className="text-sm text-gray-600">Notifications within a day of agenda publication</p>
+              </div>
+            </div>
+            
+            <div className="flex items-start space-x-3">
+              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm">
+                <FileText className="w-4 h-4 text-blue-600" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-gray-900">Direct links</p>
+                <p className="text-sm text-gray-600">One-click access to full agenda materials</p>
+              </div>
+            </div>
+            
+            <div className="flex items-start space-x-3">
+              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm">
+                <Calendar className="w-4 h-4 text-blue-600" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-gray-900">Meeting details</p>
+                <p className="text-sm text-gray-600">Date, time, location, and virtual access info</p>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    {/* Footer */}
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+      <div className="flex items-center justify-between">
+        <button
+          onClick={onBack}
+          className="flex items-center space-x-2 px-6 py-3 text-gray-700 hover:text-gray-900 font-medium transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span>Back</span>
+        </button>
+        
+        <button
+          onClick={onNext}
+          disabled={!email || !email.includes('@')}
+          className={`px-8 py-3 rounded-xl font-semibold transition-all ${
+            !email || !email.includes('@')
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg'
+          }`}
+        >
+          Continue to Payment
+        </button>
       </div>
     </div>
   </div>

@@ -100,7 +100,7 @@ export default function InviteBasedFlow() {
   const calculatePriceWrapper = () => calculatePrice(getTotalBodiesWrapper());
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <TopNavigation step={step} resetFlow={resetFlow} setStep={setStep} />
 
       {/* Step 1: Invitation */}
@@ -143,8 +143,8 @@ export default function InviteBasedFlow() {
       {(step >= 10 && step <= 14) && (
         <>
           <StepIndicator currentStep={step} />
-          <div className="py-8 px-4">
-            <div className="max-w-7xl mx-auto">
+          <div className="py-8 px-6 lg:px-12 xl:px-20">
+            <div className="max-w-6xl mx-auto">
               {/* Step 10: Jurisdiction Selection */}
               {step === 10 && (
                 <JurisdictionSelection

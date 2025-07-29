@@ -1,5 +1,5 @@
 import React from 'react';
-import { CreditCard } from 'lucide-react';
+import { CreditCard, ArrowLeft, Shield, DollarSign } from 'lucide-react';
 import { BillingInfoProps } from '../../types';
 
 export const BillingInfo: React.FC<BillingInfoProps> = ({ 
@@ -12,138 +12,201 @@ export const BillingInfo: React.FC<BillingInfoProps> = ({
   onBack,
   onNext 
 }) => (
-  <div className="max-w-6xl mx-auto">
-    <div className="grid gap-8 lg:grid-cols-2">
-      {/* Left Column - Pricing Summary */}
-      <div className="space-y-6">
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Billing Information</h2>
-          <p className="text-gray-600">Complete setup to begin tracking development opportunities</p>
+  <div className="max-w-4xl mx-auto">
+    {/* Header */}
+    <div className="text-center mb-8">
+      <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-100 to-indigo-200 rounded-2xl mb-4">
+        <CreditCard className="w-8 h-8 text-indigo-700" />
+      </div>
+      <h2 className="text-3xl font-bold text-gray-900 mb-3">
+        Complete your setup
+      </h2>
+      <p className="text-lg text-gray-600">
+        Start monitoring {getTotalBodies()} governing bodies today
+      </p>
+    </div>
+
+    <div className="grid lg:grid-cols-5 gap-8">
+      {/* Left: Form */}
+      <div className="lg:col-span-3">
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
+          <h3 className="font-semibold text-gray-900 mb-6">Billing information</h3>
+          
+          <div className="space-y-6">
+            {/* Name Fields */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  First name
+                </label>
+                <input
+                  type="text"
+                  value={billingInfo.firstName}
+                  onChange={(e) => setBillingInfo(prev => ({ ...prev, firstName: e.target.value }))}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Last name
+                </label>
+                <input
+                  type="text"
+                  value={billingInfo.lastName}
+                  onChange={(e) => setBillingInfo(prev => ({ ...prev, lastName: e.target.value }))}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+              </div>
+            </div>
+
+            {/* Company */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Company name
+              </label>
+              <input
+                type="text"
+                value={billingInfo.company}
+                onChange={(e) => setBillingInfo(prev => ({ ...prev, company: e.target.value }))}
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+
+            {/* Phone */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Phone number
+              </label>
+              <input
+                type="tel"
+                value={billingInfo.phone}
+                onChange={(e) => setBillingInfo(prev => ({ ...prev, phone: e.target.value }))}
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="(555) 000-0000"
+              />
+            </div>
+
+            <div className="border-t pt-6">
+              <h4 className="font-semibold text-gray-900 mb-4">Payment method</h4>
+              
+              {/* Card Number */}
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Card number
+                </label>
+                <input
+                  type="text"
+                  value={billingInfo.cardNumber}
+                  onChange={(e) => setBillingInfo(prev => ({ ...prev, cardNumber: e.target.value }))}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="1234 5678 9012 3456"
+                />
+              </div>
+
+              {/* Expiry and CVV */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Expiry date
+                  </label>
+                  <input
+                    type="text"
+                    value={billingInfo.expiryDate}
+                    onChange={(e) => setBillingInfo(prev => ({ ...prev, expiryDate: e.target.value }))}
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="MM/YY"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    CVV
+                  </label>
+                  <input
+                    type="text"
+                    value={billingInfo.cvv}
+                    onChange={(e) => setBillingInfo(prev => ({ ...prev, cvv: e.target.value }))}
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="123"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Security Badge */}
+            <div className="bg-gray-50 rounded-xl p-4 flex items-center space-x-3">
+              <Shield className="w-5 h-5 text-gray-400" />
+              <p className="text-sm text-gray-600">
+                Your payment info is encrypted and secure. We never store card details.
+              </p>
+            </div>
+          </div>
         </div>
-        
-        <div className="bg-gray-50 p-6 rounded-xl">
-          <h3 className="font-semibold mb-4 text-gray-900">Your Subscription Summary</h3>
-          <div className="space-y-3">
-            <div className="flex justify-between items-center">
+      </div>
+
+      {/* Right: Summary */}
+      <div className="lg:col-span-2">
+        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 border border-indigo-100 sticky top-24">
+          <h3 className="font-semibold text-gray-900 mb-4">Order summary</h3>
+          
+          <div className="space-y-3 mb-6">
+            <div className="flex justify-between text-sm">
               <span className="text-gray-600">Jurisdictions</span>
               <span className="font-medium">{selectedLocations.length}</span>
             </div>
-            <div className="flex justify-between items-center">
-              <span className="text-gray-600">Governing Bodies</span>
+            <div className="flex justify-between text-sm">
+              <span className="text-gray-600">Governing bodies</span>
               <span className="font-medium">{getTotalBodies()}</span>
             </div>
-            <div className="flex justify-between items-center">
-              <span className="text-gray-600">Topics Monitored</span>
+            <div className="flex justify-between text-sm">
+              <span className="text-gray-600">Topics monitored</span>
               <span className="font-medium">{selectedTopics.length}</span>
             </div>
-            <div className="border-t pt-3 mt-3">
-              <div className="flex justify-between items-center">
-                <span className="text-lg font-semibold">Monthly Total</span>
-                <span className="text-lg font-bold text-[#002147]">${calculatePrice().toLocaleString()}</span>
-              </div>
-              <p className="text-xs text-gray-500 mt-1">Volume pricing: $1,000 per 20 governing bodies</p>
+            <div className="border-t pt-3 flex justify-between">
+              <span className="text-gray-900 font-semibold">Monthly total</span>
+              <span className="text-2xl font-bold text-indigo-600">${calculatePrice()}</span>
             </div>
           </div>
-        </div>
-        
-        <div className="bg-green-50 p-4 rounded-lg text-sm">
-          <p className="font-medium text-green-900 mb-2">Built for Scale:</p>
-          <p className="text-green-800">
-            Track multiple cities without adding headcount. Volume discounts available as coverage scales.
-          </p>
+
+          <div className="bg-white/80 rounded-xl p-4 space-y-2">
+            <div className="flex items-center space-x-2 text-sm">
+              <DollarSign className="w-4 h-4 text-green-600" />
+              <span className="text-gray-700">Cancel anytime</span>
+            </div>
+            <div className="flex items-center space-x-2 text-sm">
+              <DollarSign className="w-4 h-4 text-green-600" />
+              <span className="text-gray-700">First week includes setup consultation</span>
+            </div>
+            <div className="flex items-center space-x-2 text-sm">
+              <DollarSign className="w-4 h-4 text-green-600" />
+              <span className="text-gray-700">Volume discounts available</span>
+            </div>
+          </div>
         </div>
       </div>
-      
-      {/* Right Column - Form */}
-      <div className="bg-white shadow-xl rounded-2xl p-8 border border-gray-200">
-        <div className="text-center mb-6">
-          <CreditCard className="w-16 h-16 text-[#002147] mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-gray-900">Payment Details</h3>
-        </div>
+    </div>
 
-        <div className="space-y-6">
-          <div className="grid md:grid-cols-2 gap-4">
-            <input
-              type="text"
-              placeholder="First name"
-              value={billingInfo.firstName}
-              onChange={(e) => setBillingInfo(prev => ({ ...prev, firstName: e.target.value }))}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#002147]"
-            />
-            <input
-              type="text"
-              placeholder="Last name"
-              value={billingInfo.lastName}
-              onChange={(e) => setBillingInfo(prev => ({ ...prev, lastName: e.target.value }))}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#002147]"
-            />
-          </div>
-
-          <input
-            type="text"
-            placeholder="Company name"
-            value={billingInfo.company}
-            onChange={(e) => setBillingInfo(prev => ({ ...prev, company: e.target.value }))}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#002147]"
-          />
-
-          <input
-            type="tel"
-            placeholder="Phone number"
-            value={billingInfo.phone}
-            onChange={(e) => setBillingInfo(prev => ({ ...prev, phone: e.target.value }))}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#002147]"
-          />
-
-          <div className="border-t pt-6">
-            <h3 className="font-semibold mb-4">Payment Information</h3>
-            <div className="space-y-4">
-              <input
-                type="text"
-                placeholder="Card number"
-                value={billingInfo.cardNumber}
-                onChange={(e) => setBillingInfo(prev => ({ ...prev, cardNumber: e.target.value }))}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#002147]"
-              />
-              <div className="grid grid-cols-2 gap-4">
-                <input
-                  type="text"
-                  placeholder="MM/YY"
-                  value={billingInfo.expiryDate}
-                  onChange={(e) => setBillingInfo(prev => ({ ...prev, expiryDate: e.target.value }))}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#002147]"
-                />
-                <input
-                  type="text"
-                  placeholder="CVV"
-                  value={billingInfo.cvv}
-                  onChange={(e) => setBillingInfo(prev => ({ ...prev, cvv: e.target.value }))}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#002147]"
-                />
-              </div>
-            </div>
-          </div>
-          
-          <div className="flex flex-col sm:flex-row gap-3 sm:justify-between mt-6">
-            <button
-              onClick={onBack}
-              className="px-4 sm:px-6 py-2.5 sm:py-2 rounded-lg font-medium transition-colors w-full sm:w-auto text-sm sm:text-base bg-gray-200 text-gray-700 hover:bg-gray-300"
-            >
-              ← Back
-            </button>
-            <button
-              onClick={onNext}
-              disabled={!billingInfo.firstName || !billingInfo.lastName || !billingInfo.company || !billingInfo.cardNumber}
-              className={`px-4 sm:px-6 py-2.5 sm:py-2 rounded-lg font-medium transition-colors w-full sm:w-auto text-sm sm:text-base ${
-                !billingInfo.firstName || !billingInfo.lastName || !billingInfo.company || !billingInfo.cardNumber
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  : 'bg-[#002147] text-white hover:bg-[#003a6b]'
-              }`}
-            >
-              Complete Setup →
-            </button>
-          </div>
-        </div>
+    {/* Footer */}
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mt-8">
+      <div className="flex items-center justify-between">
+        <button
+          onClick={onBack}
+          className="flex items-center space-x-2 px-6 py-3 text-gray-700 hover:text-gray-900 font-medium transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span>Back</span>
+        </button>
+        
+        <button
+          onClick={onNext}
+          disabled={!billingInfo.firstName || !billingInfo.lastName || !billingInfo.company || !billingInfo.cardNumber}
+          className={`px-8 py-3 rounded-xl font-semibold transition-all ${
+            !billingInfo.firstName || !billingInfo.lastName || !billingInfo.company || !billingInfo.cardNumber
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg'
+          }`}
+        >
+          Start Monitoring
+        </button>
       </div>
     </div>
   </div>

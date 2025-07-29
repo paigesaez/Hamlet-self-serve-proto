@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search } from 'lucide-react';
+import { Search, MapPin, Info } from 'lucide-react';
 import { locations } from '../../data/locations';
 
 interface JurisdictionSelectionProps {
@@ -17,99 +17,124 @@ export const JurisdictionSelection: React.FC<JurisdictionSelectionProps> = ({
   toggleLocation,
   onNext
 }) => (
-  <div className="grid gap-8 lg:grid-cols-2">
-    {/* Left Column - Instructions and Search */}
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Select Your Jurisdictions</h2>
-        <p className="text-gray-600">Choose the cities and counties where you need agenda monitoring</p>
+  <div className="max-w-5xl mx-auto">
+    {/* Header */}
+    <div className="text-center mb-8">
+      <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl mb-4">
+        <MapPin className="w-8 h-8 text-blue-700" />
       </div>
+      <h2 className="text-3xl font-bold text-gray-900 mb-3">
+        Select your jurisdictions
+      </h2>
+      <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        Choose the cities and counties where you need to monitor development discussions
+      </p>
+    </div>
 
-      <div className="relative">
-        <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+    {/* Search Bar */}
+    <div className="mb-6">
+      <div className="relative max-w-xl mx-auto">
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
         <input
           type="text"
           placeholder="Search cities, counties..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#002147] focus:border-[#002147]"
+          className="w-full pl-12 pr-4 py-3.5 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
         />
       </div>
+    </div>
 
-      <div className="bg-blue-50 p-4 rounded-lg text-sm">
-        <p className="font-medium text-blue-900 mb-2">Coverage Status:</p>
-        <div className="space-y-1 text-blue-800">
-          <p><span className="inline-block w-2 h-2 bg-green-500 rounded-full mr-2"></span><strong>Active:</strong> Currently available across all jurisdictions where meeting agendas are posted publicly</p>
-          <p><span className="inline-block w-2 h-2 bg-blue-500 rounded-full mr-2"></span><strong>Available:</strong> Can activate within 1 week</p>
-          <p><span className="inline-block w-2 h-2 bg-orange-500 rounded-full mr-2"></span><strong>On Request:</strong> Expansion based on customer demand and agenda availability</p>
+    {/* Coverage Legend */}
+    <div className="bg-blue-50 border border-blue-100 rounded-2xl p-4 mb-8 max-w-2xl mx-auto">
+      <div className="flex items-start space-x-3">
+        <Info className="w-5 h-5 text-blue-600 mt-0.5" />
+        <div className="flex-1">
+          <p className="text-sm font-medium text-blue-900 mb-2">Coverage Status</p>
+          <div className="grid grid-cols-3 gap-4 text-sm">
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <span className="text-blue-800">Active now</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+              <span className="text-blue-800">1 week setup</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+              <span className="text-blue-800">On request</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    {/* Right Column - Location List */}
-    <div className="space-y-4">
-      <div className="space-y-3 max-h-[500px] overflow-y-auto pr-2">
-        {locations
-          .filter(loc => loc.name.toLowerCase().includes(searchTerm.toLowerCase()))
-          .map(location => (
-            <div
-              key={location.id}
-              className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
-                selectedLocations.includes(location.id)
-                  ? 'border-[#002147] bg-blue-50'
-                  : 'border-gray-200 hover:border-gray-300'
-              }`}
-              onClick={() => toggleLocation(location.id)}
-            >
-              <div className="flex justify-between items-center">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <h3 className="font-medium">{location.name}, {location.state}</h3>
-                    <span className={`text-xs px-2 py-1 rounded-full ${
-                      location.coverage === 'Active' ? 'bg-green-100 text-green-800' :
-                      location.coverage === 'Available' ? 'bg-blue-100 text-blue-800' :
-                      'bg-orange-100 text-orange-800'
-                    }`}>
-                      {location.coverage}
-                    </span>
-                    {location.popular && (
-                      <span className="text-xs px-2 py-1 bg-purple-100 text-purple-800 rounded-full">
-                        Popular
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-sm text-gray-600">
-                    {location.governingBodies.join(', ')}
-                  </p>
-                  <p className="text-xs text-gray-500 mt-1">
-                    Customer demand: {location.customerDemand}
-                  </p>
-                </div>
-                <input
-                  type="checkbox"
-                  checked={selectedLocations.includes(location.id)}
-                  onChange={() => {}}
-                  className="w-5 h-5 text-[#002147] rounded border-gray-300 focus:ring-[#002147]"
-                />
+    {/* Location Grid */}
+    <div className="grid md:grid-cols-2 gap-4 mb-8 max-h-[450px] overflow-y-auto px-1">
+      {locations
+        .filter(loc => loc.name.toLowerCase().includes(searchTerm.toLowerCase()))
+        .map(location => (
+          <label
+            key={location.id}
+            className={`
+              relative flex items-center p-5 rounded-2xl border-2 cursor-pointer transition-all
+              ${selectedLocations.includes(location.id)
+                ? 'border-blue-500 bg-gradient-to-br from-blue-50 to-blue-100/50 shadow-md'
+                : 'border-gray-200 hover:border-gray-300 bg-white hover:shadow-sm'
+              }
+            `}
+          >
+            <input
+              type="checkbox"
+              checked={selectedLocations.includes(location.id)}
+              onChange={() => toggleLocation(location.id)}
+              className="w-5 h-5 text-blue-600 border-2 border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+            />
+            <div className="ml-4 flex-1">
+              <div className="flex items-center justify-between mb-1">
+                <h3 className="font-semibold text-gray-900">
+                  {location.name}, {location.state}
+                </h3>
+                <div className={`w-2.5 h-2.5 rounded-full ${
+                  location.coverage === 'Active' ? 'bg-green-500' :
+                  location.coverage === 'Available' ? 'bg-blue-500' :
+                  'bg-orange-500'
+                }`}></div>
               </div>
+              <p className="text-sm text-gray-600">
+                {location.governingBodies.join(' • ')}
+              </p>
+              {location.popular && (
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-700 mt-2">
+                  Popular
+                </span>
+              )}
             </div>
-          ))}
-      </div>
+          </label>
+        ))}
+    </div>
 
-      <div className="flex justify-between items-center pt-4">
-        <p className="text-sm text-gray-600">
-          {selectedLocations.length} jurisdiction{selectedLocations.length !== 1 ? 's' : ''} selected
-        </p>
+    {/* Footer */}
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-2xl font-bold text-gray-900">
+            {selectedLocations.length} {selectedLocations.length === 1 ? 'jurisdiction' : 'jurisdictions'}
+          </p>
+          <p className="text-sm text-gray-600 mt-1">
+            Ready to configure governing bodies
+          </p>
+        </div>
         <button
           onClick={onNext}
           disabled={selectedLocations.length === 0}
-          className={`px-6 py-2 rounded-lg font-medium transition-colors ${
+          className={`px-8 py-3 rounded-xl font-semibold transition-all ${
             selectedLocations.length === 0
               ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-              : 'bg-[#002147] text-white hover:bg-[#003a6b]'
+              : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg'
           }`}
         >
-          Select Governing Bodies →
+          Continue
         </button>
       </div>
     </div>
