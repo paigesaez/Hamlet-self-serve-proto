@@ -1,6 +1,7 @@
 import React from 'react';
 import { topics } from '../../data/topics';
 import { Filter, ArrowLeft } from 'lucide-react';
+import { StepHeader } from '../shared/StepHeader';
 
 interface TopicSelectionProps {
   selectedTopics: string[];
@@ -23,18 +24,11 @@ export const TopicSelection: React.FC<TopicSelectionProps> = ({
 }) => (
   <>
     <div className="max-w-5xl mx-auto">
-    {/* Header */}
-    <div className="text-center mb-8">
-      <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-2xl mb-4">
-        <Filter className="w-8 h-8 text-green-700" />
-      </div>
-      <h2 className="text-3xl font-serif text-gray-900 mb-3">
-        Select monitoring topics
-      </h2>
-      <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-        Choose development topics you want to track across your jurisdictions
-      </p>
-    </div>
+    <StepHeader 
+      icon={Filter} 
+      title="Select monitoring topics" 
+      subtitle="Choose development topics you want to track across your jurisdictions"
+    />
 
     {/* AI Info */}
     <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-2xl p-5 mb-8 max-w-3xl mx-auto">

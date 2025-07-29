@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Building, Users, ChevronDown, ChevronUp, Info, Check } from 'lucide-react';
 import { locations } from '../../data/locations';
+import { StepHeader } from '../shared/StepHeader';
 
 interface GoverningBodySelectionProps {
   selectedLocations: number[];
@@ -55,23 +56,16 @@ export const GoverningBodySelection: React.FC<GoverningBodySelectionProps> = ({
   return (
     <>
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-100 to-indigo-200 rounded-3xl mb-4 shadow-lg">
-            <Building className="w-10 h-10 text-purple-700" />
-          </div>
-          <h2 className="text-4xl font-serif text-gray-900 mb-3">
-            Configure monitoring scope
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto font-light">
-            Select the specific governing bodies you want to monitor in each jurisdiction
-          </p>
-        </div>
+        <StepHeader 
+          icon={Building} 
+          title="Configure monitoring scope" 
+          subtitle="Select the specific governing bodies you want to monitor in each jurisdiction"
+        />
 
         {/* Quick Actions */}
         <div className="mb-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-gray-900">Quick selection</h3>
+            <h3 className="font-serif font-bold text-gray-900">Quick selection</h3>
             <div className="flex gap-3">
               <button 
                 onClick={() => {
@@ -79,7 +73,7 @@ export const GoverningBodySelection: React.FC<GoverningBodySelectionProps> = ({
                     handleSelectAllForLocation(loc.id, ['City Council', 'Planning Commission']);
                   });
                 }}
-                className="px-4 py-2 bg-white rounded-lg text-sm font-medium text-blue-700 hover:bg-blue-50 transition-colors border border-blue-200"
+                className="px-4 py-2 bg-white rounded-lg text-sm font-medium text-[#002147] hover:bg-blue-50 transition-colors border border-gray-200"
               >
                 Essential bodies only
               </button>
@@ -122,7 +116,7 @@ export const GoverningBodySelection: React.FC<GoverningBodySelectionProps> = ({
                         </span>
                       </div>
                       <div>
-                        <h3 className="text-xl font-semibold text-gray-900">
+                        <h3 className="text-xl font-serif font-bold text-gray-900">
                           {location.name}, {location.state}
                         </h3>
                         <p className="text-sm text-gray-600 mt-0.5">

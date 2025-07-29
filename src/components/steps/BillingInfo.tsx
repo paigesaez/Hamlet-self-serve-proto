@@ -1,6 +1,7 @@
 import React from 'react';
 import { CreditCard, ArrowLeft, Shield, DollarSign } from 'lucide-react';
 import { BillingInfoProps } from '../../types';
+import { StepHeader } from '../shared/StepHeader';
 
 export const BillingInfo: React.FC<BillingInfoProps> = ({ 
   billingInfo, 
@@ -14,24 +15,17 @@ export const BillingInfo: React.FC<BillingInfoProps> = ({
 }) => (
   <>
     <div className="max-w-4xl mx-auto">
-    {/* Header */}
-    <div className="text-center mb-8">
-      <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-100 to-indigo-200 rounded-2xl mb-4">
-        <CreditCard className="w-8 h-8 text-indigo-700" />
-      </div>
-      <h2 className="text-3xl font-serif text-gray-900 mb-3">
-        Complete your setup
-      </h2>
-      <p className="text-lg text-gray-600">
-        Start monitoring {getTotalBodies()} governing bodies today
-      </p>
-    </div>
+    <StepHeader 
+      icon={CreditCard} 
+      title="Complete your setup" 
+      subtitle={`Start monitoring ${getTotalBodies()} governing bodies today`}
+    />
 
     <div className="grid lg:grid-cols-5 gap-8">
       {/* Left: Form */}
       <div className="lg:col-span-3">
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
-          <h3 className="font-semibold text-gray-900 mb-6">Billing information</h3>
+          <h3 className="font-serif font-bold text-gray-900 mb-6">Billing information</h3>
           
           <div className="space-y-6">
             {/* Name Fields */}
@@ -88,7 +82,7 @@ export const BillingInfo: React.FC<BillingInfoProps> = ({
             </div>
 
             <div className="border-t pt-6">
-              <h4 className="font-semibold text-gray-900 mb-4">Payment method</h4>
+              <h4 className="font-serif font-bold text-gray-900 mb-4">Payment method</h4>
               
               {/* Card Number */}
               <div className="mb-4">
@@ -147,7 +141,7 @@ export const BillingInfo: React.FC<BillingInfoProps> = ({
       {/* Right: Summary */}
       <div className="lg:col-span-2">
         <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 border border-indigo-100 sticky top-24">
-          <h3 className="font-semibold text-gray-900 mb-4">Order summary</h3>
+          <h3 className="font-serif font-bold text-gray-900 mb-4">Order summary</h3>
           
           <div className="space-y-3 mb-6">
             <div className="flex justify-between text-sm">

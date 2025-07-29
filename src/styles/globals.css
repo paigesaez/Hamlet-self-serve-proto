@@ -17,16 +17,27 @@ body {
 /* For Cambon headlines */
 @font-face {
   font-family: 'Cambon';
-  src: url('/fonts/Cambon-Regular.woff2') format('woff2'),
-       url('/fonts/Cambon-Regular.woff') format('woff');
+  src: url('/fonts/Cambon-Regular.woff') format('woff');
   font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cambon';
+  src: url('/fonts/Cambon-Bold.woff') format('woff');
+  font-weight: bold;
   font-style: normal;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Cambon', 'Georgia', serif;
-  font-weight: normal;
+  font-weight: bold;
   letter-spacing: -0.02em;
+}
+
+/* Ensure Tailwind's font-serif uses Cambon */
+.font-serif {
+  font-family: 'Cambon', 'Georgia', serif !important;
 }
 
 /* Simple focus styles */
@@ -52,3 +63,57 @@ select {
 html {
   scroll-behavior: smooth;
 }
+
+/* Map-inspired animations */
+@keyframes mapPulse {
+  0%, 100% {
+    opacity: 0.1;
+    transform: scale(1) rotate(3deg);
+  }
+  50% {
+    opacity: 0.15;
+    transform: scale(1.05) rotate(3deg);
+  }
+}
+
+@keyframes pinDrop {
+  0% {
+    transform: translateY(-10px) scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(0) scale(1.1);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.map-grid-bg {
+  animation: mapPulse 8s ease-in-out infinite;
+}
+
+.pin-drop {
+  animation: pinDrop 0.5s ease-out forwards;
+}
+
+.coverage-ripple {
+  animation: ripple 2s ease-out infinite;
+}
+
+/* Tailwind layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

@@ -1,22 +1,16 @@
 import React from 'react';
 import { Mail, ArrowLeft, Bell, FileText, Calendar } from 'lucide-react';
 import { EmailCaptureProps } from '../../types';
+import { StepHeader } from '../shared/StepHeader';
 
 export const EmailCapture: React.FC<EmailCaptureProps> = ({ email, setEmail, onBack, onNext }) => (
   <>
     <div className="max-w-xl mx-auto">
-    {/* Header */}
-    <div className="text-center mb-8">
-      <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl mb-4">
-        <Mail className="w-8 h-8 text-blue-700" />
-      </div>
-      <h2 className="text-3xl font-serif text-gray-900 mb-3">
-        Create your account
-      </h2>
-      <p className="text-lg text-gray-600">
-        Enter your email to receive monitoring alerts
-      </p>
-    </div>
+    <StepHeader 
+      icon={Mail} 
+      title="Create your account" 
+      subtitle="Enter your email to receive monitoring alerts"
+    />
 
     {/* Main Card */}
     <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 mb-8">
@@ -40,7 +34,7 @@ export const EmailCapture: React.FC<EmailCaptureProps> = ({ email, setEmail, onB
 
         {/* What You'll Receive */}
         <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 space-y-4">
-          <h3 className="font-semibold text-gray-900">What you'll receive</h3>
+          <h3 className="font-serif font-bold text-gray-900">What you'll receive</h3>
           
           <div className="space-y-3">
             <div className="flex items-start space-x-3">

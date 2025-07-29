@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { Search, MapPin, Info, ChevronDown, X, Map, Navigation, Zap, Globe2, Activity, Layers } from 'lucide-react';
+import { Search, MapPin, Info, ChevronDown, X, Map, Navigation } from 'lucide-react';
 import { locations } from '../../data/locations';
+import { StepHeader } from '../shared/StepHeader';
 
 interface JurisdictionSelectionProps {
   selectedLocations: number[];
@@ -71,18 +72,11 @@ export const JurisdictionSelection: React.FC<JurisdictionSelectionProps> = ({
   return (
   <>
     <div className="max-w-5xl mx-auto">
-      {/* Header */}
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl mb-4">
-          <MapPin className="w-8 h-8 text-blue-700" />
-        </div>
-        <h2 className="text-3xl font-serif text-gray-900 mb-3">
-          Select your jurisdictions
-        </h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto font-light">
-          Choose the cities and counties where you need to monitor development discussions
-        </p>
-      </div>
+      <StepHeader 
+        icon={MapPin} 
+        title="Select your jurisdictions" 
+        subtitle={`Choose from ${locations.length} cities across ${stateData.length} states where you need to monitor development discussions`}
+      />
 
       {/* Search and State Filter Bar */}
       <div className="mb-8">
@@ -109,11 +103,15 @@ export const JurisdictionSelection: React.FC<JurisdictionSelectionProps> = ({
                 <span className="text-gray-700">
                   {selectedState ? (
                     <span className="flex items-center gap-2">
+                      <Navigation className="w-4 h-4 text-[#002147]" />
                       <span className="font-medium">{selectedState}</span>
                       <span className="text-sm text-gray-500">({stateData.find(s => s.state === selectedState)?.count} cities)</span>
                     </span>
                   ) : (
-                    'All States'
+                    <span className="flex items-center gap-2">
+                      <Map className="w-4 h-4 text-gray-400" />
+                      <span>All States</span>
+                    </span>
                   )}
                 </span>
                 <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${stateDropdownOpen ? 'rotate-180' : ''}`} />
@@ -130,7 +128,7 @@ export const JurisdictionSelection: React.FC<JurisdictionSelectionProps> = ({
                         setStateDropdownOpen(false);
                       }}
                       className={`w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors flex items-center justify-between ${
-                        !selectedState ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+                        !selectedState ? 'bg-blue-50 text-[#002147]' : 'text-gray-700'
                       }`}
                     >
                       <span className="font-medium">All States</span>
@@ -148,7 +146,7 @@ export const JurisdictionSelection: React.FC<JurisdictionSelectionProps> = ({
                           setStateDropdownOpen(false);
                         }}
                         className={`w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors flex items-center justify-between ${
-                          selectedState === state ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+                          selectedState === state ? 'bg-blue-50 text-[#002147]' : 'text-gray-700'
                         }`}
                       >
                         <div className="flex items-center gap-3">
@@ -180,7 +178,7 @@ export const JurisdictionSelection: React.FC<JurisdictionSelectionProps> = ({
               {selectedState && (
                 <button
                   onClick={() => setSelectedState(null)}
-                  className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium hover:bg-blue-200 transition-colors"
+                  className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-[#002147] rounded-full text-sm font-medium hover:bg-blue-200 transition-colors"
                 >
                   {selectedState}
                   <X className="w-3 h-3" />
@@ -202,37 +200,54 @@ export const JurisdictionSelection: React.FC<JurisdictionSelectionProps> = ({
 
 
       {/* Coverage Legend */}
-      <div className="bg-blue-50 border border-blue-100 rounded-2xl p-4 mb-8 max-w-2xl mx-auto">
+      <div className="bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 rounded-2xl p-5 mb-8 max-w-2xl mx-auto">
         <div className="flex items-start space-x-3">
-          <Info className="w-5 h-5 text-blue-600 mt-0.5" />
+          <div className="p-2 bg-white rounded-xl shadow-sm">
+            <Info className="w-5 h-5 text-gray-600" />
+          </div>
           <div className="flex-1">
-            <p className="text-sm font-semibold text-blue-900 mb-2">Coverage Status</p>
+            <p className="text-sm font-semibold text-gray-900 mb-3">Coverage Status</p>
             <div className="grid grid-cols-3 gap-4 text-sm">
               <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span className="text-blue-800">Active now</span>
+                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <span className="text-gray-700 font-medium">Active now</span>
               </div>
               <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                <span className="text-blue-800">1 week setup</span>
+                <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                <span className="text-gray-700 font-medium">Available</span>
               </div>
               <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                <span className="text-blue-800">On request</span>
+                <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
+                <span className="text-gray-700 font-medium">On request</span>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Results Summary */}
-      <div className="mb-4 flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-900">
-          {filteredLocations.length} Available {filteredLocations.length === 1 ? 'Location' : 'Locations'}
-        </h3>
-        <p className="text-sm text-gray-500">
-          {selectedLocations.length} selected
-        </p>
+      {/* Results Summary with Map Metaphor */}
+      <div className="mb-6 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-white rounded-xl shadow-sm">
+              <Globe2 className="w-5 h-5 text-[#002147]" />
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900">
+                {filteredLocations.length} {filteredLocations.length === 1 ? 'Jurisdiction' : 'Jurisdictions'} Available
+              </h3>
+              <p className="text-sm text-gray-600">
+                {selectedState ? `Viewing ${selectedState}` : 'Nationwide coverage'}
+              </p>
+            </div>
+          </div>
+          <div className="text-right">
+            <p className="text-2xl font-bold text-[#002147]">
+              {selectedLocations.length}
+            </p>
+            <p className="text-xs text-gray-500 uppercase tracking-wide">Selected</p>
+          </div>
+        </div>
       </div>
 
       {/* Location Grid */}
@@ -255,10 +270,10 @@ export const JurisdictionSelection: React.FC<JurisdictionSelectionProps> = ({
             <label
               key={location.id}
               className={`
-                relative flex items-center p-5 rounded-2xl border-2 cursor-pointer transition-all
+                relative flex items-center p-5 rounded-2xl border-2 cursor-pointer transition-all group
                 ${selectedLocations.includes(location.id)
-                  ? 'border-blue-500 bg-gradient-to-br from-blue-50 to-blue-100/50 shadow-md'
-                  : 'border-gray-200 hover:border-gray-300 bg-white hover:shadow-sm'
+                  ? 'border-[#002147] bg-gradient-to-br from-blue-50 to-blue-100 shadow-lg transform scale-[1.02]'
+                  : 'border-gray-200 hover:border-gray-300 bg-white hover:shadow-md hover:scale-[1.01]'
                 }
               `}
             >
@@ -269,24 +284,27 @@ export const JurisdictionSelection: React.FC<JurisdictionSelectionProps> = ({
                 className="w-5 h-5 text-blue-600 border-2 border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
               />
               <div className="ml-4 flex-1">
-                <div className="flex items-center justify-between mb-1">
-                  <h3 className="font-semibold text-gray-900">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+                    <MapPin className={`w-4 h-4 ${selectedLocations.includes(location.id) ? 'text-[#002147]' : 'text-gray-400'} group-hover:text-[#003a6b] transition-colors`} />
                     {location.name}, {location.state}
                   </h3>
-                  <div className={`w-2.5 h-2.5 rounded-full ${
+                  <div className={`w-3 h-3 rounded-full ${
                     location.coverage === 'Active' ? 'bg-green-500' :
                     location.coverage === 'Available' ? 'bg-blue-500' :
                     'bg-orange-500'
                   }`}></div>
                 </div>
-                <p className="text-sm text-gray-600">
-                  {location.governingBodies.join(' • ')}
-                </p>
-                {location.popular && (
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-700 mt-2">
-                    Popular
-                  </span>
-                )}
+                <div className="space-y-1">
+                  <p className="text-sm text-gray-600">
+                    City Council • Planning Commission
+                  </p>
+                  {location.popular && (
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600">
+                      Most requested
+                    </span>
+                  )}
+                </div>
               </div>
             </label>
           ))
@@ -312,7 +330,7 @@ export const JurisdictionSelection: React.FC<JurisdictionSelectionProps> = ({
             className={`px-8 py-3 rounded-xl font-semibold transition-all ${
               selectedLocations.length === 0
                 ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg'
+                : 'bg-[#002147] text-white hover:bg-[#003a6b] shadow-md hover:shadow-lg transition-all'
             }`}
           >
             Continue

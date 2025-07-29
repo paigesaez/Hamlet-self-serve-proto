@@ -8,7 +8,7 @@ interface InvalidCodeProps {
 export const InvalidCode: React.FC<InvalidCodeProps> = ({ onBack, onRequestAccess }) => (
   <div className="py-12 px-4">
     <div className="max-w-lg mx-auto text-center">
-      <h2 className="text-2xl font-bold mb-4 text-gray-900">Invalid Invitation Code</h2>
+      <h2 className="text-2xl font-serif font-bold mb-4 text-gray-900">Invalid Invitation Code</h2>
       <p className="text-gray-600 mb-8">
         The code you entered isn't recognized. Please check your invitation email or request access.
       </p>

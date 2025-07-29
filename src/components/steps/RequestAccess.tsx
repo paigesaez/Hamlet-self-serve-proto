@@ -24,7 +24,7 @@ export const RequestAccess: React.FC<RequestAccessProps> = ({ onBack, onSubmit }
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">
           <User className="w-16 h-16 text-[#002147] mx-auto mb-4" />
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Request Platform Access</h2>
+          <h2 className="text-3xl font-serif font-bold text-gray-900 mb-2">Request Platform Access</h2>
           <p className="text-gray-600">Tell us about your development team to qualify for access</p>
         </div>
 

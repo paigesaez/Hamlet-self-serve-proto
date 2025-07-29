@@ -9,7 +9,7 @@ export const Success: React.FC = () => (
         <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-100 to-green-200 rounded-full mb-4">
           <CheckCircle className="w-10 h-10 text-green-600" />
         </div>
-        <h1 className="text-4xl font-serif text-gray-900 mb-3">
+        <h1 className="text-4xl font-serif font-bold text-gray-900 mb-3">
           Welcome to Hamlet!
         </h1>
         <p className="text-xl text-gray-600">
@@ -19,7 +19,7 @@ export const Success: React.FC = () => (
 
       {/* What Happens Next */}
       <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 mb-8">
-        <h2 className="text-xl font-semibold text-gray-900 mb-6">What happens next</h2>
+        <h2 className="text-xl font-serif font-bold text-gray-900 mb-6">What happens next</h2>
         
         <div className="space-y-4">
           <div className="flex items-start space-x-4">
@@ -27,7 +27,7 @@ export const Success: React.FC = () => (
               <Mail className="w-5 h-5 text-blue-600" />
             </div>
             <div>
-              <h3 className="font-medium text-gray-900">Check your email</h3>
+              <h3 className="font-serif font-bold text-gray-900">Check your email</h3>
               <p className="text-sm text-gray-600 mt-1">
                 You'll receive a welcome email with your account details and quick start guide
               </p>
@@ -39,7 +39,7 @@ export const Success: React.FC = () => (
               <FileText className="w-5 h-5 text-purple-600" />
             </div>
             <div>
-              <h3 className="font-medium text-gray-900">First alert within 24 hours</h3>
+              <h3 className="font-serif font-bold text-gray-900">First alert within 24 hours</h3>
               <p className="text-sm text-gray-600 mt-1">
                 As soon as relevant agendas are published, we'll send you detailed alerts
               </p>
@@ -51,7 +51,7 @@ export const Success: React.FC = () => (
               <Calendar className="w-5 h-5 text-green-600" />
             </div>
             <div>
-              <h3 className="font-medium text-gray-900">Setup consultation</h3>
+              <h3 className="font-serif font-bold text-gray-900">Setup consultation</h3>
               <p className="text-sm text-gray-600 mt-1">
                 Our team will reach out within 2 business days to optimize your monitoring setup
               </p>
@@ -63,7 +63,7 @@ export const Success: React.FC = () => (
               <Headphones className="w-5 h-5 text-amber-600" />
             </div>
             <div>
-              <h3 className="font-medium text-gray-900">Dedicated support</h3>
+              <h3 className="font-serif font-bold text-gray-900">Dedicated support</h3>
               <p className="text-sm text-gray-600 mt-1">
                 Reach out anytime at support@hamlet.ai or through your account dashboard
               </p>
