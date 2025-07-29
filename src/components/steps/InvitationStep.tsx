@@ -39,7 +39,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
             <span>AI-powered municipal intelligence</span>
           </div>
           
-          <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
+          <h1 className="text-5xl lg:text-6xl font-serif text-gray-900 mb-6 tracking-tight">
             Never miss a critical
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600">
               development discussion

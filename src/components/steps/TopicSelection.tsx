@@ -21,13 +21,14 @@ export const TopicSelection: React.FC<TopicSelectionProps> = ({
   onBack,
   onNext
 }) => (
-  <div className="max-w-5xl mx-auto">
+  <>
+    <div className="max-w-5xl mx-auto">
     {/* Header */}
     <div className="text-center mb-8">
       <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-2xl mb-4">
         <Filter className="w-8 h-8 text-green-700" />
       </div>
-      <h2 className="text-3xl font-bold text-gray-900 mb-3">
+      <h2 className="text-3xl font-serif text-gray-900 mb-3">
         Select monitoring topics
       </h2>
       <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -118,29 +119,43 @@ export const TopicSelection: React.FC<TopicSelectionProps> = ({
       </div>
     </div>
 
-    {/* Footer */}
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-      <div className="flex items-center justify-between">
-        <button
-          onClick={onBack}
-          className="flex items-center space-x-2 px-6 py-3 text-gray-700 hover:text-gray-900 font-medium transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Back</span>
-        </button>
-        
-        <button
-          onClick={onNext}
-          disabled={selectedTopics.length === 0}
-          className={`px-8 py-3 rounded-xl font-semibold transition-all ${
-            selectedTopics.length === 0
-              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-              : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg'
-          }`}
-        >
-          Continue to Account Setup
-        </button>
+    </div>
+    
+    {/* Sticky Footer */}
+    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex items-center justify-between">
+          <button
+            onClick={onBack}
+            className="flex items-center space-x-2 px-6 py-3 text-gray-700 hover:text-gray-900 font-medium transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Back</span>
+          </button>
+          
+          <div className="flex items-center space-x-6">
+            <div className="text-right">
+              <p className="text-2xl font-semibold text-gray-900">
+                ${calculatePrice()}/mo
+              </p>
+              <p className="text-sm text-gray-600">
+                {selectedTopics.length} topics • {getTotalBodies()} bodies
+              </p>
+            </div>
+            <button
+              onClick={onNext}
+              disabled={selectedTopics.length === 0}
+              className={`px-8 py-3 rounded-xl font-semibold transition-all ${
+                selectedTopics.length === 0
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                  : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg'
+              }`}
+            >
+              Continue to Account
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </>
 );

@@ -9,7 +9,7 @@ export const Success: React.FC = () => (
         <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-100 to-green-200 rounded-full mb-4">
           <CheckCircle className="w-10 h-10 text-green-600" />
         </div>
-        <h1 className="text-4xl font-bold text-gray-900 mb-3">
+        <h1 className="text-4xl font-serif text-gray-900 mb-3">
           Welcome to Hamlet!
         </h1>
         <p className="text-xl text-gray-600">

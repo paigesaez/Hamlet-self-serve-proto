@@ -17,7 +17,6 @@ import { BillingInfo } from './components/steps/BillingInfo';
 
 // Import shared components
 import { TopNavigation } from './components/shared/TopNavigation';
-import { StepIndicator } from './components/shared/StepIndicator';
 
 export default function InviteBasedFlow() {
   const [step, setStep] = useState(1);
@@ -141,9 +140,8 @@ export default function InviteBasedFlow() {
 
       {/* Coverage Flow Steps (10-14) */}
       {(step >= 10 && step <= 14) && (
-        <>
-          <StepIndicator currentStep={step} />
-          <div className="py-8 px-6 lg:px-12 xl:px-20">
+        <div className="min-h-screen flex flex-col">
+          <div className="flex-1 py-8 px-6 lg:px-12 xl:px-20 pb-32">
             <div className="max-w-6xl mx-auto">
               {/* Step 10: Jurisdiction Selection */}
               {step === 10 && (
@@ -208,7 +206,7 @@ export default function InviteBasedFlow() {
               )}
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
