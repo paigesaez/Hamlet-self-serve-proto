@@ -36,6 +36,26 @@ export const GoverningBodySelection: React.FC<GoverningBodySelectionProps> = ({
   // If more than 5 cities from same state, likely a package selection
   const useStateView = Object.values(locationsByState).some(locs => locs.length > 5);
   
+  // State name mapping
+  const getStateName = (stateCode: string): string => {
+    const stateNames: Record<string, string> = {
+      'AL': 'Alabama', 'AK': 'Alaska', 'AZ': 'Arizona', 'AR': 'Arkansas',
+      'CA': 'California', 'CO': 'Colorado', 'CT': 'Connecticut', 'DE': 'Delaware',
+      'FL': 'Florida', 'GA': 'Georgia', 'HI': 'Hawaii', 'ID': 'Idaho',
+      'IL': 'Illinois', 'IN': 'Indiana', 'IA': 'Iowa', 'KS': 'Kansas',
+      'KY': 'Kentucky', 'LA': 'Louisiana', 'ME': 'Maine', 'MD': 'Maryland',
+      'MA': 'Massachusetts', 'MI': 'Michigan', 'MN': 'Minnesota', 'MS': 'Mississippi',
+      'MO': 'Missouri', 'MT': 'Montana', 'NE': 'Nebraska', 'NV': 'Nevada',
+      'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico', 'NY': 'New York',
+      'NC': 'North Carolina', 'ND': 'North Dakota', 'OH': 'Ohio', 'OK': 'Oklahoma',
+      'OR': 'Oregon', 'PA': 'Pennsylvania', 'RI': 'Rhode Island', 'SC': 'South Carolina',
+      'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah',
+      'VT': 'Vermont', 'VA': 'Virginia', 'WA': 'Washington', 'WV': 'West Virginia',
+      'WI': 'Wisconsin', 'WY': 'Wyoming'
+    };
+    return stateNames[stateCode] || stateCode;
+  };
+  
   // Quick select presets
   const handleSelectAllForLocation = (locationId: number, bodies: string[]) => {
     const currentBodies = selectedBodies[locationId] || [];
@@ -82,6 +102,118 @@ export const GoverningBodySelection: React.FC<GoverningBodySelectionProps> = ({
           >
             Go back to select jurisdictions
           </button>
+        </div>
+      ) : useStateView ? (
+        // State-grouped view for package selections
+        <div className="space-y-6 mb-6">
+          {Object.entries(locationsByState).map(([state, stateLocations]) => (
+            <div key={state} className="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
+              <div className="p-6 bg-gradient-to-r from-gray-50 to-gray-100">
+                <h3 className="text-xl font-serif font-bold text-gray-900">
+                  {getStateName(state)} Package Configuration
+                </h3>
+                <p className="text-sm text-gray-600 mt-1">
+                  Configure governing bodies for all {stateLocations.length} cities in {getStateName(state)}
+                </p>
+              </div>
+              
+              <div className="p-6">
+                <p className="text-sm font-medium text-gray-700 mb-4">
+                  Select governing bodies to monitor across all {getStateName(state)} cities:
+                </p>
+                
+                <div className="grid md:grid-cols-2 gap-4">
+                  {['City Council', 'Planning Commission', 'Board of Supervisors', 'Zoning Board'].map(body => {
+                    // Check if all cities in state have this body selected
+                    const allSelected = stateLocations.every(loc => 
+                      selectedBodies[loc.id]?.includes(body)
+                    );
+                    const someSelected = stateLocations.some(loc => 
+                      selectedBodies[loc.id]?.includes(body)
+                    ) && !allSelected;
+                    
+                    return (
+                      <label
+                        key={body}
+                        className={`
+                          relative flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all
+                          ${allSelected 
+                            ? 'border-purple-500 bg-gradient-to-br from-purple-50 to-indigo-50 shadow-sm' 
+                            : someSelected
+                            ? 'border-purple-300 bg-purple-50'
+                            : 'border-gray-200 hover:border-gray-300 bg-white hover:bg-gray-50'
+                          }
+                        `}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={allSelected}
+                          onChange={() => {
+                            if (allSelected) {
+                              // Deselect from all cities in state
+                              stateLocations.forEach(loc => {
+                                if (selectedBodies[loc.id]?.includes(body)) {
+                                  toggleBody(loc.id, body);
+                                }
+                              });
+                            } else {
+                              // Select for all cities in state
+                              stateLocations.forEach(loc => {
+                                if (!selectedBodies[loc.id]?.includes(body)) {
+                                  toggleBody(loc.id, body);
+                                }
+                              });
+                            }
+                          }}
+                          className="sr-only"
+                        />
+                        <div className={`
+                          w-5 h-5 rounded border-2 flex items-center justify-center mr-3 transition-colors
+                          ${allSelected 
+                            ? 'bg-purple-600 border-purple-600' 
+                            : someSelected
+                            ? 'bg-purple-300 border-purple-300'
+                            : 'bg-white border-gray-300'
+                          }
+                        `}>
+                          {(allSelected || someSelected) && <Check className="w-3 h-3 text-white" />}
+                        </div>
+                        <div className="flex-1">
+                          <span className={`text-sm font-medium ${
+                            allSelected ? 'text-gray-900' : 'text-gray-700'
+                          }`}>
+                            {body}
+                          </span>
+                          {/* Add descriptions for common bodies */}
+                          {body === 'City Council' && (
+                            <p className="text-xs text-gray-500 mt-0.5">Primary legislative body</p>
+                          )}
+                          {body === 'Planning Commission' && (
+                            <p className="text-xs text-gray-500 mt-0.5">Reviews development proposals</p>
+                          )}
+                          {body === 'Board of Supervisors' && (
+                            <p className="text-xs text-gray-500 mt-0.5">County governance</p>
+                          )}
+                          {body === 'Zoning Board' && (
+                            <p className="text-xs text-gray-500 mt-0.5">Handles variances & permits</p>
+                          )}
+                        </div>
+                        <span className="text-sm font-medium text-purple-600">
+                          ${50 * stateLocations.length}/mo
+                        </span>
+                      </label>
+                    );
+                  })}
+                </div>
+                
+                {someSelected && (
+                  <p className="text-xs text-amber-600 mt-4">
+                    ⚠️ Some cities have different selections. Check marks indicate partial selection.
+                  </p>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
       ) : (
         <div className="grid lg:grid-cols-3 gap-4 mb-6">
