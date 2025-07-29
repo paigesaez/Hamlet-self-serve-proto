@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { topicCategories } from '../../data/topics';
-import { Filter, ArrowLeft, ChevronRight, Sparkles, TrendingUp, AlertCircle, Bell, Clock, FileText, Zap } from 'lucide-react';
+import { Filter, ArrowLeft, Sparkles, TrendingUp, Bell, Clock, FileText, Zap } from 'lucide-react';
 import { StepHeader } from '../shared/StepHeader';
 
 interface TopicSelectionProps {
@@ -16,13 +16,9 @@ interface TopicSelectionProps {
 export const TopicSelection: React.FC<TopicSelectionProps> = ({
   selectedTopics,
   toggleTopic,
-  selectedLocations,
-  getTotalBodies,
-  calculatePrice,
   onBack,
   onNext
 }) => {
-  const [showExamples, setShowExamples] = useState<string | null>(null);
   
   // Popular combinations
   const popularCombos = [

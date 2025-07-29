@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Building, ChevronDown, ChevronUp, Info, Check, Sparkles, Users, Briefcase, TrendingUp, ChevronRight, Plus, ArrowRight } from 'lucide-react';
+import React from 'react';
+import { Building, ChevronDown, Info, Check, Plus, ArrowRight } from 'lucide-react';
 import { locations } from '../../data/locations';
 import { StepHeader } from '../shared/StepHeader';
 
@@ -18,14 +18,11 @@ export const GoverningBodySelection: React.FC<GoverningBodySelectionProps> = ({
   selectedLocations,
   selectedBodies,
   toggleBody,
-  getTotalBodies,
-  calculatePrice,
   onBack,
   onNext
 }) => {
   const selectedLocationData = locations.filter(loc => selectedLocations.includes(loc.id));
-  const [expandedLocations, setExpandedLocations] = useState<number[]>([]);
-  const [addPlanningCommission, setAddPlanningCommission] = useState(false);
+  const [addPlanningCommission, setAddPlanningCommission] = React.useState(false);
   
   // Group locations by state to detect package selections
   const locationsByState = selectedLocationData.reduce((acc, loc) => {

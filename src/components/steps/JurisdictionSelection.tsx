@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { Search, MapPin, ChevronDown, X, Map, Navigation, Check, TrendingUp, Building2 } from 'lucide-react';
+import { Search, MapPin, ChevronDown, X, Map, Navigation } from 'lucide-react';
 import { locations } from '../../data/locations';
 import { StepHeader } from '../shared/StepHeader';
 
