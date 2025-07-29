@@ -139,7 +139,7 @@ export const BillingInfo: React.FC<BillingInfoProps> = ({
 
       {/* Right: Summary */}
       <div className="lg:col-span-2">
-        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 border border-indigo-100 sticky top-24">
+        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 border border-indigo-100 sticky top-6">
           <h3 className="font-serif font-bold text-gray-900 mb-4">Order summary</h3>
           
           <div className="space-y-3 mb-6">
@@ -161,7 +161,7 @@ export const BillingInfo: React.FC<BillingInfoProps> = ({
             </div>
           </div>
 
-          <div className="bg-white/80 rounded-xl p-4 space-y-2">
+          <div className="bg-white/80 rounded-xl p-4 space-y-2 mb-6">
             <div className="flex items-center space-x-2 text-sm">
               <DollarSign className="w-4 h-4 text-green-600" />
               <span className="text-gray-700">Cancel anytime</span>
@@ -175,36 +175,28 @@ export const BillingInfo: React.FC<BillingInfoProps> = ({
               <span className="text-gray-700">Volume discounts available</span>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    
-    {/* Sticky Footer */}
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 lg:px-12 xl:px-20 py-4">
-      <div className="flex items-center justify-between">
-        <button
-          onClick={onBack}
-          className="flex items-center space-x-2 px-6 py-3 text-gray-700 hover:text-gray-900 font-medium transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Back</span>
-        </button>
-        
-        <div className="flex items-center gap-4">
-          <p className="text-sm text-gray-600">
-            ${calculatePrice()}/mo
-          </p>
-          <button
-            onClick={onNext}
-            disabled={!billingInfo.firstName || !billingInfo.lastName || !billingInfo.company || !billingInfo.cardNumber}
-            className={`px-8 py-3 rounded-xl font-semibold transition-all ${
-              !billingInfo.firstName || !billingInfo.lastName || !billingInfo.company || !billingInfo.cardNumber
-                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                : 'bg-[#002147] text-white hover:bg-[#003a6b] shadow-md hover:shadow-lg'
-            }`}
-          >
-            Start Monitoring
-          </button>
+
+          {/* Action Buttons */}
+          <div className="space-y-3">
+            <button
+              onClick={onNext}
+              disabled={!billingInfo.firstName || !billingInfo.lastName || !billingInfo.company || !billingInfo.cardNumber}
+              className={`w-full px-8 py-4 rounded-xl font-semibold transition-all ${
+                !billingInfo.firstName || !billingInfo.lastName || !billingInfo.company || !billingInfo.cardNumber
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                  : 'bg-[#002147] text-white hover:bg-[#003a6b] shadow-md hover:shadow-lg'
+              }`}
+            >
+              Start Monitoring • ${calculatePrice()}/mo
+            </button>
+            <button
+              onClick={onBack}
+              className="w-full px-6 py-3 text-gray-700 hover:text-gray-900 font-medium transition-colors flex items-center justify-center gap-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Back to Account</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

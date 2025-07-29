@@ -24,7 +24,7 @@
 
 ### **Key Features:**
 - **Coverage Status System:** Active, Available, or On-Request jurisdictions
-- **Volume Pricing:** $1,000 per 20 governing bodies monitored
+- **Simple Pricing:** $50 per governing body per month
 - **AI Topic Matching:** Semantic understanding vs. keyword matching
 - **24-Hour Alert Delivery:** Email notifications with agenda links
 - **Request Access Flow:** Non-invited users can apply for platform access
@@ -45,9 +45,10 @@
 
 ## 📊 **Business Model**
 - **Invite-Only Access:** Maintains exclusivity and service quality
-- **Volume-Based Pricing:** Scales with monitoring scope ($1K per 20 governing bodies)
+- **Simple Pricing:** $50 per governing body per month (City Council or Planning Commission)
 - **Professional Market:** Targets established development teams with budget authority
 - **Consultation Included:** First week includes optimization support
+- **Pricing Strategy:** Costs are hidden during configuration steps, revealed only at billing
 
 ## 🎨 **Design System**
 - **Color Palette:** Navy blue (#002147), whites, grays, status colors (green/blue/orange)

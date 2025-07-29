@@ -1,5 +1,8 @@
+// Pricing: $50 per governing body (City Council or Planning Commission)
+export const PRICE_PER_GOVERNING_BODY = 50;
+
 export const calculatePrice = (totalBodies: number): number => {
-  return Math.ceil(totalBodies / 20) * 1000; // $1,000 per 20 governing bodies
+  return totalBodies * PRICE_PER_GOVERNING_BODY;
 };
 
 export const getTotalBodies = (selectedBodies: Record<string, string[]>): number => {
