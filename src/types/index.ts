@@ -14,6 +14,9 @@ export interface Topic {
   name: string;
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   description: string;
+  examples?: string[];
+  categoryId?: string;
+  categoryName?: string;
 }
 
 export interface BillingInfoData {
