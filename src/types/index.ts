@@ -12,7 +12,7 @@ export interface Location {
 export interface Topic {
   id: string;
   name: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   description: string;
 }
 
