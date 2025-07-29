@@ -26,6 +26,16 @@ export const GoverningBodySelection: React.FC<GoverningBodySelectionProps> = ({
   const selectedLocationData = locations.filter(loc => selectedLocations.includes(loc.id));
   const [expandedLocations, setExpandedLocations] = useState<number[]>(selectedLocations);
   
+  // Group locations by state to detect package selections
+  const locationsByState = selectedLocationData.reduce((acc, loc) => {
+    if (!acc[loc.state]) acc[loc.state] = [];
+    acc[loc.state].push(loc);
+    return acc;
+  }, {} as Record<string, typeof selectedLocationData>);
+  
+  // If more than 5 cities from same state, likely a package selection
+  const useStateView = Object.values(locationsByState).some(locs => locs.length > 5);
+  
   // Quick select presets
   const handleSelectAllForLocation = (locationId: number, bodies: string[]) => {
     const currentBodies = selectedBodies[locationId] || [];
