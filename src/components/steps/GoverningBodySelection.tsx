@@ -5,6 +5,7 @@ import { StepHeader } from '../shared/StepHeader';
 
 interface GoverningBodySelectionProps {
   selectedLocations: number[];
+  selectedPackages?: { type: 'state' | 'region', name: string }[];
   selectedBodies: Record<string, string[]>;
   toggleBody: (locationId: number, body: string) => void;
   getTotalBodies: () => number;
