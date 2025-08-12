@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { BillingInfoData } from './types';
 import { locations } from './data/locations';
 import { getTotalBodies, calculatePrice } from './utils/pricing';
 
@@ -12,8 +11,6 @@ import { RequestSubmitted } from './components/steps/RequestSubmitted';
 import { JurisdictionSelection } from './components/steps/JurisdictionSelection';
 import { GoverningBodySelection } from './components/steps/GoverningBodySelection';
 import { TopicSelection } from './components/steps/TopicSelection';
-import { EmailCapture } from './components/steps/EmailCapture';
-import { BillingInfo } from './components/steps/BillingInfo';
 
 // Import shared components
 import { TopNavigation } from './components/shared/TopNavigation';
@@ -25,17 +22,12 @@ export default function InviteBasedFlow() {
   const [selectedBodies, setSelectedBodies] = useState<Record<string, string[]>>({});
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [inviteCode, setInviteCode] = useState('');
-  const [email, setEmail] = useState('');
-  const [billingInfo, setBillingInfo] = useState<BillingInfoData>({
-    company: '',
-    firstName: '',
-    lastName: '',
-    phone: '',
-    cardNumber: '',
-    expiryDate: '',
-    cvv: ''
-  });
+  const [inviteCode, setInviteCode] = useState('DEMO2024');
+  const [company, setCompany] = useState('Acme Development Group');
+  const [firstName, setFirstName] = useState('John');
+  const [lastName, setLastName] = useState('Smith');
+  const [email, setEmail] = useState('john.smith@acmedev.com');
+  const [password, setPassword] = useState('SecurePass123');
 
   const resetFlow = () => {
     setStep(1);
@@ -45,16 +37,11 @@ export default function InviteBasedFlow() {
     setSelectedTopics([]);
     setSearchTerm('');
     setInviteCode('');
+    setCompany('');
+    setFirstName('');
+    setLastName('');
     setEmail('');
-    setBillingInfo({
-      company: '',
-      firstName: '',
-      lastName: '',
-      phone: '',
-      cardNumber: '',
-      expiryDate: '',
-      cvv: ''
-    });
+    setPassword('');
   };
 
   const toggleLocation = (locationId: number) => {
@@ -112,6 +99,16 @@ export default function InviteBasedFlow() {
         <InvitationStep
           inviteCode={inviteCode}
           setInviteCode={setInviteCode}
+          company={company}
+          setCompany={setCompany}
+          firstName={firstName}
+          setFirstName={setFirstName}
+          lastName={lastName}
+          setLastName={setLastName}
+          email={email}
+          setEmail={setEmail}
+          password={password}
+          setPassword={setPassword}
           onInviteSubmit={handleInviteSubmit}
           onRequestAccess={() => setStep(4)}
         />
@@ -143,8 +140,8 @@ export default function InviteBasedFlow() {
         />
       )}
 
-      {/* Coverage Flow Steps (10-14) */}
-      {(step >= 10 && step <= 14) && (
+      {/* Coverage Flow Steps (10-12) */}
+      {(step >= 10 && step <= 12) && (
         <div className="min-h-screen flex flex-col">
           <div className="flex-1 px-6 lg:px-12 xl:px-20 pt-8 pb-32">
               {/* Step 10: Jurisdiction Selection */}
@@ -181,34 +178,11 @@ export default function InviteBasedFlow() {
                   getTotalBodies={getTotalBodiesWrapper}
                   calculatePrice={calculatePriceWrapper}
                   onBack={() => setStep(11)}
-                  onNext={() => setStep(13)}
+                  onNext={() => setStep(6)}  // Skip to success page
                 />
               )}
 
-              {/* Step 13: Email Capture */}
-              {step === 13 && (
-                <EmailCapture
-                  email={email}
-                  setEmail={setEmail}
-                  onBack={() => setStep(12)}
-                  onNext={() => setStep(14)}
-                />
-              )}
-
-              {/* Step 14: Billing Info */}
-              {step === 14 && (
-                <BillingInfo
-                  billingInfo={billingInfo}
-                  setBillingInfo={setBillingInfo}
-                  selectedLocations={selectedLocations}
-                  selectedTopics={selectedTopics}
-                  selectedBodies={selectedBodies}
-                  getTotalBodies={getTotalBodiesWrapper}
-                  calculatePrice={calculatePriceWrapper}
-                  onBack={() => setStep(13)}
-                  onNext={() => setStep(6)}
-                />
-              )}
+              {/* Email Capture and Billing Info steps removed - now handled in InvitationStep */}
           </div>
         </div>
       )}

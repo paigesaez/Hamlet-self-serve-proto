@@ -1,9 +1,19 @@
 import React from 'react';
-import { Building2, Clock, Bell, Target, Sparkles, ArrowRight } from 'lucide-react';
+import { Clock, Bell, Target, Sparkles, ArrowRight } from 'lucide-react';
 
 interface InvitationStepProps {
   inviteCode: string;
   setInviteCode: (code: string) => void;
+  company: string;
+  setCompany: (company: string) => void;
+  firstName: string;
+  setFirstName: (name: string) => void;
+  lastName: string;
+  setLastName: (name: string) => void;
+  email: string;
+  setEmail: (email: string) => void;
+  password: string;
+  setPassword: (password: string) => void;
   onInviteSubmit: () => void;
   onRequestAccess: () => void;
 }
@@ -11,6 +21,16 @@ interface InvitationStepProps {
 export const InvitationStep: React.FC<InvitationStepProps> = ({
   inviteCode,
   setInviteCode,
+  company,
+  setCompany,
+  firstName,
+  setFirstName,
+  lastName,
+  setLastName,
+  email,
+  setEmail,
+  password,
+  setPassword,
   onInviteSubmit,
   onRequestAccess
 }) => (
@@ -19,12 +39,22 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
     <nav className="border-b border-gray-200 bg-white/80 backdrop-blur-md fixed w-full top-0 z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-[#002147] rounded-lg flex items-center justify-center">
-              <Building2 className="w-5 h-5 text-white" />
-            </div>
-            <span className="font-semibold text-gray-900">Hamlet</span>
-          </div>
+          <a 
+            href="/" 
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.reload();
+            }}
+            className="block"
+          >
+            <img 
+              src="/Hamlet_logo2x.png" 
+              alt="Hamlet" 
+              width={116} 
+              height="auto"
+              className="cursor-pointer"
+            />
+          </a>
           <button
             onClick={onRequestAccess}
             className="hidden md:inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
@@ -47,7 +77,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                 <span>AI-powered municipal intelligence</span>
               </div>
               
-              <h1 className="text-4xl lg:text-5xl xl:text-6xl font-serif font-bold text-gray-900 mb-6 tracking-tight">
+              <h1 className="text-4xl lg:text-5xl xl:text-6xl font-serif font-bold text-gray-900 mb-6 tracking-tight leading-[1.2]">
                 Never miss a critical
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#002147] to-blue-600">
                   development discussion
@@ -67,7 +97,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                   </div>
                   <div className="text-left">
                     <p className="text-sm font-semibold text-gray-900">24-hour alerts</p>
-                    <p className="text-xs text-gray-600">Within a day of publication</p>
+                    <p className="text-sm text-gray-600">Within a day of publication</p>
                   </div>
                 </div>
 
@@ -77,7 +107,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                   </div>
                   <div className="text-left">
                     <p className="text-sm font-semibold text-gray-900">AI matching</p>
-                    <p className="text-xs text-gray-600">Beyond keywords</p>
+                    <p className="text-sm text-gray-600">Beyond keywords</p>
                   </div>
                 </div>
 
@@ -87,7 +117,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                   </div>
                   <div className="text-left">
                     <p className="text-sm font-semibold text-gray-900">Multi-city</p>
-                    <p className="text-xs text-gray-600">Unlimited jurisdictions</p>
+                    <p className="text-sm text-gray-600">Unlimited jurisdictions</p>
                   </div>
                 </div>
               </div>
@@ -98,7 +128,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
               <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
                 <div className="bg-gradient-to-br from-[#002147] to-[#003a6b] p-6 text-center">
                   <h2 className="text-2xl font-serif font-bold text-white mb-2">
-                    Get started
+                    Create your account
                   </h2>
                   <p className="text-gray-300 text-sm">
                     Invite-only access for qualified development teams
@@ -107,6 +137,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                 
                 <div className="p-8">
                   <div className="space-y-4">
+                    {/* Invitation Code */}
                     <div>
                       <label htmlFor="invite-code" className="block text-sm font-medium text-gray-700 mb-2">
                         Invitation code
@@ -116,16 +147,99 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                         type="text"
                         value={inviteCode}
                         onChange={(e) => setInviteCode(e.target.value)}
-                        className="w-full px-4 py-3.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
                         placeholder="Enter your code"
                       />
                     </div>
 
+                    {/* Company */}
+                    <div>
+                      <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
+                        Company name
+                      </label>
+                      <input
+                        id="company"
+                        type="text"
+                        value={company}
+                        onChange={(e) => setCompany(e.target.value)}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                        placeholder="Your company"
+                      />
+                    </div>
+
+                    {/* Name Fields */}
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label htmlFor="first-name" className="block text-sm font-medium text-gray-700 mb-2">
+                          First name
+                        </label>
+                        <input
+                          id="first-name"
+                          type="text"
+                          value={firstName}
+                          onChange={(e) => setFirstName(e.target.value)}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                          placeholder="First"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="last-name" className="block text-sm font-medium text-gray-700 mb-2">
+                          Last name
+                        </label>
+                        <input
+                          id="last-name"
+                          type="text"
+                          value={lastName}
+                          onChange={(e) => setLastName(e.target.value)}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                          placeholder="Last"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Email */}
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                        Work email
+                      </label>
+                      <input
+                        id="email"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                        placeholder="you@company.com"
+                      />
+                    </div>
+
+                    {/* Password */}
+                    <div>
+                      <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+                        Password
+                      </label>
+                      <input
+                        id="password"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                        placeholder="Create a strong password"
+                      />
+                      <p className="text-xs text-gray-500 mt-1">
+                        Must be at least 8 characters
+                      </p>
+                    </div>
+
                     <button
                       onClick={onInviteSubmit}
-                      className="w-full bg-[#002147] text-white py-3.5 px-6 rounded-xl font-medium hover:bg-[#003a6b] transition-all flex items-center justify-center space-x-2 shadow-md hover:shadow-lg"
+                      disabled={!inviteCode || !company || !firstName || !lastName || !email || !password || password.length < 8}
+                      className={`w-full py-3.5 px-6 rounded-xl font-medium transition-all flex items-center justify-center space-x-2 shadow-md ${
+                        !inviteCode || !company || !firstName || !lastName || !email || !password || password.length < 8
+                          ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                          : 'bg-[#002147] text-white hover:bg-[#003a6b] hover:shadow-lg'
+                      }`}
                     >
-                      <span>Continue</span>
+                      <span>Create Account</span>
                       <ArrowRight className="w-4 h-4" />
                     </button>
 
