@@ -61,7 +61,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
           </a>
           <button
             onClick={onRequestAccess}
-            className="hidden md:inline-flex items-center btn-ghost"
+            className="hidden md:inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
           >
             Request access
           </button>
@@ -267,26 +267,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                       <ArrowRight className="w-4 h-4" />
                     </button>
 
-                    <div className="relative my-6">
-                      <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t border-gray-200"></div>
-                      </div>
-                      <div className="relative flex justify-center text-sm">
-                        <span className="px-4 bg-white text-gray-500">Don't have a code?</span>
-                      </div>
-                    </div>
-
-                    <button
-                      onClick={onRequestAccess}
-                      className="w-full border-2 border-gray-200 text-gray-700 py-3.5 px-6 rounded-xl font-medium hover:border-gray-300 hover:bg-gray-50 transition-all"
-                    >
-                      Request access
-                    </button>
                   </div>
-
-                  <p className="text-xs text-gray-500 text-center mt-6">
-                    For teams managing 10+ active development projects
-                  </p>
                 </div>
               </div>
             </div>

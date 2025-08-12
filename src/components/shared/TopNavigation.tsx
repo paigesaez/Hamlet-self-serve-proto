@@ -30,7 +30,7 @@ export const TopNavigation: React.FC<TopNavigationProps> = ({ step, setStep }) =
         {step !== 1 && step !== 6 && step !== 7 && (
           <button
             onClick={() => setStep(1)}
-            className="btn-ghost text-xs sm:text-sm whitespace-nowrap"
+            className="px-4 py-2 text-xs sm:text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors whitespace-nowrap"
           >
             ← Back to Home
           </button>
