@@ -14,6 +14,8 @@ interface InvitationStepProps {
   setEmail: (email: string) => void;
   password: string;
   setPassword: (password: string) => void;
+  confirmPassword: string;
+  setConfirmPassword: (password: string) => void;
   onInviteSubmit: () => void;
   onRequestAccess: () => void;
 }
@@ -31,13 +33,15 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
   setEmail,
   password,
   setPassword,
+  confirmPassword,
+  setConfirmPassword,
   onInviteSubmit,
   onRequestAccess
 }) => (
   <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-gray-50">
     {/* Navigation Bar */}
     <nav className="border-b border-gray-200 bg-white/80 backdrop-blur-md fixed w-full top-0 z-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container-padding">
         <div className="flex justify-between items-center h-16">
           <a 
             href="/" 
@@ -57,7 +61,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
           </a>
           <button
             onClick={onRequestAccess}
-            className="hidden md:inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
+            className="hidden md:inline-flex items-center btn-ghost"
           >
             Request access
           </button>
@@ -67,8 +71,8 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
 
     {/* Hero + CTA Split Layout */}
     <div className="pt-16 min-h-screen flex items-center">
-      <div className="w-full px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+      <div className="w-full">
+        <div className="container-padding">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center py-12">
             {/* Left: Hero Content */}
             <div className="text-center lg:text-left">
@@ -230,11 +234,31 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                       </p>
                     </div>
 
+                    {/* Confirm Password */}
+                    <div>
+                      <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700 mb-2">
+                        Confirm Password
+                      </label>
+                      <input
+                        id="confirm-password"
+                        type="password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                        placeholder="Re-enter your password"
+                      />
+                      {password && confirmPassword && password !== confirmPassword && (
+                        <p className="text-xs text-red-600 mt-1">
+                          Passwords do not match
+                        </p>
+                      )}
+                    </div>
+
                     <button
                       onClick={onInviteSubmit}
-                      disabled={!inviteCode || !company || !firstName || !lastName || !email || !password || password.length < 8}
+                      disabled={!inviteCode || !company || !firstName || !lastName || !email || !password || password.length < 8 || password !== confirmPassword}
                       className={`w-full py-3.5 px-6 rounded-xl font-medium transition-all flex items-center justify-center space-x-2 shadow-md ${
-                        !inviteCode || !company || !firstName || !lastName || !email || !password || password.length < 8
+                        !inviteCode || !company || !firstName || !lastName || !email || !password || password.length < 8 || password !== confirmPassword
                           ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                           : 'bg-[#002147] text-white hover:bg-[#003a6b] hover:shadow-lg'
                       }`}
@@ -272,8 +296,8 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
     </div>
 
     {/* Secondary Content - Below the Fold */}
-    <div className="bg-gray-50 py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="bg-gray-50 py-20">
+      <div className="container-padding">
         {/* Detailed Features */}
         <div className="text-center mb-12">
           <h2 className="text-3xl font-serif font-bold text-gray-900 mb-4">

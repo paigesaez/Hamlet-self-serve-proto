@@ -28,6 +28,7 @@ export default function InviteBasedFlow() {
   const [lastName, setLastName] = useState('Smith');
   const [email, setEmail] = useState('john.smith@acmedev.com');
   const [password, setPassword] = useState('SecurePass123');
+  const [confirmPassword, setConfirmPassword] = useState('SecurePass123');
 
   const resetFlow = () => {
     setStep(1);
@@ -42,6 +43,7 @@ export default function InviteBasedFlow() {
     setLastName('');
     setEmail('');
     setPassword('');
+    setConfirmPassword('');
   };
 
   const toggleLocation = (locationId: number) => {
@@ -109,6 +111,8 @@ export default function InviteBasedFlow() {
           setEmail={setEmail}
           password={password}
           setPassword={setPassword}
+          confirmPassword={confirmPassword}
+          setConfirmPassword={setConfirmPassword}
           onInviteSubmit={handleInviteSubmit}
           onRequestAccess={() => setStep(4)}
         />

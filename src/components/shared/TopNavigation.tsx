@@ -6,10 +6,10 @@ interface TopNavigationProps {
   setStep: (step: number) => void;
 }
 
-export const TopNavigation: React.FC<TopNavigationProps> = ({ step, resetFlow, setStep }) => {
+export const TopNavigation: React.FC<TopNavigationProps> = ({ step, setStep }) => {
   return (
     <div className="sticky top-0 z-50 bg-white border-b border-gray-200 py-3">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+      <div className="container-padding flex justify-between items-center">
         <a 
           href="/"
           onClick={(e) => {
@@ -30,7 +30,7 @@ export const TopNavigation: React.FC<TopNavigationProps> = ({ step, resetFlow, s
         {step !== 1 && step !== 6 && step !== 7 && (
           <button
             onClick={() => setStep(1)}
-            className="text-gray-600 hover:text-gray-800 text-xs sm:text-sm whitespace-nowrap"
+            className="btn-ghost text-xs sm:text-sm whitespace-nowrap"
           >
             ← Back to Home
           </button>
