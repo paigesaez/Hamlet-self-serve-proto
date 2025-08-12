@@ -61,7 +61,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
           </a>
           <button
             onClick={onRequestAccess}
-            className="hidden md:inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
+            className="hidden"
           >
             Request access
           </button>
