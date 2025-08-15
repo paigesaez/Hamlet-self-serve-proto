@@ -2,6 +2,7 @@ export interface Location {
   id: number;
   name: string;
   state: string;
+  region?: string; // Granular region like 'NorCal', 'SoCal', 'Bay Area'
   type: string;
   popular: boolean;
   coverage: 'Active' | 'Available' | 'On Request';

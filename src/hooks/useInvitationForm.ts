@@ -13,13 +13,13 @@ const INITIAL_FORM_VALUES = {
 
 // Custom hook for invitation form state management
 export const useInvitationForm = () => {
-  const [inviteCode, setInviteCode] = useState(INITIAL_FORM_VALUES.inviteCode);
-  const [company, setCompany] = useState(INITIAL_FORM_VALUES.company);
-  const [firstName, setFirstName] = useState(INITIAL_FORM_VALUES.firstName);
-  const [lastName, setLastName] = useState(INITIAL_FORM_VALUES.lastName);
-  const [email, setEmail] = useState(INITIAL_FORM_VALUES.email);
-  const [password, setPassword] = useState(INITIAL_FORM_VALUES.password);
-  const [confirmPassword, setConfirmPassword] = useState(INITIAL_FORM_VALUES.confirmPassword);
+  const [inviteCode, setInviteCode] = useState<string>(INITIAL_FORM_VALUES.inviteCode);
+  const [company, setCompany] = useState<string>(INITIAL_FORM_VALUES.company);
+  const [firstName, setFirstName] = useState<string>(INITIAL_FORM_VALUES.firstName);
+  const [lastName, setLastName] = useState<string>(INITIAL_FORM_VALUES.lastName);
+  const [email, setEmail] = useState<string>(INITIAL_FORM_VALUES.email);
+  const [password, setPassword] = useState<string>(INITIAL_FORM_VALUES.password);
+  const [confirmPassword, setConfirmPassword] = useState<string>(INITIAL_FORM_VALUES.confirmPassword);
   
   const resetInvitationForm = () => {
     setInviteCode('');

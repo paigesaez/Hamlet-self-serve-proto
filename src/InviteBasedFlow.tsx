@@ -18,13 +18,14 @@ const FLOW_STEPS = {
   JURISDICTION_SELECTION: 10,
 } as const;
 
+type FlowStep = typeof FLOW_STEPS[keyof typeof FLOW_STEPS];
+
 export default function InviteBasedFlow() {
-  const [step, setStep] = useState(FLOW_STEPS.INVITATION);
+  const [step, setStep] = useState<FlowStep>(FLOW_STEPS.INVITATION);
   
   // Use the custom hook for location selection
   const {
     selectedLocations,
-    selectedBodies,
     searchTerm,
     setSearchTerm,
     toggleLocation,
@@ -68,12 +69,12 @@ export default function InviteBasedFlow() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Only show TopNavigation when not on landing page */}
-      {step !== FLOW_STEPS.INVITATION && <TopNavigation step={step} resetFlow={resetFlow} setStep={setStep} />}
+      {step !== FLOW_STEPS.INVITATION && <TopNavigation step={step} resetFlow={resetFlow} setStep={(s) => setStep(s as FlowStep)} />}
       
       {/* Render the current step */}
       <StepRenderer
         step={step}
-        setStep={setStep}
+        setStep={(s) => setStep(s as FlowStep)}
         inviteCode={inviteCode}
         setInviteCode={setInviteCode}
         company={company}

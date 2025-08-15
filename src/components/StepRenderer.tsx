@@ -105,7 +105,7 @@ export const StepRenderer: React.FC<StepRendererProps> = ({
       );
       
     case FLOW_STEPS.SUCCESS:
-      return <Success />;
+      return <Success selectedLocations={selectedLocations} />;
       
     case FLOW_STEPS.REQUEST_SUBMITTED:
       return (
