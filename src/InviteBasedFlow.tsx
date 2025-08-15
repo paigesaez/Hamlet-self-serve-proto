@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { locations } from './data/locations';
-import { getTotalBodies } from './utils/pricing';
 
 // Import all step components
 import { InvitationStep } from './components/steps/InvitationStep';
@@ -75,7 +74,6 @@ export default function InviteBasedFlow() {
     }
   };
 
-  const getTotalBodiesWrapper = () => getTotalBodies(selectedBodies);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
@@ -142,12 +140,7 @@ export default function InviteBasedFlow() {
                   setSearchTerm={setSearchTerm}
                   toggleLocation={toggleLocation}
                   onNext={() => {
-                    // Calculate and store total bodies for success page
-                    const totalBodies = getTotalBodiesWrapper();
-                    localStorage.setItem('totalBodies', totalBodies.toString());
-                    
                     // All topics are automatically included - no need to track separately
-                    
                     setStep(6);  // Go directly to success
                   }}
                 />

@@ -13,7 +13,7 @@ export const Success: React.FC = () => (
           Welcome to Hamlet!
         </h1>
         <p className="text-xl text-gray-600">
-          Your monitoring is now active across {localStorage.getItem('totalBodies') || '0'} governing bodies
+          Your account has been successfully created
         </p>
       </div>
 
