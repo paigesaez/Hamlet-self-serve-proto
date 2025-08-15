@@ -15,7 +15,7 @@ export const EmailCapture: React.FC<EmailCaptureProps> = ({ email, setEmail, onB
     <div className="grid lg:grid-cols-3 gap-8 mb-20">
       {/* Left side - Email form (2 cols) */}
       <div className="lg:col-span-2">
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
+        <div className="bg-white rounded-lg shadow-lg border border-gray-100 p-8">
           <div className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
@@ -27,7 +27,7 @@ export const EmailCapture: React.FC<EmailCaptureProps> = ({ email, setEmail, onB
                 placeholder="you@company.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3.5 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
+                className="w-full px-4 py-3.5 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
               />
               <p className="text-sm text-gray-500 mt-2">
                 We'll use this for alert delivery and account access
@@ -35,7 +35,7 @@ export const EmailCapture: React.FC<EmailCaptureProps> = ({ email, setEmail, onB
             </div>
 
             {/* What You'll Receive */}
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 space-y-4">
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-6 space-y-4">
               <h3 className="font-serif font-bold text-gray-900">What you'll receive</h3>
               
               <div className="space-y-3">
@@ -83,7 +83,7 @@ export const EmailCapture: React.FC<EmailCaptureProps> = ({ email, setEmail, onB
       <div className="lg:col-span-1">
         <div className="sticky top-6 space-y-6">
           {/* Account Benefits */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
             <h3 className="font-semibold text-gray-900 mb-4">Account benefits</h3>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
@@ -106,7 +106,7 @@ export const EmailCapture: React.FC<EmailCaptureProps> = ({ email, setEmail, onB
           </div>
 
           {/* Next Step */}
-          <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-100">
+          <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg p-6 border border-amber-100">
             <h4 className="font-semibold text-gray-900 mb-2">Next: Payment setup</h4>
             <p className="text-sm text-gray-700 mb-4">
               Complete your subscription to start receiving alerts within 24 hours.
@@ -121,7 +121,7 @@ export const EmailCapture: React.FC<EmailCaptureProps> = ({ email, setEmail, onB
             <button
               onClick={onNext}
               disabled={!email || !email.includes('@')}
-              className={`w-full px-8 py-4 rounded-xl font-semibold transition-all ${
+              className={`w-full px-8 py-4 rounded-lg font-semibold transition-all ${
                 !email || !email.includes('@')
                   ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                   : 'bg-[#002147] text-white hover:bg-[#003a6b] shadow-md hover:shadow-lg'

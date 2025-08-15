@@ -6,7 +6,7 @@ export const Success: React.FC = () => (
     <div className="max-w-2xl w-full">
       {/* Success Icon */}
       <div className="text-center mb-8">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-100 to-green-200 rounded-full mb-4">
+        <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-100 to-green-200 rounded-lg mb-4">
           <CheckCircle className="w-10 h-10 text-green-600" />
         </div>
         <h1 className="text-4xl font-serif font-bold text-gray-900 mb-3">
@@ -18,12 +18,12 @@ export const Success: React.FC = () => (
       </div>
 
       {/* What Happens Next */}
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 mb-8">
+      <div className="bg-white rounded-lg border border-gray-100 p-8 mb-8">
         <h2 className="text-xl font-serif font-bold text-gray-900 mb-6">What happens next</h2>
         
         <div className="space-y-4">
           <div className="flex items-start space-x-4">
-            <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
               <Mail className="w-5 h-5 text-blue-600" />
             </div>
             <div>
@@ -35,7 +35,7 @@ export const Success: React.FC = () => (
           </div>
 
           <div className="flex items-start space-x-4">
-            <div className="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
               <FileText className="w-5 h-5 text-purple-600" />
             </div>
             <div>
@@ -47,7 +47,7 @@ export const Success: React.FC = () => (
           </div>
 
           <div className="flex items-start space-x-4">
-            <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
               <Calendar className="w-5 h-5 text-green-600" />
             </div>
             <div>
@@ -59,7 +59,7 @@ export const Success: React.FC = () => (
           </div>
 
           <div className="flex items-start space-x-4">
-            <div className="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
               <Headphones className="w-5 h-5 text-amber-600" />
             </div>
             <div>
@@ -74,7 +74,7 @@ export const Success: React.FC = () => (
 
       {/* Action Buttons */}
       <div className="text-center space-y-3">
-        <button className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg transition-all">
+        <button className="w-full sm:w-auto px-8 py-3.5 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-all">
           Go to Dashboard
         </button>
         <p className="text-sm text-gray-500">

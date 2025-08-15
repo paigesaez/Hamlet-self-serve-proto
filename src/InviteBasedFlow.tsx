@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { locations } from './data/locations';
-import { getTotalBodies, calculatePrice } from './utils/pricing';
+import { getTotalBodies } from './utils/pricing';
 
 // Import all step components
 import { InvitationStep } from './components/steps/InvitationStep';
@@ -9,8 +9,6 @@ import { RequestAccess } from './components/steps/RequestAccess';
 import { Success } from './components/steps/Success';
 import { RequestSubmitted } from './components/steps/RequestSubmitted';
 import { JurisdictionSelection } from './components/steps/JurisdictionSelection';
-import { GoverningBodySelection } from './components/steps/GoverningBodySelection';
-import { TopicSelection } from './components/steps/TopicSelection';
 
 // Import shared components
 import { TopNavigation } from './components/shared/TopNavigation';
@@ -18,9 +16,9 @@ import { TopNavigation } from './components/shared/TopNavigation';
 export default function InviteBasedFlow() {
   const [step, setStep] = useState(1);
   const [selectedLocations, setSelectedLocations] = useState<number[]>([]);
-  const [selectedPackages, setSelectedPackages] = useState<{ type: 'state' | 'region', name: string }[]>([]);
+  // selectedPackages removed - not used in simplified flow
   const [selectedBodies, setSelectedBodies] = useState<Record<string, string[]>>({});
-  const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
+  // selectedTopics state removed - all topics are automatically included
   const [searchTerm, setSearchTerm] = useState('');
   const [inviteCode, setInviteCode] = useState('DEMO2024');
   const [company, setCompany] = useState('Acme Development Group');
@@ -33,9 +31,9 @@ export default function InviteBasedFlow() {
   const resetFlow = () => {
     setStep(1);
     setSelectedLocations([]);
-    setSelectedPackages([]);
+    // selectedPackages reset removed
     setSelectedBodies({});
-    setSelectedTopics([]);
+    // selectedTopics reset removed
     setSearchTerm('');
     setInviteCode('');
     setCompany('');
@@ -49,10 +47,15 @@ export default function InviteBasedFlow() {
   const toggleLocation = (locationId: number) => {
     if (selectedLocations.includes(locationId)) {
       setSelectedLocations(prev => prev.filter(id => id !== locationId));
-      setSelectedBodies(prev => ({ ...prev, [locationId]: undefined }));
+      setSelectedBodies(prev => {
+        const updated = { ...prev };
+        delete updated[locationId];
+        return updated;
+      });
     } else {
       setSelectedLocations(prev => [...prev, locationId]);
       const location = locations.find(l => l.id === locationId);
+      // Automatically select all governing bodies for the location
       setSelectedBodies(prev => ({
         ...prev,
         [locationId]: location?.governingBodies || ['City Council']
@@ -62,23 +65,7 @@ export default function InviteBasedFlow() {
 
   // Package selection functionality removed - not used in current flow
 
-  const toggleBody = (locationId: number, body: string) => {
-    setSelectedBodies(prev => {
-      const current = prev[locationId] || [];
-      const updated = current.includes(body)
-        ? current.filter(b => b !== body)
-        : [...current, body];
-      return { ...prev, [locationId]: updated };
-    });
-  };
-
-  const toggleTopic = (topicId: string) => {
-    setSelectedTopics(prev =>
-      prev.includes(topicId)
-        ? prev.filter(id => id !== topicId)
-        : [...prev, topicId]
-    );
-  };
+  // toggleBody and toggleTopic removed - all bodies and topics are automatically included
 
   const handleInviteSubmit = () => {
     if (inviteCode.toLowerCase().includes('demo') || inviteCode.toLowerCase().includes('trial')) {
@@ -89,7 +76,6 @@ export default function InviteBasedFlow() {
   };
 
   const getTotalBodiesWrapper = () => getTotalBodies(selectedBodies);
-  const calculatePriceWrapper = () => calculatePrice(getTotalBodiesWrapper());
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
@@ -155,36 +141,19 @@ export default function InviteBasedFlow() {
                   searchTerm={searchTerm}
                   setSearchTerm={setSearchTerm}
                   toggleLocation={toggleLocation}
-                  onNext={() => setStep(11)}
+                  onNext={() => {
+                    // Calculate and store total bodies for success page
+                    const totalBodies = getTotalBodiesWrapper();
+                    localStorage.setItem('totalBodies', totalBodies.toString());
+                    
+                    // All topics are automatically included - no need to track separately
+                    
+                    setStep(6);  // Go directly to success
+                  }}
                 />
               )}
 
-              {/* Step 11: Governing Body Selection */}
-              {step === 11 && (
-                <GoverningBodySelection
-                  selectedLocations={selectedLocations}
-                  selectedPackages={selectedPackages}
-                  selectedBodies={selectedBodies}
-                  toggleBody={toggleBody}
-                  getTotalBodies={getTotalBodiesWrapper}
-                  calculatePrice={calculatePriceWrapper}
-                  onBack={() => setStep(10)}
-                  onNext={() => setStep(12)}
-                />
-              )}
-
-              {/* Step 12: Topic Selection */}
-              {step === 12 && (
-                <TopicSelection
-                  selectedTopics={selectedTopics}
-                  toggleTopic={toggleTopic}
-                  selectedLocations={selectedLocations}
-                  getTotalBodies={getTotalBodiesWrapper}
-                  calculatePrice={calculatePriceWrapper}
-                  onBack={() => setStep(11)}
-                  onNext={() => setStep(6)}  // Skip to success page
-                />
-              )}
+              {/* Steps 11 and 12 are now obsolete - users automatically get all governing bodies and topics */}
 
               {/* Email Capture and Billing Info steps removed - now handled in InvitationStep */}
           </div>

@@ -129,7 +129,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
 
             {/* Right: Sign In Card */}
             <div className="max-w-md mx-auto w-full lg:mx-0">
-              <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+              <div className="bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden">
                 <div className="bg-gradient-to-br from-[#002147] to-[#003a6b] p-6 text-center">
                   <h2 className="text-2xl font-serif font-bold text-white mb-2">
                     Create your account
@@ -151,7 +151,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                         type="text"
                         value={inviteCode}
                         onChange={(e) => setInviteCode(e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
                         placeholder="Enter your code"
                       />
                     </div>
@@ -166,7 +166,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                         type="text"
                         value={company}
                         onChange={(e) => setCompany(e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
                         placeholder="Your company"
                       />
                     </div>
@@ -182,7 +182,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                           type="text"
                           value={firstName}
                           onChange={(e) => setFirstName(e.target.value)}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
                           placeholder="First"
                         />
                       </div>
@@ -195,7 +195,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                           type="text"
                           value={lastName}
                           onChange={(e) => setLastName(e.target.value)}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
                           placeholder="Last"
                         />
                       </div>
@@ -211,7 +211,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
                         placeholder="you@company.com"
                       />
                     </div>
@@ -226,7 +226,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
                         placeholder="Create a strong password"
                       />
                       <p className="text-xs text-gray-500 mt-1">
@@ -244,7 +244,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
                         placeholder="Re-enter your password"
                       />
                       {password && confirmPassword && password !== confirmPassword && (
@@ -257,7 +257,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                     <button
                       onClick={onInviteSubmit}
                       disabled={!inviteCode || !company || !firstName || !lastName || !email || !password || password.length < 8 || password !== confirmPassword}
-                      className={`w-full py-3.5 px-6 rounded-xl font-medium transition-all flex items-center justify-center space-x-2 shadow-md ${
+                      className={`w-full py-3.5 px-6 rounded-lg font-medium transition-all flex items-center justify-center space-x-2 shadow-md ${
                         !inviteCode || !company || !firstName || !lastName || !email || !password || password.length < 8 || password !== confirmPassword
                           ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                           : 'bg-[#002147] text-white hover:bg-[#003a6b] hover:shadow-lg'
@@ -290,8 +290,8 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 mb-16">
-          <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-            <div className="w-14 h-14 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center mb-6">
+          <div className="bg-white rounded-lg p-8 shadow-sm border border-gray-100">
+            <div className="w-14 h-14 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center mb-6">
               <Clock className="w-7 h-7 text-purple-700" />
             </div>
             <h3 className="text-xl font-serif font-bold text-gray-900 mb-3">24-hour alerts</h3>
@@ -314,8 +314,8 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
             </ul>
           </div>
 
-          <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-            <div className="w-14 h-14 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center mb-6">
+          <div className="bg-white rounded-lg p-8 shadow-sm border border-gray-100">
+            <div className="w-14 h-14 bg-gradient-to-br from-green-100 to-green-200 rounded-lg flex items-center justify-center mb-6">
               <Target className="w-7 h-7 text-green-700" />
             </div>
             <h3 className="text-xl font-serif font-bold text-gray-900 mb-3">AI-powered matching</h3>
@@ -338,8 +338,8 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
             </ul>
           </div>
 
-          <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-            <div className="w-14 h-14 bg-gradient-to-br from-amber-100 to-amber-200 rounded-xl flex items-center justify-center mb-6">
+          <div className="bg-white rounded-lg p-8 shadow-sm border border-gray-100">
+            <div className="w-14 h-14 bg-gradient-to-br from-amber-100 to-amber-200 rounded-lg flex items-center justify-center mb-6">
               <Bell className="w-7 h-7 text-amber-700" />
             </div>
             <h3 className="text-xl font-serif font-bold text-gray-900 mb-3">Multi-jurisdiction</h3>

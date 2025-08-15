@@ -74,7 +74,7 @@ export const TopicSelection: React.FC<TopicSelectionProps> = ({
                 <button
                   key={combo.id}
                   onClick={() => applyCombo(combo.topics)}
-                  className={`p-5 rounded-xl border-2 text-left transition-all ${
+                  className={`p-5 rounded-lg border-2 text-left transition-all ${
                     isActive 
                       ? 'border-purple-500 bg-purple-50' 
                       : 'border-gray-200 hover:border-gray-300 bg-white hover:shadow-sm'
@@ -100,7 +100,7 @@ export const TopicSelection: React.FC<TopicSelectionProps> = ({
               const selectedInCategory = category.topics.filter(t => selectedTopics.includes(t.id)).length;
               
               return (
-                <div key={category.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <div key={category.id} className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
                   {/* Category Header */}
                   <div className="px-6 py-5 bg-gray-50 border-b border-gray-100">
                     <div className="flex items-center justify-between">
@@ -127,7 +127,7 @@ export const TopicSelection: React.FC<TopicSelectionProps> = ({
                           <label
                             key={topic.id}
                             className={`
-                              relative rounded-xl border-2 transition-all cursor-pointer
+                              relative rounded-lg border-2 transition-all cursor-pointer
                               ${isSelected
                                 ? 'border-[#002147] bg-blue-50'
                                 : 'border-gray-200 hover:border-gray-300 bg-white'
@@ -181,7 +181,7 @@ export const TopicSelection: React.FC<TopicSelectionProps> = ({
         <div className="lg:col-span-1">
           <div className="sticky top-6 space-y-6">
             {/* Configuration Summary */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
               <h3 className="font-semibold text-gray-900 mb-4">Alert configuration</h3>
               
               {selectedTopics.length === 0 ? (
@@ -222,13 +222,13 @@ export const TopicSelection: React.FC<TopicSelectionProps> = ({
 
             {/* Example Alert Preview */}
             {selectedTopics.length > 0 && (
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-100">
                 <div className="flex items-center gap-2 mb-4">
                   <Bell className="w-5 h-5 text-[#002147]" />
                   <h4 className="font-semibold text-gray-900">Example alert preview</h4>
                 </div>
                 
-                <div className="bg-white rounded-xl p-4 shadow-sm">
+                <div className="bg-white rounded-lg p-4 shadow-sm">
                   <div className="flex items-start gap-3 mb-3">
                     <div className="w-8 h-8 bg-[#002147] rounded-lg flex items-center justify-center flex-shrink-0">
                       <Zap className="w-4 h-4 text-white" />
@@ -275,7 +275,7 @@ export const TopicSelection: React.FC<TopicSelectionProps> = ({
             )}
 
             {/* AI Matching Explainer */}
-            <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl p-6 border border-purple-100">
+            <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-lg p-6 border border-purple-100">
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 bg-white rounded-lg shadow-sm flex items-center justify-center flex-shrink-0">
                   <TrendingUp className="w-5 h-5 text-purple-600" />
@@ -294,7 +294,7 @@ export const TopicSelection: React.FC<TopicSelectionProps> = ({
               <button
                 onClick={onNext}
                 disabled={selectedTopics.length === 0}
-                className={`w-full px-8 py-4 rounded-xl font-semibold transition-all ${
+                className={`w-full px-8 py-4 rounded-lg font-semibold transition-all ${
                   selectedTopics.length === 0
                     ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                     : 'bg-[#002147] text-white hover:bg-[#003a6b] shadow-md hover:shadow-lg'

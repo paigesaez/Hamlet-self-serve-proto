@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { Search, MapPin, ChevronDown, X, Map, Navigation } from 'lucide-react';
+import { Search, MapPin, X, Check, Filter } from 'lucide-react';
 import { locations } from '../../data/locations';
 import { StepHeader } from '../shared/StepHeader';
 
@@ -18,9 +18,9 @@ export const JurisdictionSelection: React.FC<JurisdictionSelectionProps> = ({
   toggleLocation,
   onNext
 }) => {
-  const [selectedState, setSelectedState] = useState<string | null>(null);
-  const [stateDropdownOpen, setStateDropdownOpen] = useState(false);
-  const [viewMode, setViewMode] = useState<'cities' | 'packages' | 'regions'>('cities');
+  const [viewMode, setViewMode] = useState<'cities' | 'packages' | 'regions'>('packages');
+  const [stateFilter, setStateFilter] = useState<string[]>([]);
+  const [filterDropdownOpen, setFilterDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   
   // State name mapping
@@ -47,13 +47,15 @@ export const JurisdictionSelection: React.FC<JurisdictionSelectionProps> = ({
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setStateDropdownOpen(false);
+        setFilterDropdownOpen(false);
       }
     };
     
-    document.addEventListener('mousedown', handleClickOutside);
+    if (filterDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  }, [filterDropdownOpen]);
   
   // Get unique states with city counts
   const stateData = useMemo(() => {
@@ -61,37 +63,71 @@ export const JurisdictionSelection: React.FC<JurisdictionSelectionProps> = ({
       if (!acc[location.state]) {
         acc[location.state] = {
           count: 0,
-          activeCount: 0,
           selectedCount: 0
         };
       }
       acc[location.state].count++;
-      if (location.coverage === 'Active') {
-        acc[location.state].activeCount++;
-      }
       if (selectedLocations.includes(location.id)) {
         acc[location.state].selectedCount++;
       }
       return acc;
-    }, {} as Record<string, { count: number; activeCount: number; selectedCount: number }>);
+    }, {} as Record<string, { count: number; selectedCount: number }>);
     
     return Object.entries(states)
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([state, data]) => ({ state, ...data }));
   }, [selectedLocations]);
   
-  // Filter locations based on search and selected state
+  // Filter locations based on search
   const filteredLocations = useMemo(() => {
     return locations.filter(loc => {
-      const matchesSearch = loc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          loc.state.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesState = !selectedState || loc.state === selectedState;
-      return matchesSearch && matchesState;
+      return loc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+             loc.state.toLowerCase().includes(searchTerm.toLowerCase());
     });
-  }, [searchTerm, selectedState]);
+  }, [searchTerm]);
   
   // Get selected locations data
   const selectedLocationData = locations.filter(loc => selectedLocations.includes(loc.id));
+  
+  // Get selected packages info
+  const getSelectedPackagesInfo = () => {
+    const info = {
+      fullStates: [] as string[],
+      partialStates: [] as { state: string; selected: number; total: number }[],
+      regions: [] as { name: string; selected: number; total: number }[]
+    };
+    
+    // Check state packages
+    stateData.forEach(({ state, count, selectedCount }) => {
+      if (selectedCount === count && selectedCount > 0) {
+        info.fullStates.push(state);
+      } else if (selectedCount > 0) {
+        info.partialStates.push({ state, selected: selectedCount, total: count });
+      }
+    });
+    
+    // Check regional packages
+    const regions = [
+      { name: 'West Coast', states: ['CA', 'OR', 'WA'] },
+      { name: 'Southwest', states: ['AZ', 'NM', 'TX', 'NV'] },
+      { name: 'Northeast', states: ['NY', 'NJ', 'CT', 'MA', 'PA'] },
+      { name: 'Southeast', states: ['FL', 'GA', 'NC', 'SC', 'VA'] },
+      { name: 'Great Lakes', states: ['IL', 'MI', 'OH', 'WI', 'IN'] },
+      { name: 'Mountain West', states: ['CO', 'UT', 'ID', 'MT', 'WY'] }
+    ];
+    
+    regions.forEach(region => {
+      const regionLocs = locations.filter(loc => region.states.includes(loc.state));
+      const selectedInRegion = regionLocs.filter(loc => selectedLocations.includes(loc.id));
+      if (selectedInRegion.length === regionLocs.length && regionLocs.length > 0) {
+        info.regions.push({ name: region.name, selected: selectedInRegion.length, total: regionLocs.length });
+      }
+    });
+    
+    return info;
+  };
+  
+  const packageInfo = getSelectedPackagesInfo();
   
   return (
     <>
@@ -116,210 +152,158 @@ export const JurisdictionSelection: React.FC<JurisdictionSelectionProps> = ({
                   placeholder="Search cities, counties..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3.5 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
+                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                 />
               </div>
               
-              {/* State Dropdown */}
+              {/* State Filter Dropdown */}
               <div className="relative" ref={dropdownRef}>
                 <button
-                  onClick={() => setStateDropdownOpen(!stateDropdownOpen)}
-                  className="w-full sm:w-auto px-6 py-3.5 bg-white border border-gray-200 rounded-2xl hover:border-gray-300 transition-colors flex items-center justify-between gap-3 shadow-sm"
+                  onClick={() => setFilterDropdownOpen(!filterDropdownOpen)}
+                  className="w-full sm:w-auto px-4 py-3 bg-white border border-gray-300 rounded-lg hover:border-gray-400 transition-all flex items-center justify-between gap-3 min-w-[160px]"
                 >
-                  <span className="text-gray-700">
-                    {selectedState ? (
-                      <span className="flex items-center gap-2">
-                        <Navigation className="w-4 h-4 text-[#002147]" />
-                        <span className="font-medium">{selectedState}</span>
-                        <span className="text-sm text-gray-500">({stateData.find(s => s.state === selectedState)?.count} cities)</span>
-                      </span>
-                    ) : (
-                      <span className="flex items-center gap-2">
-                        <Map className="w-4 h-4 text-gray-400" />
-                        <span>All States</span>
-                      </span>
-                    )}
+                  <span className="flex items-center gap-2">
+                    <Filter className="w-4 h-4 text-gray-400" />
+                    <span className="text-gray-700">
+                      {stateFilter.length === 0 
+                        ? 'All states'
+                        : stateFilter.length === 1
+                        ? stateFilter[0]
+                        : `${stateFilter.length} states`}
+                    </span>
                   </span>
-                  <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${stateDropdownOpen ? 'rotate-180' : ''}`} />
+                  {stateFilter.length > 0 && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setStateFilter([]);
+                      }}
+                      className="text-gray-400 hover:text-gray-600"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  )}
                 </button>
                 
-                {/* Dropdown Menu */}
-                {stateDropdownOpen && (
-                  <div className="absolute z-20 mt-2 w-72 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-                    <div className="max-h-96 overflow-y-auto">
-                      {/* All States Option */}
-                      <button
-                        onClick={() => {
-                          setSelectedState(null);
-                          setStateDropdownOpen(false);
-                        }}
-                        className={`w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors flex items-center justify-between ${
-                          !selectedState ? 'bg-blue-50 text-[#002147]' : 'text-gray-700'
-                        }`}
-                      >
-                        <span className="font-medium">All States</span>
-                        <span className="text-sm text-gray-500">{locations.length} total</span>
-                      </button>
-                      
-                      <div className="border-t border-gray-100" />
-                      
-                      {/* State Options */}
-                      {stateData.map(({ state, count, activeCount, selectedCount }) => (
+                {filterDropdownOpen && (
+                  <div className="absolute z-20 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden">
+                    <div className="p-2 border-b border-gray-100">
+                      <div className="flex gap-2">
                         <button
-                          key={state}
-                          onClick={() => {
-                            setSelectedState(state);
-                            setStateDropdownOpen(false);
-                          }}
-                          className={`w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors flex items-center justify-between ${
-                            selectedState === state ? 'bg-blue-50 text-[#002147]' : 'text-gray-700'
-                          }`}
+                          onClick={() => setStateFilter(stateData.map(s => s.state))}
+                          className="flex-1 px-2 py-1 text-xs text-blue-600 hover:bg-blue-50 rounded transition-colors"
                         >
-                          <div className="flex items-center gap-3">
-                            <span className="font-medium">{getStateName(state)}</span>
-                            {selectedCount > 0 && (
-                              <span className="px-2 py-0.5 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">
-                                {selectedCount} selected
-                              </span>
-                            )}
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm text-gray-500">{count} cities</span>
-                            {activeCount === count && (
-                              <div className="w-2 h-2 bg-green-500 rounded-full" title="All active" />
-                            )}
-                          </div>
+                          Select All
                         </button>
+                        <button
+                          onClick={() => setStateFilter([])}
+                          className="flex-1 px-2 py-1 text-xs text-gray-600 hover:bg-gray-50 rounded transition-colors"
+                        >
+                          Clear
+                        </button>
+                      </div>
+                    </div>
+                    <div className="max-h-64 overflow-y-auto">
+                      {stateData.map(({ state, count }) => (
+                        <label
+                          key={state}
+                          className="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={stateFilter.includes(state)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setStateFilter([...stateFilter, state]);
+                              } else {
+                                setStateFilter(stateFilter.filter(s => s !== state));
+                              }
+                            }}
+                            className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                          />
+                          <span className="ml-2 flex-1 text-sm">{getStateName(state)}</span>
+                          <span className="text-xs text-gray-500">{count}</span>
+                        </label>
                       ))}
                     </div>
                   </div>
                 )}
               </div>
             </div>
-            
-            {/* Active Filters */}
-            {(selectedState || searchTerm) && (
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-gray-500">Active filters:</span>
-                {selectedState && (
-                  <button
-                    onClick={() => setSelectedState(null)}
-                    className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-[#002147] rounded-full text-sm font-medium hover:bg-blue-200 transition-colors"
-                  >
-                    {selectedState}
-                    <X className="w-3 h-3" />
-                  </button>
-                )}
-                {searchTerm && (
-                  <button
-                    onClick={() => setSearchTerm('')}
-                    className="inline-flex items-center gap-1 px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors"
-                  >
-                    "{searchTerm}"
-                    <X className="w-3 h-3" />
-                  </button>
-                )}
-              </div>
-            )}
           </div>
 
           {/* View Mode Tabs */}
           <div className="flex gap-2">
             <button
-              onClick={() => setViewMode('cities')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                viewMode === 'cities'
-                  ? 'bg-[#002147] text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
-            >
-              Individual Cities
-            </button>
-            <button
               onClick={() => setViewMode('packages')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+              className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
                 viewMode === 'packages'
-                  ? 'bg-[#002147] text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  ? 'bg-gray-100 text-gray-900 border border-gray-300'
+                  : 'bg-white text-gray-600 hover:bg-gray-50 border border-transparent'
               }`}
             >
-              State Packages
+              By State
             </button>
             <button
               onClick={() => setViewMode('regions')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+              className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
                 viewMode === 'regions'
-                  ? 'bg-[#002147] text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  ? 'bg-gray-100 text-gray-900 border border-gray-300'
+                  : 'bg-white text-gray-600 hover:bg-gray-50 border border-transparent'
               }`}
             >
-              Regional Packages
+              By Region
+            </button>
+            <button
+              onClick={() => setViewMode('cities')}
+              className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                viewMode === 'cities'
+                  ? 'bg-gray-100 text-gray-900 border border-gray-300'
+                  : 'bg-white text-gray-600 hover:bg-gray-50 border border-transparent'
+              }`}
+            >
+              By City
             </button>
           </div>
 
           {/* Content based on view mode */}
-          <div className="bg-gray-50 rounded-2xl p-6 max-h-[600px] overflow-y-auto">
-            {viewMode === 'cities' ? (
-              <div className="grid md:grid-cols-2 gap-3">
-                {filteredLocations.length === 0 ? (
-                  <div className="col-span-2 text-center py-12">
-                    <p className="text-gray-500">No locations found matching your criteria</p>
+          <div className="bg-white rounded-lg border border-gray-100 p-8 max-h-[600px] overflow-y-auto">
+            {viewMode === 'packages' ? (
+              <div>
+                {/* Quick actions bar */}
+                <div className="flex items-center justify-between mb-4">
+                  <p className="text-sm text-gray-500">Click states to select all their cities</p>
+                  <div className="flex gap-2">
                     <button
                       onClick={() => {
-                        setSearchTerm('');
-                        setSelectedState(null);
+                        // Select all states
+                        locations.forEach(loc => {
+                          if (!selectedLocations.includes(loc.id)) {
+                            toggleLocation(loc.id);
+                          }
+                        });
                       }}
-                      className="mt-2 text-sm text-blue-600 hover:text-blue-700 font-medium"
+                      className="px-3 py-1.5 text-xs font-medium text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                     >
-                      Clear filters
+                      Select All States
+                    </button>
+                    <button
+                      onClick={() => {
+                        // Clear all
+                        selectedLocations.forEach(id => toggleLocation(id));
+                      }}
+                      disabled={selectedLocations.length === 0}
+                      className="px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      Clear All
                     </button>
                   </div>
-                ) : (
-                  filteredLocations.map(location => (
-                    <label
-                      key={location.id}
-                      className={`
-                        relative block p-4 rounded-xl cursor-pointer transition-all
-                        ${selectedLocations.includes(location.id)
-                          ? 'bg-blue-50 border-2 border-[#002147] shadow-sm'
-                          : 'bg-white border border-gray-200 hover:border-gray-300 hover:shadow-sm'
-                        }
-                      `}
-                    >
-                      <div className="flex items-center gap-3">
-                        <input
-                          type="checkbox"
-                          checked={selectedLocations.includes(location.id)}
-                          onChange={() => toggleLocation(location.id)}
-                          className="w-5 h-5 text-[#002147] border-2 border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
-                        />
-                        <div className="flex-1">
-                          <h4 className="font-medium text-gray-900">
-                            {location.name}, {location.state}
-                          </h4>
-                          <p className="text-xs text-gray-600 mt-0.5">
-                            {location.governingBodies.length} governing {location.governingBodies.length === 1 ? 'body' : 'bodies'}
-                          </p>
-                        </div>
-                        <span className={`
-                          inline-flex items-center px-2 py-1 rounded-full text-xs font-medium
-                          ${location.coverage === 'Active' 
-                            ? 'bg-green-100 text-green-700'
-                            : location.coverage === 'Available'
-                            ? 'bg-blue-100 text-blue-700'
-                            : 'bg-orange-100 text-orange-700'
-                          }
-                        `}>
-                          {location.coverage}
-                        </span>
-                      </div>
-                    </label>
-                  ))
-                )}
-              </div>
-            ) : viewMode === 'packages' ? (
-              <div className="grid gap-4">
-                {stateData.map(({ state, count, activeCount, selectedCount }) => {
+                </div>
+                {/* State Grid - 2 columns for better space usage */}
+                <div className="grid md:grid-cols-2 gap-3">
+                {stateData
+                  .filter(({ state }) => stateFilter.length === 0 || stateFilter.includes(state))
+                  .map(({ state, count, selectedCount }) => {
                   const stateLocations = locations.filter(loc => loc.state === state);
                   const allSelected = stateLocations.every(loc => selectedLocations.includes(loc.id));
                   const someSelected = selectedCount > 0 && !allSelected;
@@ -327,57 +311,58 @@ export const JurisdictionSelection: React.FC<JurisdictionSelectionProps> = ({
                   return (
                     <div
                       key={state}
+                      onClick={() => {
+                        if (allSelected) {
+                          // Deselect all
+                          stateLocations.forEach(loc => {
+                            if (selectedLocations.includes(loc.id)) {
+                              toggleLocation(loc.id);
+                            }
+                          });
+                        } else {
+                          // Select all
+                          stateLocations.forEach(loc => {
+                            if (!selectedLocations.includes(loc.id)) {
+                              toggleLocation(loc.id);
+                            }
+                          });
+                        }
+                      }}
                       className={`
-                        p-5 rounded-xl border-2 transition-all
+                        p-4 rounded-lg border transition-all cursor-pointer
                         ${allSelected 
-                          ? 'bg-blue-50 border-[#002147]' 
+                          ? 'border-blue-500 bg-blue-50' 
                           : someSelected
-                          ? 'bg-gray-50 border-gray-300'
-                          : 'bg-white border-gray-200 hover:border-gray-300'
+                          ? 'border-blue-300 bg-blue-50/50'
+                          : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
                         }
                       `}
                     >
                       <div className="flex items-center justify-between">
-                        <div>
-                          <h3 className="text-lg font-semibold text-gray-900">
-                            {getStateName(state)} Package
+                        <div className="min-w-0 flex-1">
+                          <h3 className="font-medium text-gray-900 truncate">
+                            {getStateName(state)}
                           </h3>
-                          <p className="text-sm text-gray-600 mt-1">
-                            {count} cities • {activeCount} actively monitored
+                          <p className="text-xs text-gray-500 mt-0.5">
+                            {count} {count === 1 ? 'city' : 'cities'}
                           </p>
                         </div>
-                        <button
-                          onClick={() => {
-                            if (allSelected) {
-                              // Deselect all
-                              stateLocations.forEach(loc => {
-                                if (selectedLocations.includes(loc.id)) {
-                                  toggleLocation(loc.id);
-                                }
-                              });
-                            } else {
-                              // Select all
-                              stateLocations.forEach(loc => {
-                                if (!selectedLocations.includes(loc.id)) {
-                                  toggleLocation(loc.id);
-                                }
-                              });
-                            }
-                          }}
-                          className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                            allSelected
-                              ? 'bg-[#002147] text-white hover:bg-[#003a6b]'
-                              : 'bg-white text-[#002147] border border-[#002147] hover:bg-blue-50'
-                          }`}
-                        >
-                          {allSelected ? 'Selected' : someSelected ? `Select All (${selectedCount}/${count})` : 'Select Package'}
-                        </button>
+                        <div className={`text-xs font-medium ml-2 ${
+                          allSelected
+                            ? 'text-blue-600'
+                            : someSelected 
+                            ? 'text-blue-600'
+                            : 'text-gray-400'
+                        }`}>
+                          {allSelected ? '✓' : someSelected ? `${selectedCount}/${count}` : ''}
+                        </div>
                       </div>
                     </div>
                   );
                 })}
+                </div>
               </div>
-            ) : (
+            ) : viewMode === 'regions' ? (
               // Regional Packages View
               <div className="grid gap-4">
                 {[
@@ -417,16 +402,36 @@ export const JurisdictionSelection: React.FC<JurisdictionSelectionProps> = ({
                   const allSelected = regionLocations.length > 0 && regionLocations.every(loc => selectedLocations.includes(loc.id));
                   const someSelected = selectedInRegion.length > 0 && !allSelected;
                   
+                  // Skip regions with no monitored cities
+                  if (regionLocations.length === 0) return null;
+                  
                   return (
                     <div
                       key={region.name}
+                      onClick={() => {
+                        if (allSelected) {
+                          // Deselect all
+                          regionLocations.forEach(loc => {
+                            if (selectedLocations.includes(loc.id)) {
+                              toggleLocation(loc.id);
+                            }
+                          });
+                        } else {
+                          // Select all
+                          regionLocations.forEach(loc => {
+                            if (!selectedLocations.includes(loc.id)) {
+                              toggleLocation(loc.id);
+                            }
+                          });
+                        }
+                      }}
                       className={`
-                        p-5 rounded-xl border-2 transition-all
+                        p-6 rounded-lg border transition-all cursor-pointer
                         ${allSelected 
-                          ? 'bg-blue-50 border-[#002147]' 
+                          ? 'border-blue-500 bg-blue-50' 
                           : someSelected
-                          ? 'bg-gray-50 border-gray-300'
-                          : 'bg-white border-gray-200 hover:border-gray-300'
+                          ? 'border-blue-300 bg-blue-50/50'
+                          : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
                         }
                       `}
                     >
@@ -436,42 +441,77 @@ export const JurisdictionSelection: React.FC<JurisdictionSelectionProps> = ({
                             {region.name}
                           </h3>
                           <p className="text-sm text-gray-600 mt-1">
-                            {region.description}
+                            {/* Only show states we actually monitor */}
+                            {region.states.filter(s => locations.some(loc => loc.state === s))
+                              .map(s => getStateName(s)).join(', ')}
                           </p>
                           <p className="text-sm text-gray-500 mt-0.5">
-                            {regionLocations.length} cities total
+                            {regionLocations.length} {regionLocations.length === 1 ? 'city' : 'cities'} • City Council, Planning Commission
                           </p>
                         </div>
-                        <button
-                          onClick={() => {
-                            if (allSelected) {
-                              // Deselect all
-                              regionLocations.forEach(loc => {
-                                if (selectedLocations.includes(loc.id)) {
-                                  toggleLocation(loc.id);
-                                }
-                              });
-                            } else {
-                              // Select all
-                              regionLocations.forEach(loc => {
-                                if (!selectedLocations.includes(loc.id)) {
-                                  toggleLocation(loc.id);
-                                }
-                              });
-                            }
-                          }}
-                          className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                            allSelected
-                              ? 'bg-[#002147] text-white hover:bg-[#003a6b]'
-                              : 'bg-white text-[#002147] border border-[#002147] hover:bg-blue-50'
-                          }`}
-                        >
-                          {allSelected ? 'Selected' : someSelected ? `Partial (${selectedInRegion.length}/${regionLocations.length})` : 'Select Region'}
-                        </button>
+                        <div className={`text-sm font-medium ${
+                          allSelected
+                            ? 'text-blue-600'
+                            : someSelected 
+                            ? 'text-blue-600'
+                            : 'text-gray-500'
+                        }`}>
+                          {allSelected ? '✓ Selected' : someSelected ? `${selectedInRegion.length}/${regionLocations.length} selected` : 'Select all'}
+                        </div>
                       </div>
                     </div>
                   );
-                })}
+                }).filter(Boolean)}
+              </div>
+            ) : (
+              // Individual Cities View
+              <div className="grid md:grid-cols-2 gap-3">
+                {filteredLocations.length === 0 ? (
+                  <div className="col-span-2 text-center py-12">
+                    <p className="text-gray-500">No locations found matching your criteria</p>
+                    <button
+                      onClick={() => {
+                        setSearchTerm('');
+                        setSelectedState(null);
+                      }}
+                      className="mt-2 text-sm text-blue-600 hover:text-blue-700 font-medium"
+                    >
+                      Clear filters
+                    </button>
+                  </div>
+                ) : (
+                  filteredLocations.map(location => (
+                    <div
+                      key={location.id}
+                      onClick={() => toggleLocation(location.id)}
+                      className={`
+                        block p-4 rounded-lg cursor-pointer transition-all border
+                        ${selectedLocations.includes(location.id)
+                          ? 'border-blue-500 bg-blue-50'
+                          : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                        }
+                      `}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex-1">
+                          <h4 className="font-medium text-gray-900">
+                            {location.name}, {location.state}
+                          </h4>
+                          <p className="text-xs text-gray-600 mt-0.5">
+                            City Council, Planning Commission
+                          </p>
+                        </div>
+                        <div className={`text-xs font-medium ${
+                          selectedLocations.includes(location.id)
+                            ? 'text-blue-600'
+                            : 'text-gray-500'
+                        }`}>
+                          {selectedLocations.includes(location.id) ? '✓ Selected' : 'Select'}
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
             )}
           </div>
@@ -481,7 +521,7 @@ export const JurisdictionSelection: React.FC<JurisdictionSelectionProps> = ({
         <div className="lg:col-span-1">
           <div className="sticky top-6 space-y-6">
             {/* Selection Summary */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <div className="bg-white rounded-lg border border-gray-200 p-5">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-semibold text-gray-900">Your selection</h3>
                 {selectedLocations.length > 0 && (
@@ -505,11 +545,11 @@ export const JurisdictionSelection: React.FC<JurisdictionSelectionProps> = ({
                   {/* Summary stats */}
                   <div className="grid grid-cols-2 gap-3 pb-3 border-b border-gray-100">
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-[#002147]">{selectedLocations.length}</p>
+                      <p className="text-2xl font-bold text-blue-600">{selectedLocations.length}</p>
                       <p className="text-xs text-gray-600">Cities</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-[#002147]">
+                      <p className="text-2xl font-bold text-blue-600">
                         {Object.keys(selectedLocationData.reduce((acc, loc) => {
                           acc[loc.state] = true;
                           return acc;
@@ -519,55 +559,119 @@ export const JurisdictionSelection: React.FC<JurisdictionSelectionProps> = ({
                     </div>
                   </div>
                   
-                  {/* Selected locations list */}
-                  <div className="max-h-[300px] overflow-y-auto space-y-2">
-                    {selectedLocationData.map(location => (
-                      <div key={location.id} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
-                        <span className="text-sm text-gray-700">
-                          {location.name}, {location.state}
-                        </span>
-                        <button
-                          onClick={() => toggleLocation(location.id)}
-                          className="text-gray-400 hover:text-gray-600"
-                        >
-                          <X className="w-4 h-4" />
-                        </button>
+                  {/* Package Summary */}
+                  <div className="space-y-2">
+                    {/* Full states */}
+                    {packageInfo.fullStates.length > 0 && (
+                      <div className="space-y-1">
+                        <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">Complete States</p>
+                        {packageInfo.fullStates.map(state => (
+                          <div key={state} className="flex items-center justify-between p-2 bg-blue-50 rounded-md border border-blue-200">
+                            <span className="text-sm font-medium text-gray-900">
+                              {getStateName(state)} (Complete)
+                            </span>
+                            <span className="text-xs text-gray-500">
+                              {stateData.find(s => s.state === state)?.count} cities
+                            </span>
+                          </div>
+                        ))}
                       </div>
-                    ))}
+                    )}
+                    
+                    {/* Complete regions */}
+                    {packageInfo.regions.length > 0 && (
+                      <div className="space-y-1">
+                        <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">Complete Regions</p>
+                        {packageInfo.regions.map(region => (
+                          <div key={region.name} className="flex items-center justify-between p-2 bg-purple-50 rounded-md border border-purple-200">
+                            <span className="text-sm font-medium text-gray-900">
+                              {region.name}
+                            </span>
+                            <span className="text-xs text-gray-500">
+                              {region.total} cities
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    
+                    {/* Partial states */}
+                    {packageInfo.partialStates.length > 0 && (
+                      <div className="space-y-1">
+                        <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">Partial Selections</p>
+                        {packageInfo.partialStates.map(({ state, selected, total }) => (
+                          <div key={state} className="flex items-center justify-between p-2 bg-gray-50 rounded-md">
+                            <span className="text-sm text-gray-700">
+                              {getStateName(state)}
+                            </span>
+                            <span className="text-xs text-gray-500">
+                              {selected} of {total}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    
+                    {/* Individual cities (only show if not part of packages) */}
+                    {viewMode === 'cities' && (
+                      <div className="space-y-1">
+                        <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">Individual Cities</p>
+                        <div className="max-h-[150px] overflow-y-auto space-y-1">
+                          {selectedLocationData
+                            .filter(loc => {
+                              const stateInfo = stateData.find(s => s.state === loc.state);
+                              return stateInfo && stateInfo.selectedCount < stateInfo.count;
+                            })
+                            .map(location => (
+                              <div key={location.id} className="flex items-center justify-between p-2 bg-gray-50 rounded-md">
+                                <span className="text-sm text-gray-700">
+                                  {location.name}, {location.state}
+                                </span>
+                                <button
+                                  onClick={() => toggleLocation(location.id)}
+                                  className="text-gray-400 hover:text-gray-600"
+                                >
+                                  <X className="w-3 h-3" />
+                                </button>
+                              </div>
+                            ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
             </div>
 
-            {/* What's next */}
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
-              <h4 className="font-semibold text-gray-900 mb-3">What happens next?</h4>
+            {/* What's included */}
+            <div className="bg-white rounded-lg border border-gray-100 p-6">
+              <h4 className="font-semibold text-gray-900 mb-3">What's included</h4>
               <div className="space-y-3 text-sm">
                 <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-xs font-bold text-[#002147]">1</span>
+                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-xs">✓</span>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">Configure monitoring</p>
-                    <p className="text-gray-600 text-xs mt-0.5">City Council + optional Planning Commission</p>
+                    <p className="font-medium text-gray-900">City Council & Planning Commission</p>
+                    <p className="text-gray-600 text-xs mt-0.5">Both bodies monitored for every city</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-xs font-bold text-[#002147]">2</span>
+                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-xs">✓</span>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">Select topics</p>
-                    <p className="text-gray-600 text-xs mt-0.5">Choose development types to track</p>
+                    <p className="font-medium text-gray-900">All development topics</p>
+                    <p className="text-gray-600 text-xs mt-0.5">Housing, commercial, industrial & more</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-xs font-bold text-[#002147]">3</span>
+                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-xs">✓</span>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">Start monitoring</p>
-                    <p className="text-gray-600 text-xs mt-0.5">Receive alerts within 24 hours</p>
+                    <p className="font-medium text-gray-900">Instant activation</p>
+                    <p className="text-gray-600 text-xs mt-0.5">Start receiving alerts within 24 hours</p>
                   </div>
                 </div>
               </div>
@@ -578,13 +682,13 @@ export const JurisdictionSelection: React.FC<JurisdictionSelectionProps> = ({
               <button
                 onClick={onNext}
                 disabled={selectedLocations.length === 0}
-                className={`w-full px-8 py-4 rounded-xl font-semibold transition-all ${
+                className={`w-full py-3.5 px-6 rounded-lg font-medium transition-all flex items-center justify-center ${
                   selectedLocations.length === 0
                     ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                    : 'bg-[#002147] text-white hover:bg-[#003a6b] shadow-md hover:shadow-lg'
+                    : 'bg-[#002147] text-white hover:bg-[#003a6b]'
                 }`}
               >
-                Continue to Governing Bodies
+                Complete Setup
               </button>
             </div>
           </div>

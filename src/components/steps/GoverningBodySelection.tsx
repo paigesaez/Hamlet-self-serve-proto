@@ -89,12 +89,12 @@ export const GoverningBodySelection: React.FC<GoverningBodySelectionProps> = ({
         {/* Left side - Configuration (2 cols) */}
         <div className="lg:col-span-2 space-y-6">
           {/* Visual representation of the choice */}
-          <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8">
+          <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-8">
             <div className="grid md:grid-cols-2 gap-6">
               {/* Base Package */}
-              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+              <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-14 h-14 bg-gradient-to-br from-[#002147] to-[#003a6b] rounded-xl flex items-center justify-center shadow-sm">
+                  <div className="w-14 h-14 bg-gradient-to-br from-[#002147] to-[#003a6b] rounded-lg flex items-center justify-center shadow-sm">
                     <Building className="w-7 h-7 text-white" />
                   </div>
                   <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
@@ -121,13 +121,13 @@ export const GoverningBodySelection: React.FC<GoverningBodySelectionProps> = ({
               </div>
 
               {/* Optional Add-on */}
-              <div className={`rounded-xl p-6 shadow-sm border-2 transition-all ${
+              <div className={`rounded-lg p-6 shadow-sm border-2 transition-all ${
                 addPlanningCommission 
                   ? 'bg-purple-50 border-purple-500' 
                   : 'bg-white border-gray-200'
               }`}>
                 <div className="flex items-center justify-between mb-4">
-                  <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-sm transition-all ${
+                  <div className={`w-14 h-14 rounded-lg flex items-center justify-center shadow-sm transition-all ${
                     addPlanningCommission 
                       ? 'bg-gradient-to-br from-purple-500 to-purple-600' 
                       : 'bg-gray-100'
@@ -186,7 +186,7 @@ export const GoverningBodySelection: React.FC<GoverningBodySelectionProps> = ({
           </div>
 
           {/* Visual flow diagram */}
-          <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+          <div className="bg-white rounded-lg p-8 shadow-sm border border-gray-100">
             <h3 className="font-semibold text-gray-900 mb-6">How the approval process works</h3>
             <div className="relative">
               <div className="absolute top-8 left-8 right-8 h-0.5 bg-gray-200"></div>
@@ -222,7 +222,7 @@ export const GoverningBodySelection: React.FC<GoverningBodySelectionProps> = ({
             </div>
             
             {!addPlanningCommission && (
-              <div className="mt-6 p-4 bg-amber-50 rounded-xl border border-amber-200">
+              <div className="mt-6 p-4 bg-amber-50 rounded-lg border border-amber-200">
                 <p className="text-sm text-amber-800">
                   <strong>Without Planning Commission monitoring</strong>, you'll only learn about projects when they reach City Council for final approval.
                 </p>
@@ -235,7 +235,7 @@ export const GoverningBodySelection: React.FC<GoverningBodySelectionProps> = ({
         <div className="lg:col-span-1">
           <div className="sticky top-6 space-y-6">
             {/* Configuration Summary */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
               <h3 className="font-semibold text-gray-900 mb-4">Your configuration</h3>
               
               <div className="space-y-4">
@@ -295,7 +295,7 @@ export const GoverningBodySelection: React.FC<GoverningBodySelectionProps> = ({
             </div>
 
             {/* Why Planning Commission? */}
-            <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-100">
+            <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg p-6 border border-amber-100">
               <div className="flex items-start gap-3">
                 <Info className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
                 <div>
@@ -314,7 +314,7 @@ export const GoverningBodySelection: React.FC<GoverningBodySelectionProps> = ({
             <div className="space-y-3">
               <button
                 onClick={onNext}
-                className="w-full px-8 py-4 rounded-xl font-semibold bg-[#002147] text-white hover:bg-[#003a6b] shadow-md hover:shadow-lg transition-all"
+                className="w-full px-8 py-4 rounded-lg font-semibold bg-[#002147] text-white hover:bg-[#003a6b] shadow-md hover:shadow-lg transition-all"
               >
                 Continue to Topics
               </button>

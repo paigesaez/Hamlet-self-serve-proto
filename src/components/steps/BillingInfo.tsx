@@ -23,7 +23,7 @@ export const BillingInfo: React.FC<BillingInfoProps> = ({
     <div className="grid lg:grid-cols-5 gap-8">
       {/* Left: Form */}
       <div className="lg:col-span-3">
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
+        <div className="bg-white rounded-lg shadow-lg border border-gray-100 p-8">
           <h3 className="font-serif font-bold text-gray-900 mb-6">Billing information</h3>
           
           <div className="space-y-6">
@@ -37,7 +37,7 @@ export const BillingInfo: React.FC<BillingInfoProps> = ({
                   type="text"
                   value={billingInfo.firstName}
                   onChange={(e) => setBillingInfo(prev => ({ ...prev, firstName: e.target.value }))}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
               <div>
@@ -48,7 +48,7 @@ export const BillingInfo: React.FC<BillingInfoProps> = ({
                   type="text"
                   value={billingInfo.lastName}
                   onChange={(e) => setBillingInfo(prev => ({ ...prev, lastName: e.target.value }))}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
             </div>
@@ -62,7 +62,7 @@ export const BillingInfo: React.FC<BillingInfoProps> = ({
                 type="text"
                 value={billingInfo.company}
                 onChange={(e) => setBillingInfo(prev => ({ ...prev, company: e.target.value }))}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
 
@@ -75,7 +75,7 @@ export const BillingInfo: React.FC<BillingInfoProps> = ({
                 type="tel"
                 value={billingInfo.phone}
                 onChange={(e) => setBillingInfo(prev => ({ ...prev, phone: e.target.value }))}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="(555) 000-0000"
               />
             </div>
@@ -92,7 +92,7 @@ export const BillingInfo: React.FC<BillingInfoProps> = ({
                   type="text"
                   value={billingInfo.cardNumber}
                   onChange={(e) => setBillingInfo(prev => ({ ...prev, cardNumber: e.target.value }))}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="1234 5678 9012 3456"
                 />
               </div>
@@ -107,7 +107,7 @@ export const BillingInfo: React.FC<BillingInfoProps> = ({
                     type="text"
                     value={billingInfo.expiryDate}
                     onChange={(e) => setBillingInfo(prev => ({ ...prev, expiryDate: e.target.value }))}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="MM/YY"
                   />
                 </div>
@@ -119,7 +119,7 @@ export const BillingInfo: React.FC<BillingInfoProps> = ({
                     type="text"
                     value={billingInfo.cvv}
                     onChange={(e) => setBillingInfo(prev => ({ ...prev, cvv: e.target.value }))}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="123"
                   />
                 </div>
@@ -127,7 +127,7 @@ export const BillingInfo: React.FC<BillingInfoProps> = ({
             </div>
 
             {/* Security Badge */}
-            <div className="bg-gray-50 rounded-xl p-4 flex items-center space-x-3">
+            <div className="bg-gray-50 rounded-lg p-4 flex items-center space-x-3">
               <Shield className="w-5 h-5 text-gray-400" />
               <p className="text-sm text-gray-600">
                 Your payment info is encrypted and secure. We never store card details.
@@ -139,7 +139,7 @@ export const BillingInfo: React.FC<BillingInfoProps> = ({
 
       {/* Right: Summary */}
       <div className="lg:col-span-2">
-        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 border border-indigo-100 sticky top-6">
+        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-6 border border-indigo-100 sticky top-6">
           <h3 className="font-serif font-bold text-gray-900 mb-4">Order summary</h3>
           
           <div className="space-y-3 mb-6">
@@ -161,7 +161,7 @@ export const BillingInfo: React.FC<BillingInfoProps> = ({
             </div>
           </div>
 
-          <div className="bg-white/80 rounded-xl p-4 space-y-2 mb-6">
+          <div className="bg-white/80 rounded-lg p-4 space-y-2 mb-6">
             <div className="flex items-center space-x-2 text-sm">
               <DollarSign className="w-4 h-4 text-green-600" />
               <span className="text-gray-700">Cancel anytime</span>
@@ -181,7 +181,7 @@ export const BillingInfo: React.FC<BillingInfoProps> = ({
             <button
               onClick={onNext}
               disabled={!billingInfo.firstName || !billingInfo.lastName || !billingInfo.company || !billingInfo.cardNumber}
-              className={`w-full px-8 py-4 rounded-xl font-semibold transition-all ${
+              className={`w-full px-8 py-4 rounded-lg font-semibold transition-all ${
                 !billingInfo.firstName || !billingInfo.lastName || !billingInfo.company || !billingInfo.cardNumber
                   ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                   : 'bg-[#002147] text-white hover:bg-[#003a6b] shadow-md hover:shadow-lg'

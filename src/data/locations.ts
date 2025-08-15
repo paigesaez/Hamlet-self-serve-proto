@@ -78,7 +78,7 @@ export const locations: Location[] = [
     state: 'CA', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission'], 
     customerDemand: 'Low' 
   },
@@ -98,7 +98,7 @@ export const locations: Location[] = [
     state: 'CA', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission'], 
     customerDemand: 'Medium' 
   },
@@ -170,7 +170,7 @@ export const locations: Location[] = [
     state: 'TX', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission', 'Zoning Commission'], 
     customerDemand: 'Medium' 
   },
@@ -180,7 +180,7 @@ export const locations: Location[] = [
     state: 'TX', 
     type: 'city', 
     popular: false, 
-    coverage: 'On Request',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission'], 
     customerDemand: 'Low' 
   },
@@ -190,7 +190,7 @@ export const locations: Location[] = [
     state: 'TX', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning and Zoning Commission'], 
     customerDemand: 'Medium' 
   },
@@ -242,7 +242,7 @@ export const locations: Location[] = [
     state: 'FL', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission'], 
     customerDemand: 'Medium' 
   },
@@ -262,7 +262,7 @@ export const locations: Location[] = [
     state: 'FL', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission'], 
     customerDemand: 'Low' 
   },
@@ -284,7 +284,7 @@ export const locations: Location[] = [
     state: 'NY', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['Common Council', 'Planning Board', 'Zoning Board of Appeals'], 
     customerDemand: 'Low' 
   },
@@ -294,7 +294,7 @@ export const locations: Location[] = [
     state: 'NY', 
     type: 'city', 
     popular: false, 
-    coverage: 'On Request',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission'], 
     customerDemand: 'Low' 
   },
@@ -304,7 +304,7 @@ export const locations: Location[] = [
     state: 'NY', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['Common Council', 'Planning Board', 'Board of Zoning Appeals'], 
     customerDemand: 'Low' 
   },
@@ -326,7 +326,7 @@ export const locations: Location[] = [
     state: 'IL', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission'], 
     customerDemand: 'Low' 
   },
@@ -378,7 +378,7 @@ export const locations: Location[] = [
     state: 'AZ', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning and Zoning Board'], 
     customerDemand: 'Medium' 
   },
@@ -410,7 +410,7 @@ export const locations: Location[] = [
     state: 'CO', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission'], 
     customerDemand: 'Medium' 
   },
@@ -452,7 +452,7 @@ export const locations: Location[] = [
     state: 'WA', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission'], 
     customerDemand: 'Medium' 
   },
@@ -462,7 +462,7 @@ export const locations: Location[] = [
     state: 'WA', 
     type: 'city', 
     popular: false, 
-    coverage: 'On Request',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Plan Commission'], 
     customerDemand: 'Low' 
   },
@@ -484,7 +484,7 @@ export const locations: Location[] = [
     state: 'GA', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission'], 
     customerDemand: 'Low' 
   },
@@ -494,7 +494,7 @@ export const locations: Location[] = [
     state: 'GA', 
     type: 'city', 
     popular: false, 
-    coverage: 'On Request',
+    coverage: 'Active',
     governingBodies: ['Commission', 'Planning Commission'], 
     customerDemand: 'Low' 
   },
@@ -536,7 +536,7 @@ export const locations: Location[] = [
     state: 'NC', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Board'], 
     customerDemand: 'Low' 
   },
@@ -558,7 +558,7 @@ export const locations: Location[] = [
     state: 'TN', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission'], 
     customerDemand: 'Medium' 
   },
@@ -568,7 +568,7 @@ export const locations: Location[] = [
     state: 'TN', 
     type: 'city', 
     popular: false, 
-    coverage: 'On Request',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission'], 
     customerDemand: 'Low' 
   },
@@ -600,7 +600,7 @@ export const locations: Location[] = [
     state: 'MA', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Board'], 
     customerDemand: 'Low' 
   },
@@ -632,7 +632,7 @@ export const locations: Location[] = [
     state: 'PA', 
     type: 'city', 
     popular: false, 
-    coverage: 'On Request',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission'], 
     customerDemand: 'Low' 
   },
@@ -654,7 +654,7 @@ export const locations: Location[] = [
     state: 'OH', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'City Planning Commission'], 
     customerDemand: 'Medium' 
   },
@@ -664,7 +664,7 @@ export const locations: Location[] = [
     state: 'OH', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission'], 
     customerDemand: 'Medium' 
   },
@@ -676,7 +676,7 @@ export const locations: Location[] = [
     state: 'MI', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission', 'Board of Zoning Appeals'], 
     customerDemand: 'Medium' 
   },
@@ -686,7 +686,7 @@ export const locations: Location[] = [
     state: 'MI', 
     type: 'city', 
     popular: false, 
-    coverage: 'On Request',
+    coverage: 'Active',
     governingBodies: ['City Commission', 'Planning Commission'], 
     customerDemand: 'Low' 
   },
@@ -708,7 +708,7 @@ export const locations: Location[] = [
     state: 'VA', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission'], 
     customerDemand: 'Medium' 
   },
@@ -760,7 +760,7 @@ export const locations: Location[] = [
     state: 'OR', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission'], 
     customerDemand: 'Low' 
   },
@@ -770,7 +770,7 @@ export const locations: Location[] = [
     state: 'OR', 
     type: 'city', 
     popular: false, 
-    coverage: 'On Request',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission'], 
     customerDemand: 'Low' 
   },
@@ -802,7 +802,7 @@ export const locations: Location[] = [
     state: 'NV', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission'], 
     customerDemand: 'Medium' 
   },
@@ -824,7 +824,7 @@ export const locations: Location[] = [
     state: 'UT', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission'], 
     customerDemand: 'Low' 
   },
@@ -868,7 +868,7 @@ export const locations: Location[] = [
     state: 'MO', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'City Plan Commission', 'Board of Zoning Adjustment'], 
     customerDemand: 'Medium' 
   },
@@ -878,7 +878,7 @@ export const locations: Location[] = [
     state: 'MO', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['Board of Aldermen', 'Planning Commission', 'Board of Adjustment'], 
     customerDemand: 'Medium' 
   },
@@ -912,7 +912,7 @@ export const locations: Location[] = [
     state: 'WI', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['Common Council', 'City Plan Commission', 'Board of Zoning Appeals'], 
     customerDemand: 'Medium' 
   },
@@ -934,7 +934,7 @@ export const locations: Location[] = [
     state: 'IN', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City-County Council', 'Metropolitan Development Commission', 'Board of Zoning Appeals'], 
     customerDemand: 'Medium' 
   },
@@ -946,7 +946,7 @@ export const locations: Location[] = [
     state: 'CT', 
     type: 'city', 
     popular: false, 
-    coverage: 'On Request',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning and Zoning Commission'], 
     customerDemand: 'Low' 
   },
@@ -968,7 +968,7 @@ export const locations: Location[] = [
     state: 'NJ', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['Municipal Council', 'Planning Board', 'Zoning Board of Adjustment'], 
     customerDemand: 'Medium' 
   },
@@ -990,7 +990,7 @@ export const locations: Location[] = [
     state: 'HI', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission', 'Zoning Board of Appeals'], 
     customerDemand: 'Medium' 
   },
@@ -1002,7 +1002,7 @@ export const locations: Location[] = [
     state: 'AK', 
     type: 'city', 
     popular: false, 
-    coverage: 'On Request',
+    coverage: 'Active',
     governingBodies: ['Assembly', 'Planning and Zoning Commission'], 
     customerDemand: 'Low' 
   },
@@ -1014,7 +1014,7 @@ export const locations: Location[] = [
     state: 'LA', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'City Planning Commission', 'Board of Zoning Adjustments'], 
     customerDemand: 'Medium' 
   },
@@ -1026,7 +1026,7 @@ export const locations: Location[] = [
     state: 'KY', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['Metro Council', 'Planning Commission', 'Board of Zoning Adjustment'], 
     customerDemand: 'Medium' 
   },
@@ -1038,7 +1038,7 @@ export const locations: Location[] = [
     state: 'OK', 
     type: 'city', 
     popular: false, 
-    coverage: 'On Request',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission'], 
     customerDemand: 'Low' 
   },
@@ -1048,7 +1048,7 @@ export const locations: Location[] = [
     state: 'OK', 
     type: 'city', 
     popular: false, 
-    coverage: 'Available',
+    coverage: 'Active',
     governingBodies: ['City Council', 'Planning Commission', 'Board of Adjustment'], 
     customerDemand: 'Medium' 
   },
