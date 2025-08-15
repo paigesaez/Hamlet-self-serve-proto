@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { locations } from './data/locations';
 
 // Import all step components
 import { InvitationStep } from './components/steps/InvitationStep';
@@ -12,65 +11,63 @@ import { JurisdictionSelection } from './components/steps/JurisdictionSelection'
 // Import shared components
 import { TopNavigation } from './components/shared/TopNavigation';
 
+// Import custom hooks
+import { useInvitationForm } from './hooks/useInvitationForm';
+import { useLocationSelection } from './hooks/useLocationSelection';
+
+// Flow step constants for better readability and maintenance
+const FLOW_STEPS = {
+  INVITATION: 1,
+  INVALID_CODE: 3,
+  REQUEST_ACCESS: 4,
+  SUCCESS: 6,
+  REQUEST_SUBMITTED: 7,
+  JURISDICTION_SELECTION: 10,
+} as const;
+
 export default function InviteBasedFlow() {
-  const [step, setStep] = useState(1);
-  const [selectedLocations, setSelectedLocations] = useState<number[]>([]);
-  // selectedPackages removed - not used in simplified flow
-  const [selectedBodies, setSelectedBodies] = useState<Record<string, string[]>>({});
-  // selectedTopics state removed - all topics are automatically included
-  const [searchTerm, setSearchTerm] = useState('');
-  const [inviteCode, setInviteCode] = useState('DEMO2024');
-  const [company, setCompany] = useState('Acme Development Group');
-  const [firstName, setFirstName] = useState('John');
-  const [lastName, setLastName] = useState('Smith');
-  const [email, setEmail] = useState('john.smith@acmedev.com');
-  const [password, setPassword] = useState('SecurePass123');
-  const [confirmPassword, setConfirmPassword] = useState('SecurePass123');
+  const [step, setStep] = useState(FLOW_STEPS.INVITATION);
+  
+  // Use the custom hook for location selection
+  const {
+    selectedLocations,
+    selectedBodies,
+    searchTerm,
+    setSearchTerm,
+    toggleLocation,
+    resetLocationSelection,
+  } = useLocationSelection();
+  
+  // Use the custom hook for invitation form state
+  const {
+    inviteCode,
+    setInviteCode,
+    company,
+    setCompany,
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    confirmPassword,
+    setConfirmPassword,
+    resetInvitationForm,
+  } = useInvitationForm();
 
   const resetFlow = () => {
-    setStep(1);
-    setSelectedLocations([]);
-    // selectedPackages reset removed
-    setSelectedBodies({});
-    // selectedTopics reset removed
-    setSearchTerm('');
-    setInviteCode('');
-    setCompany('');
-    setFirstName('');
-    setLastName('');
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
+    setStep(FLOW_STEPS.INVITATION);
+    resetLocationSelection(); // Use the hook's reset function
+    resetInvitationForm(); // Use the hook's reset function
   };
-
-  const toggleLocation = (locationId: number) => {
-    if (selectedLocations.includes(locationId)) {
-      setSelectedLocations(prev => prev.filter(id => id !== locationId));
-      setSelectedBodies(prev => {
-        const updated = { ...prev };
-        delete updated[locationId];
-        return updated;
-      });
-    } else {
-      setSelectedLocations(prev => [...prev, locationId]);
-      const location = locations.find(l => l.id === locationId);
-      // Automatically select all governing bodies for the location
-      setSelectedBodies(prev => ({
-        ...prev,
-        [locationId]: location?.governingBodies || ['City Council']
-      }));
-    }
-  };
-
-  // Package selection functionality removed - not used in current flow
-
-  // toggleBody and toggleTopic removed - all bodies and topics are automatically included
 
   const handleInviteSubmit = () => {
     if (inviteCode.toLowerCase().includes('demo') || inviteCode.toLowerCase().includes('trial')) {
-      setStep(10);
+      setStep(FLOW_STEPS.JURISDICTION_SELECTION);
     } else {
-      setStep(3);
+      setStep(FLOW_STEPS.INVALID_CODE);
     }
   };
 
@@ -78,10 +75,10 @@ export default function InviteBasedFlow() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Only show TopNavigation when not on landing page */}
-      {step !== 1 && <TopNavigation step={step} resetFlow={resetFlow} setStep={setStep} />}
+      {step !== FLOW_STEPS.INVITATION && <TopNavigation step={step} resetFlow={resetFlow} setStep={setStep} />}
 
       {/* Step 1: Invitation */}
-      {step === 1 && (
+      {step === FLOW_STEPS.INVITATION && (
         <InvitationStep
           inviteCode={inviteCode}
           setInviteCode={setInviteCode}
@@ -98,33 +95,33 @@ export default function InviteBasedFlow() {
           confirmPassword={confirmPassword}
           setConfirmPassword={setConfirmPassword}
           onInviteSubmit={handleInviteSubmit}
-          onRequestAccess={() => setStep(4)}
+          onRequestAccess={() => setStep(FLOW_STEPS.REQUEST_ACCESS)}
         />
       )}
 
       {/* Step 3: Invalid Code */}
-      {step === 3 && (
+      {step === FLOW_STEPS.INVALID_CODE && (
         <InvalidCode
-          onBack={() => setStep(1)}
-          onRequestAccess={() => setStep(4)}
+          onBack={() => setStep(FLOW_STEPS.INVITATION)}
+          onRequestAccess={() => setStep(FLOW_STEPS.REQUEST_ACCESS)}
         />
       )}
 
       {/* Step 4: Request Access */}
-      {step === 4 && (
+      {step === FLOW_STEPS.REQUEST_ACCESS && (
         <RequestAccess
-          onBack={() => setStep(1)}
-          onSubmit={() => setStep(7)}
+          onBack={() => setStep(FLOW_STEPS.INVITATION)}
+          onSubmit={() => setStep(FLOW_STEPS.REQUEST_SUBMITTED)}
         />
       )}
 
       {/* Step 6: Success */}
-      {step === 6 && <Success />}
+      {step === FLOW_STEPS.SUCCESS && <Success />}
 
       {/* Step 7: Request Submitted */}
-      {step === 7 && (
+      {step === FLOW_STEPS.REQUEST_SUBMITTED && (
         <RequestSubmitted
-          onBack={() => setStep(1)}
+          onBack={() => setStep(FLOW_STEPS.INVITATION)}
         />
       )}
 
@@ -133,7 +130,7 @@ export default function InviteBasedFlow() {
         <div className="min-h-screen flex flex-col">
           <div className="flex-1 px-6 lg:px-12 xl:px-20 pt-8 pb-32">
               {/* Step 10: Jurisdiction Selection */}
-              {step === 10 && (
+              {step === FLOW_STEPS.JURISDICTION_SELECTION && (
                 <JurisdictionSelection
                   selectedLocations={selectedLocations}
                   searchTerm={searchTerm}
@@ -141,7 +138,7 @@ export default function InviteBasedFlow() {
                   toggleLocation={toggleLocation}
                   onNext={() => {
                     // All topics are automatically included - no need to track separately
-                    setStep(6);  // Go directly to success
+                    setStep(FLOW_STEPS.SUCCESS);  // Go directly to success
                   }}
                 />
               )}
