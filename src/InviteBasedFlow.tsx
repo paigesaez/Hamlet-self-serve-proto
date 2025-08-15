@@ -1,15 +1,8 @@
 import { useState } from 'react';
 
-// Import all step components
-import { InvitationStep } from './components/steps/InvitationStep';
-import { InvalidCode } from './components/steps/InvalidCode';
-import { RequestAccess } from './components/steps/RequestAccess';
-import { Success } from './components/steps/Success';
-import { RequestSubmitted } from './components/steps/RequestSubmitted';
-import { JurisdictionSelection } from './components/steps/JurisdictionSelection';
-
 // Import shared components
 import { TopNavigation } from './components/shared/TopNavigation';
+import { StepRenderer } from './components/StepRenderer';
 
 // Import custom hooks
 import { useInvitationForm } from './hooks/useInvitationForm';
@@ -76,79 +69,31 @@ export default function InviteBasedFlow() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Only show TopNavigation when not on landing page */}
       {step !== FLOW_STEPS.INVITATION && <TopNavigation step={step} resetFlow={resetFlow} setStep={setStep} />}
-
-      {/* Step 1: Invitation */}
-      {step === FLOW_STEPS.INVITATION && (
-        <InvitationStep
-          inviteCode={inviteCode}
-          setInviteCode={setInviteCode}
-          company={company}
-          setCompany={setCompany}
-          firstName={firstName}
-          setFirstName={setFirstName}
-          lastName={lastName}
-          setLastName={setLastName}
-          email={email}
-          setEmail={setEmail}
-          password={password}
-          setPassword={setPassword}
-          confirmPassword={confirmPassword}
-          setConfirmPassword={setConfirmPassword}
-          onInviteSubmit={handleInviteSubmit}
-          onRequestAccess={() => setStep(FLOW_STEPS.REQUEST_ACCESS)}
-        />
-      )}
-
-      {/* Step 3: Invalid Code */}
-      {step === FLOW_STEPS.INVALID_CODE && (
-        <InvalidCode
-          onBack={() => setStep(FLOW_STEPS.INVITATION)}
-          onRequestAccess={() => setStep(FLOW_STEPS.REQUEST_ACCESS)}
-        />
-      )}
-
-      {/* Step 4: Request Access */}
-      {step === FLOW_STEPS.REQUEST_ACCESS && (
-        <RequestAccess
-          onBack={() => setStep(FLOW_STEPS.INVITATION)}
-          onSubmit={() => setStep(FLOW_STEPS.REQUEST_SUBMITTED)}
-        />
-      )}
-
-      {/* Step 6: Success */}
-      {step === FLOW_STEPS.SUCCESS && <Success />}
-
-      {/* Step 7: Request Submitted */}
-      {step === FLOW_STEPS.REQUEST_SUBMITTED && (
-        <RequestSubmitted
-          onBack={() => setStep(FLOW_STEPS.INVITATION)}
-        />
-      )}
-
-      {/* Coverage Flow Steps (10-12) */}
-      {(step >= 10 && step <= 12) && (
-        <div className="min-h-screen flex flex-col">
-          <div className="flex-1 px-6 lg:px-12 xl:px-20 pt-8 pb-32">
-              {/* Step 10: Jurisdiction Selection */}
-              {step === FLOW_STEPS.JURISDICTION_SELECTION && (
-                <JurisdictionSelection
-                  selectedLocations={selectedLocations}
-                  searchTerm={searchTerm}
-                  setSearchTerm={setSearchTerm}
-                  toggleLocation={toggleLocation}
-                  onNext={() => {
-                    // All topics are automatically included - no need to track separately
-                    setStep(FLOW_STEPS.SUCCESS);  // Go directly to success
-                  }}
-                />
-              )}
-
-              {/* Steps 11 and 12 are now obsolete - users automatically get all governing bodies and topics */}
-
-              {/* Email Capture and Billing Info steps removed - now handled in InvitationStep */}
-          </div>
-        </div>
-      )}
+      
+      {/* Render the current step */}
+      <StepRenderer
+        step={step}
+        setStep={setStep}
+        inviteCode={inviteCode}
+        setInviteCode={setInviteCode}
+        company={company}
+        setCompany={setCompany}
+        firstName={firstName}
+        setFirstName={setFirstName}
+        lastName={lastName}
+        setLastName={setLastName}
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+        confirmPassword={confirmPassword}
+        setConfirmPassword={setConfirmPassword}
+        handleInviteSubmit={handleInviteSubmit}
+        selectedLocations={selectedLocations}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        toggleLocation={toggleLocation}
+      />
     </div>
   );
 }
