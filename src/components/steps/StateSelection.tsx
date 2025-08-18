@@ -89,11 +89,11 @@ export const StateSelection: React.FC<StateSelectionProps> = ({
             </div>
             <div>
               <h2 className="text-2xl font-semibold text-gray-900">Select States to Monitor</h2>
-              <p className="text-base text-gray-600">Choose states and we'll monitor all jurisdictions within them</p>
+              <p className="text-base text-gray-600">Choose states and we'll monitor all cities and counties within them</p>
             </div>
           </div>
           <div className="text-right">
-            <p className="text-sm text-gray-500 uppercase tracking-wide mb-1">Monitoring All Topics</p>
+            <p className="text-sm text-gray-500 uppercase tracking-wide mb-1">Topics</p>
             <div className="flex gap-1 justify-end">
               <span className="px-2 py-0.5 bg-blue-50 rounded text-sm font-medium text-blue-700">Industrial</span>
               <span className="px-2 py-0.5 bg-blue-50 rounded text-sm font-medium text-blue-700">Housing</span>
@@ -201,12 +201,9 @@ export const StateSelection: React.FC<StateSelectionProps> = ({
                           </div>
                         )}
                       </div>
-                      <div className="space-y-1">
+                      <div>
                         <p className="text-sm text-gray-600">
-                          <span className="font-medium">{data.jurisdictionCount}</span> jurisdictions
-                        </p>
-                        <p className="text-sm text-gray-500">
-                          {data.governingBodiesCount} governing bodies
+                          <span className="font-medium">{data.jurisdictionCount}</span> cities/counties • <span className="font-medium">{data.governingBodiesCount}</span> governing bodies
                         </p>
                       </div>
                     </button>
@@ -234,7 +231,7 @@ export const StateSelection: React.FC<StateSelectionProps> = ({
                 <>
                   <div className="space-y-2 py-3 border-t border-b border-gray-100">
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Total Jurisdictions:</span>
+                      <span className="text-gray-600">Cities/Counties:</span>
                       <span className="font-semibold">{totalStats.jurisdictions}</span>
                     </div>
                     <div className="flex justify-between text-sm">
@@ -275,18 +272,6 @@ export const StateSelection: React.FC<StateSelectionProps> = ({
                   : 'Select states to continue'
                 }
               </button>
-            </div>
-
-            {/* What's Included */}
-            <div className="bg-gray-50 rounded-lg p-3">
-              <h4 className="text-sm font-semibold text-gray-700 mb-1.5">What's Included</h4>
-              <ul className="text-sm text-gray-600 space-y-0.5">
-                <li>• All cities & counties</li>
-                <li>• City councils & planning commissions</li>
-                <li>• All development topics</li>
-                <li>• 24-hour email alerts</li>
-                <li>• Direct agenda links</li>
-              </ul>
             </div>
           </div>
         </div>
