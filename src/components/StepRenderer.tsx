@@ -6,7 +6,7 @@ import { InvalidCode } from './steps/InvalidCode';
 import { RequestAccess } from './steps/RequestAccess';
 import { Success } from './steps/Success';
 import { RequestSubmitted } from './steps/RequestSubmitted';
-import { JurisdictionSelection } from './steps/JurisdictionSelection';
+import { JurisdictionSelectionV2 as JurisdictionSelection } from './steps/JurisdictionSelectionV2';
 
 // Flow step constants - should match the ones in InviteBasedFlow
 const FLOW_STEPS = {

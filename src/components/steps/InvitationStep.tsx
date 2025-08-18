@@ -95,33 +95,33 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
 
               {/* Key Features - Compact */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6">
-                <div className="flex items-center space-x-3">
+                <div className="flex items-start space-x-3">
                   <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
                     <Clock className="w-5 h-5 text-purple-700" />
                   </div>
                   <div className="text-left">
-                    <p className="text-sm font-semibold text-gray-900">24-hour alerts</p>
-                    <p className="text-sm text-gray-600">Within a day of publication</p>
+                    <p className="text-sm font-semibold text-gray-900 whitespace-nowrap">24-hour alerts</p>
+                    <p className="text-sm text-gray-600">Daily agenda updates</p>
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-3">
+                <div className="flex items-start space-x-3">
                   <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
                     <Target className="w-5 h-5 text-green-700" />
                   </div>
                   <div className="text-left">
-                    <p className="text-sm font-semibold text-gray-900">AI matching</p>
-                    <p className="text-sm text-gray-600">Beyond keywords</p>
+                    <p className="text-sm font-semibold text-gray-900 whitespace-nowrap">AI matching</p>
+                    <p className="text-sm text-gray-600">Smart relevance filtering</p>
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-3">
+                <div className="flex items-start space-x-3">
                   <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
                     <Bell className="w-5 h-5 text-amber-700" />
                   </div>
                   <div className="text-left">
-                    <p className="text-sm font-semibold text-gray-900">Multi-city</p>
-                    <p className="text-sm text-gray-600">Unlimited jurisdictions</p>
+                    <p className="text-sm font-semibold text-gray-900 whitespace-nowrap">Multi-jurisdiction</p>
+                    <p className="text-sm text-gray-600">Monitor multiple areas</p>
                   </div>
                 </div>
               </div>
@@ -135,7 +135,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                     Create your account
                   </h2>
                   <p className="text-gray-300 text-sm">
-                    Invite-only access for qualified development teams
+                    Invite-only access for qualified professionals
                   </p>
                 </div>
                 
