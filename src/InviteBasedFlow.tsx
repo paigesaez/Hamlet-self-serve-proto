@@ -23,7 +23,22 @@ type FlowStep = typeof FLOW_STEPS[keyof typeof FLOW_STEPS];
 export default function InviteBasedFlow() {
   const [step, setStep] = useState<FlowStep>(FLOW_STEPS.INVITATION);
   
-  // Use the custom hook for location selection
+  // State selection (states instead of individual locations)
+  const [selectedStates, setSelectedStates] = useState<string[]>([]);
+  
+  const toggleState = (state: string) => {
+    setSelectedStates(prev => 
+      prev.includes(state) 
+        ? prev.filter(s => s !== state)
+        : [...prev, state]
+    );
+  };
+  
+  const resetStateSelection = () => {
+    setSelectedStates([]);
+  };
+  
+  // Use the custom hook for location selection (for backward compatibility)
   const {
     selectedLocations,
     searchTerm,
@@ -54,6 +69,7 @@ export default function InviteBasedFlow() {
   const resetFlow = () => {
     setStep(FLOW_STEPS.INVITATION);
     resetLocationSelection(); // Use the hook's reset function
+    resetStateSelection(); // Reset state selection
     resetInvitationForm(); // Use the hook's reset function
   };
 
@@ -91,6 +107,8 @@ export default function InviteBasedFlow() {
         setConfirmPassword={setConfirmPassword}
         handleInviteSubmit={handleInviteSubmit}
         selectedLocations={selectedLocations}
+        selectedStates={selectedStates}
+        toggleState={toggleState}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         toggleLocation={toggleLocation}

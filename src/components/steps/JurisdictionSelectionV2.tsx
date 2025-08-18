@@ -193,33 +193,33 @@ export const JurisdictionSelectionV2: React.FC<JurisdictionSelectionProps> = ({
   return (
     <div className="max-w-7xl mx-auto">
       {/* Header with Topics */}
-      <div className="mb-6 bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+      <div className="mb-4 bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
         <div className="flex items-start justify-between">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
-              <MapPin className="w-6 h-6 text-white" />
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+              <MapPin className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-2xl font-semibold text-gray-900">Select Your Jurisdictions</h2>
-              <p className="text-sm text-gray-600 mt-1">Choose regions, states, or specific jurisdictions to monitor</p>
+              <h2 className="text-xl font-semibold text-gray-900">Select Your Jurisdictions</h2>
+              <p className="text-xs text-gray-600">Choose regions, states, or specific jurisdictions to monitor</p>
             </div>
           </div>
           <div className="text-right">
-            <p className="text-sm text-gray-500 uppercase tracking-wide mb-2">Monitoring Topics</p>
-            <div className="flex gap-2 justify-end">
-              <span className="px-2 py-1 bg-blue-50 rounded text-sm font-medium text-blue-700">Industrial</span>
-              <span className="px-2 py-1 bg-blue-50 rounded text-sm font-medium text-blue-700">Housing</span>
-              <span className="px-2 py-1 bg-blue-50 rounded text-sm font-medium text-blue-700">Multifamily</span>
-              <span className="px-2 py-1 bg-blue-50 rounded text-sm font-medium text-blue-700">Impact Fees</span>
-              <span className="px-2 py-1 bg-blue-50 rounded text-sm font-medium text-blue-700">Data Centers</span>
+            <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Monitoring Topics</p>
+            <div className="flex gap-1 justify-end">
+              <span className="px-2 py-0.5 bg-blue-50 rounded text-xs font-medium text-blue-700">Industrial</span>
+              <span className="px-2 py-0.5 bg-blue-50 rounded text-xs font-medium text-blue-700">Housing</span>
+              <span className="px-2 py-0.5 bg-blue-50 rounded text-xs font-medium text-blue-700">Multifamily</span>
+              <span className="px-2 py-0.5 bg-blue-50 rounded text-xs font-medium text-blue-700">Impact Fees</span>
+              <span className="px-2 py-0.5 bg-blue-50 rounded text-xs font-medium text-blue-700">Data Centers</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-4 gap-6">
+      <div className="grid lg:grid-cols-4 gap-4">
         {/* Main Content Area */}
-        <div className="lg:col-span-3 space-y-6">
+        <div className="lg:col-span-3 space-y-4">
           {/* Search and Filter Bar */}
           <div className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm">
             {/* Selection Count and Clear */}
@@ -395,7 +395,7 @@ export const JurisdictionSelectionV2: React.FC<JurisdictionSelectionProps> = ({
           </div>
 
           {/* Content Area */}
-          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-4">
             {/* Show selected jurisdictions if any regions/states are selected */}
             {(selectedRegions.length > 0 || selectedStates.length > 0) ? (
               <div>
@@ -459,16 +459,16 @@ export const JurisdictionSelectionV2: React.FC<JurisdictionSelectionProps> = ({
                     return (
                       <div
                         key={region.id}
-                        className={`border rounded-lg p-4 transition-all ${
+                        className={`border rounded-lg p-3 transition-all ${
                           isFullySelected ? 'border-blue-500 bg-blue-50' :
                           isPartiallySelected ? 'border-blue-300 bg-blue-50/50' :
                           'border-gray-200 bg-white'
                         }`}
                       >
-                        <div className="flex items-start justify-between mb-3">
+                        <div className="flex items-start justify-between mb-2">
                           <div>
-                            <h4 className="font-semibold text-lg text-gray-900">{region.name}</h4>
-                            <p className="text-sm text-gray-500 mt-1">{region.description}</p>
+                            <h4 className="font-semibold text-base text-gray-900">{region.name}</h4>
+                            <p className="text-xs text-gray-500 mt-0.5">{region.description}</p>
                           </div>
                           <button
                             onClick={() => {
@@ -486,7 +486,7 @@ export const JurisdictionSelectionV2: React.FC<JurisdictionSelectionProps> = ({
                                 });
                               }
                             }}
-                            className={`px-3 py-1.5 text-sm rounded-full font-medium ${
+                            className={`px-2.5 py-1 text-xs rounded-full font-medium ${
                               isFullySelected 
                                 ? 'bg-blue-600 text-white' 
                                 : 'bg-white text-blue-600 border border-blue-600 hover:bg-blue-50'
@@ -508,12 +508,12 @@ export const JurisdictionSelectionV2: React.FC<JurisdictionSelectionProps> = ({
                         </div>
 
                         {/* Quick selection for individual cities */}
-                        <div className="mt-3 flex flex-wrap gap-1">
+                        <div className="mt-2 flex flex-wrap gap-1">
                           {regionLocs.slice(0, 5).map(loc => (
                             <button
                               key={loc.id}
                               onClick={() => toggleLocation(loc.id)}
-                              className={`px-2.5 py-1 text-sm rounded-full ${
+                              className={`px-2 py-0.5 text-xs rounded-full ${
                                 selectedLocations.includes(loc.id)
                                   ? 'bg-blue-100 text-blue-700'
                                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -523,7 +523,7 @@ export const JurisdictionSelectionV2: React.FC<JurisdictionSelectionProps> = ({
                             </button>
                           ))}
                           {regionLocs.length > 5 && (
-                            <span className="px-2.5 py-1 text-sm text-gray-400">
+                            <span className="px-2 py-0.5 text-xs text-gray-400">
                               +{regionLocs.length - 5} more
                             </span>
                           )}
@@ -534,8 +534,8 @@ export const JurisdictionSelectionV2: React.FC<JurisdictionSelectionProps> = ({
                 </div>
 
                 {/* Other Regions Link */}
-                <div className="mt-6 p-4 bg-gray-50 rounded-lg text-center">
-                  <p className="text-sm text-gray-600">
+                <div className="mt-4 p-3 bg-gray-50 rounded-lg text-center">
+                  <p className="text-xs text-gray-600">
                     Looking for other regions? Use the search bar above or select by state
                   </p>
                 </div>
@@ -548,9 +548,9 @@ export const JurisdictionSelectionV2: React.FC<JurisdictionSelectionProps> = ({
         <div className="lg:col-span-1">
           <div className="sticky top-4 space-y-4">
             {/* Primary Action */}
-            <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-              <div className="text-center mb-4">
-                <div className="text-4xl font-bold text-blue-600 mb-1">
+            <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-4">
+              <div className="text-center mb-3">
+                <div className="text-3xl font-bold text-blue-600 mb-1">
                   {stats.jurisdictions}
                 </div>
                 <div className="text-sm text-gray-500">
@@ -565,7 +565,7 @@ export const JurisdictionSelectionV2: React.FC<JurisdictionSelectionProps> = ({
               <button
                 onClick={onNext}
                 disabled={selectedLocations.length === 0}
-                className={`w-full py-3 px-4 rounded-lg font-medium transition-all ${
+                className={`w-full py-2.5 px-4 rounded-lg font-medium transition-all ${
                   selectedLocations.length > 0
                     ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-md'
                     : 'bg-gray-100 text-gray-400 cursor-not-allowed'
@@ -579,9 +579,9 @@ export const JurisdictionSelectionV2: React.FC<JurisdictionSelectionProps> = ({
             </div>
 
             {/* Quick Tips */}
-            <div className="bg-gray-50 rounded-lg p-4">
-              <h4 className="text-sm font-semibold text-gray-700 mb-2">Quick Tips</h4>
-              <ul className="text-sm text-gray-600 space-y-1">
+            <div className="bg-gray-50 rounded-lg p-3">
+              <h4 className="text-xs font-semibold text-gray-700 mb-1.5">Quick Tips</h4>
+              <ul className="text-xs text-gray-600 space-y-0.5">
                 <li>• Use region filter for metro areas</li>
                 <li>• Select entire states at once</li>
                 <li>• Search for specific cities</li>

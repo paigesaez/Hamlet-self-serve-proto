@@ -81,6 +81,10 @@ This prototype establishes the core onboarding experience and value communicatio
 - NEVER create files unless they're absolutely necessary for achieving your goal.
 - ALWAYS prefer editing an existing file to creating a new one.
 - NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
+- **ALWAYS apply layout/visual design changes consistently across ALL steps for a unified product experience**
+  - When updating spacing, padding, or text sizes in one step, apply the same changes to all similar components
+  - Maintain consistent compact styling optimized for laptop screens
+  - Ensure all steps have matching visual density and spacing patterns
 
 ## 🔍 **Application Audit Findings**
 

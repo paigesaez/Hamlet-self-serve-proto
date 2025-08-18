@@ -6,7 +6,7 @@ import { InvalidCode } from './steps/InvalidCode';
 import { RequestAccess } from './steps/RequestAccess';
 import { Success } from './steps/Success';
 import { RequestSubmitted } from './steps/RequestSubmitted';
-import { JurisdictionSelectionV2 as JurisdictionSelection } from './steps/JurisdictionSelectionV2';
+import { StateSelection } from './steps/StateSelection';
 
 // Flow step constants - should match the ones in InviteBasedFlow
 const FLOW_STEPS = {
@@ -37,6 +37,8 @@ interface StepRendererProps {
   setConfirmPassword: (value: string) => void;
   handleInviteSubmit: () => void;
   selectedLocations: number[];
+  selectedStates: string[];
+  toggleState: (state: string) => void;
   searchTerm: string;
   setSearchTerm: (value: string) => void;
   toggleLocation: (locationId: number) => void;
@@ -61,6 +63,8 @@ export const StepRenderer: React.FC<StepRendererProps> = ({
   setConfirmPassword,
   handleInviteSubmit,
   selectedLocations,
+  selectedStates,
+  toggleState,
   searchTerm,
   setSearchTerm,
   toggleLocation,
@@ -105,7 +109,7 @@ export const StepRenderer: React.FC<StepRendererProps> = ({
       );
       
     case FLOW_STEPS.SUCCESS:
-      return <Success selectedLocations={selectedLocations} />;
+      return <Success selectedStates={selectedStates} />;
       
     case FLOW_STEPS.REQUEST_SUBMITTED:
       return (
@@ -118,11 +122,9 @@ export const StepRenderer: React.FC<StepRendererProps> = ({
       return (
         <div className="min-h-screen flex flex-col">
           <div className="flex-1 px-6 lg:px-12 xl:px-20 pt-8 pb-32">
-            <JurisdictionSelection
-              selectedLocations={selectedLocations}
-              searchTerm={searchTerm}
-              setSearchTerm={setSearchTerm}
-              toggleLocation={toggleLocation}
+            <StateSelection
+              selectedStates={selectedStates}
+              toggleState={toggleState}
               onNext={() => {
                 setStep(FLOW_STEPS.SUCCESS);
               }}

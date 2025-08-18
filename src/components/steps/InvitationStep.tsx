@@ -130,20 +130,20 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
             {/* Right: Sign In Card */}
             <div className="max-w-md mx-auto w-full lg:mx-0">
               <div className="bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden">
-                <div className="bg-gradient-to-br from-[#002147] to-[#003a6b] p-6 text-center">
-                  <h2 className="text-2xl font-serif font-bold text-white mb-2">
+                <div className="bg-gradient-to-br from-[#002147] to-[#003a6b] p-4 text-center">
+                  <h2 className="text-xl font-serif font-bold text-white mb-1">
                     Create your account
                   </h2>
-                  <p className="text-gray-300 text-sm">
+                  <p className="text-gray-300 text-xs">
                     Invite-only access for qualified professionals
                   </p>
                 </div>
                 
-                <div className="p-8">
-                  <div className="space-y-4">
+                <div className="p-6">
+                  <div className="space-y-3">
                     {/* Invitation Code */}
                     <div>
-                      <label htmlFor="invite-code" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label htmlFor="invite-code" className="block text-sm font-medium text-gray-700 mb-1">
                         Invitation code
                       </label>
                       <input
@@ -151,14 +151,14 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                         type="text"
                         value={inviteCode}
                         onChange={(e) => setInviteCode(e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm"
                         placeholder="Enter your code"
                       />
                     </div>
 
                     {/* Company */}
                     <div>
-                      <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-1">
                         Company name
                       </label>
                       <input
@@ -166,7 +166,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                         type="text"
                         value={company}
                         onChange={(e) => setCompany(e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm"
                         placeholder="Your company"
                       />
                     </div>
@@ -174,7 +174,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                     {/* Name Fields */}
                     <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <label htmlFor="first-name" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="first-name" className="block text-sm font-medium text-gray-700 mb-1">
                           First name
                         </label>
                         <input
@@ -182,12 +182,12 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                           type="text"
                           value={firstName}
                           onChange={(e) => setFirstName(e.target.value)}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm"
                           placeholder="First"
                         />
                       </div>
                       <div>
-                        <label htmlFor="last-name" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="last-name" className="block text-sm font-medium text-gray-700 mb-1">
                           Last name
                         </label>
                         <input
@@ -195,7 +195,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                           type="text"
                           value={lastName}
                           onChange={(e) => setLastName(e.target.value)}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm"
                           placeholder="Last"
                         />
                       </div>
@@ -203,7 +203,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
 
                     {/* Email */}
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                         Work email
                       </label>
                       <input
@@ -211,14 +211,14 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm"
                         placeholder="you@company.com"
                       />
                     </div>
 
                     {/* Password */}
                     <div>
-                      <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                         Password
                       </label>
                       <input
@@ -226,7 +226,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm"
                         placeholder="Create a strong password"
                       />
                       <p className="text-xs text-gray-500 mt-1">
@@ -236,7 +236,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
 
                     {/* Confirm Password */}
                     <div>
-                      <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700 mb-1">
                         Confirm Password
                       </label>
                       <input
@@ -244,7 +244,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm"
                         placeholder="Re-enter your password"
                       />
                       {password && confirmPassword && password !== confirmPassword && (
@@ -257,7 +257,7 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
                     <button
                       onClick={onInviteSubmit}
                       disabled={!inviteCode || !company || !firstName || !lastName || !email || !password || password.length < 8 || password !== confirmPassword}
-                      className={`w-full py-3.5 px-6 rounded-lg font-medium transition-all flex items-center justify-center space-x-2 shadow-md ${
+                      className={`w-full py-2.5 px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-2 shadow-md ${
                         !inviteCode || !company || !firstName || !lastName || !email || !password || password.length < 8 || password !== confirmPassword
                           ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                           : 'bg-[#002147] text-white hover:bg-[#003a6b] hover:shadow-lg'
