@@ -80,21 +80,15 @@ export const StateSelection: React.FC<StateSelectionProps> = ({
 
   return (
     <div className="max-w-7xl mx-auto">
-      {/* Header */}
-      <div className="mb-4 bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
-        <div className="flex items-start justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-              <MapPin className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-semibold text-gray-900">Select States to Monitor</h2>
-              <p className="text-base text-gray-600">Choose states and we'll monitor all cities and counties within them</p>
-            </div>
+      <div className="mb-4 bg-white rounded-lg p-4 border border-gray-200">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-semibold text-gray-900">Select States to Monitor</h2>
+            <p className="text-sm text-gray-600 mt-1">Choose states and we'll monitor all cities and counties within them</p>
           </div>
-          <div className="text-right">
-            <p className="text-sm text-gray-500 uppercase tracking-wide mb-1">Topics</p>
-            <div className="flex gap-1 justify-end">
+          <div className="flex items-center gap-2">
+            <p className="text-sm text-gray-500">Topics:</p>
+            <div className="flex gap-1">
               <span className="px-2 py-0.5 bg-blue-50 rounded text-sm font-medium text-blue-700">Industrial</span>
               <span className="px-2 py-0.5 bg-blue-50 rounded text-sm font-medium text-blue-700">Housing</span>
               <span className="px-2 py-0.5 bg-blue-50 rounded text-sm font-medium text-blue-700">Multifamily</span>
@@ -108,16 +102,15 @@ export const StateSelection: React.FC<StateSelectionProps> = ({
       <div className="grid lg:grid-cols-4 gap-4">
         {/* Main Content Area */}
         <div className="lg:col-span-3 space-y-4">
-          {/* Quick Actions Bar */}
-          <div className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm flex items-center justify-between">
+          <div className="bg-white rounded-lg p-4 border border-gray-200 flex items-center justify-between">
             <div className="flex items-center gap-3">
               {/* State Multi-Select Dropdown */}
               <div className="relative" ref={stateDropdownRef}>
                 <button
                   onClick={() => setStateDropdownOpen(!stateDropdownOpen)}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center gap-2 font-medium transition-colors"
+                  className="px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center gap-2 font-medium transition-colors"
                 >
-                  <span>Quick Select States</span>
+                  <span>Filter States</span>
                   <ChevronDown className={`w-4 h-4 transition-transform ${stateDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
                 
@@ -161,23 +154,17 @@ export const StateSelection: React.FC<StateSelectionProps> = ({
               </div>
 
               {selectedStates.length > 0 && (
-                <>
-                  <span className="text-sm text-gray-600">
-                    <strong className="text-lg text-blue-600">{selectedStates.length}</strong> states selected
-                  </span>
-                  <button
-                    onClick={clearAllStates}
-                    className="text-sm text-red-600 hover:text-red-700"
-                  >
-                    Clear all
-                  </button>
-                </>
+                <button
+                  onClick={clearAllStates}
+                  className="text-sm text-red-600 hover:text-red-700"
+                >
+                  Clear all
+                </button>
               )}
             </div>
           </div>
 
-          {/* States Grid */}
-          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-4">
+          <div className="bg-white rounded-lg border border-gray-200 p-4">
             <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-3">
               {Object.entries(stateStats)
                 .sort(([, a], [, b]) => a.name.localeCompare(b.name))
@@ -187,7 +174,7 @@ export const StateSelection: React.FC<StateSelectionProps> = ({
                     <button
                       key={stateCode}
                       onClick={() => toggleState(stateCode)}
-                      className={`p-4 rounded-lg border-2 text-left transition-all ${
+                      className={`p-4 rounded-lg border-2 text-left transition-colors ${
                         isSelected 
                           ? 'border-blue-500 bg-blue-50' 
                           : 'border-gray-200 bg-white hover:border-gray-300'
@@ -195,11 +182,7 @@ export const StateSelection: React.FC<StateSelectionProps> = ({
                     >
                       <div className="flex items-start justify-between mb-2">
                         <h3 className="font-semibold text-gray-900">{data.name}</h3>
-                        {isSelected && (
-                          <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">
-                            <Check className="w-4 h-4 text-white" />
-                          </div>
-                        )}
+                        {isSelected && <Check className="w-5 h-5 text-blue-600" />}
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">
@@ -216,54 +199,33 @@ export const StateSelection: React.FC<StateSelectionProps> = ({
         {/* Right Sidebar */}
         <div className="lg:col-span-1">
           <div className="sticky top-4 space-y-4">
-            {/* Selection Summary */}
-            <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-4">
+            <div className="bg-white rounded-lg border border-gray-200 p-4">
               <div className="text-center mb-3">
-                <div className="text-3xl font-bold text-blue-600 mb-1">
-                  {selectedStates.length}
-                </div>
-                <div className="text-sm text-gray-500">
-                  {selectedStates.length === 1 ? 'state' : 'states'} selected
+                <div className="text-base font-medium text-gray-700">
+                  {selectedStates.length} {selectedStates.length === 1 ? 'state' : 'states'} selected
                 </div>
               </div>
 
               {selectedStates.length > 0 && (
-                <>
-                  <div className="space-y-2 py-3 border-t border-b border-gray-100">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Cities/Counties:</span>
-                      <span className="font-semibold">{totalStats.jurisdictions}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Governing Bodies:</span>
-                      <span className="font-semibold">{totalStats.governingBodies}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Topics Monitored:</span>
-                      <span className="font-semibold">All 5</span>
-                    </div>
+                <div className="space-y-2 py-3 border-t border-b border-gray-100">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Cities/Counties:</span>
+                    <span className="font-semibold">{totalStats.jurisdictions}</span>
                   </div>
-
-                  <div className="mt-3">
-                    <p className="text-sm text-gray-500 mb-2">Selected states:</p>
-                    <div className="flex flex-wrap gap-1">
-                      {selectedStates.map(state => (
-                        <span key={state} className="px-2 py-0.5 bg-gray-100 rounded text-sm">
-                          {stateStats[state]?.name || state}
-                        </span>
-                      ))}
-                    </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Governing Bodies:</span>
+                    <span className="font-semibold">{totalStats.governingBodies}</span>
                   </div>
-                </>
+                </div>
               )}
 
               {/* Subscribe Button */}
               <button
                 onClick={onNext}
                 disabled={selectedStates.length === 0}
-                className={`w-full py-2.5 px-4 rounded-lg font-medium transition-all mt-4 ${
+                className={`w-full py-2.5 px-4 rounded-lg font-medium transition-colors mt-4 ${
                   selectedStates.length > 0
-                    ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-md'
+                    ? 'bg-[#002147] text-white hover:bg-[#003a6b]'
                     : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                 }`}
               >
