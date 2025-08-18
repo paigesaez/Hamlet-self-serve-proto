@@ -363,16 +363,6 @@ export const InvitationStep: React.FC<InvitationStepProps> = ({
           </div>
         </div>
 
-        {/* Trust Indicators */}
-        <div className="text-center">
-          <p className="text-sm text-gray-500 mb-6">Trusted by development teams at</p>
-          <div className="flex flex-wrap items-center justify-center gap-8 lg:gap-12">
-            <div className="text-gray-400 font-semibold text-lg">CBRE</div>
-            <div className="text-gray-400 font-semibold text-lg">JLL</div>
-            <div className="text-gray-400 font-semibold text-lg">Cushman & Wakefield</div>
-            <div className="text-gray-400 font-semibold text-lg">Colliers</div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
