@@ -36,12 +36,8 @@ interface StepRendererProps {
   confirmPassword: string;
   setConfirmPassword: (value: string) => void;
   handleInviteSubmit: () => void;
-  selectedLocations: number[];
   selectedStates: string[];
   toggleState: (state: string) => void;
-  searchTerm: string;
-  setSearchTerm: (value: string) => void;
-  toggleLocation: (locationId: number) => void;
 }
 
 export const StepRenderer: React.FC<StepRendererProps> = ({
@@ -62,12 +58,8 @@ export const StepRenderer: React.FC<StepRendererProps> = ({
   confirmPassword,
   setConfirmPassword,
   handleInviteSubmit,
-  selectedLocations,
   selectedStates,
   toggleState,
-  searchTerm,
-  setSearchTerm,
-  toggleLocation,
 }) => {
   switch (step) {
     case FLOW_STEPS.INVITATION:

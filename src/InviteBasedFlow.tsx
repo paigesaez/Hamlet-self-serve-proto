@@ -40,10 +40,6 @@ export default function InviteBasedFlow() {
   
   // Use the custom hook for location selection (for backward compatibility)
   const {
-    selectedLocations,
-    searchTerm,
-    setSearchTerm,
-    toggleLocation,
     resetLocationSelection,
   } = useLocationSelection();
   
@@ -106,12 +102,8 @@ export default function InviteBasedFlow() {
         confirmPassword={confirmPassword}
         setConfirmPassword={setConfirmPassword}
         handleInviteSubmit={handleInviteSubmit}
-        selectedLocations={selectedLocations}
         selectedStates={selectedStates}
         toggleState={toggleState}
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        toggleLocation={toggleLocation}
       />
     </div>
   );

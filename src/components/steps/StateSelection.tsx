@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { MapPin, Check, ChevronDown } from 'lucide-react';
+import { Check, ChevronDown } from 'lucide-react';
 import { stateJurisdictions } from '../../data/stateJurisdictions';
 import { getStateName } from '../../utils/states';
 
