@@ -96,7 +96,7 @@ export const JurisdictionSelectionClean: React.FC<JurisdictionSelectionProps> = 
             {/* Topics */}
             <div className="flex items-center gap-2">
               <span className="text-sm text-gray-500">Topics:</span>
-              <span className="text-sm font-medium">Industrial • Housing • Multifamily • Impact Fees • Data Centers</span>
+              <span className="text-sm font-medium">Industrial • Housing • New Multifamily Housing • Impact Fees • Data Centers</span>
             </div>
           </div>
         </div>

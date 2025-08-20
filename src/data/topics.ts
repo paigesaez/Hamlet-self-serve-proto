@@ -9,7 +9,7 @@ export const topicCategories = [
     topics: [
       { 
         id: 'housing', 
-        name: 'Multifamily Housing', 
+        name: 'New Multifamily Housing', 
         icon: Home, 
         description: 'Apartment complexes, condos, townhomes',
         examples: ['New 200-unit apartment complex', 'Affordable housing projects', 'Senior living facilities']

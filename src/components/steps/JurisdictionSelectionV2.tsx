@@ -209,7 +209,7 @@ export const JurisdictionSelectionV2: React.FC<JurisdictionSelectionProps> = ({
             <div className="flex gap-1 justify-end">
               <span className="px-2 py-0.5 bg-blue-50 rounded text-xs font-medium text-blue-700">Industrial</span>
               <span className="px-2 py-0.5 bg-blue-50 rounded text-xs font-medium text-blue-700">Housing</span>
-              <span className="px-2 py-0.5 bg-blue-50 rounded text-xs font-medium text-blue-700">Multifamily</span>
+              <span className="px-2 py-0.5 bg-blue-50 rounded text-xs font-medium text-blue-700">New Multifamily Housing</span>
               <span className="px-2 py-0.5 bg-blue-50 rounded text-xs font-medium text-blue-700">Impact Fees</span>
               <span className="px-2 py-0.5 bg-blue-50 rounded text-xs font-medium text-blue-700">Data Centers</span>
             </div>

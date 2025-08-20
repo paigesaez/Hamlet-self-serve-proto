@@ -91,7 +91,7 @@ export const StateSelection: React.FC<StateSelectionProps> = ({
             <div className="flex gap-1">
               <span className="px-2 py-0.5 bg-blue-50 rounded text-sm font-medium text-blue-700">Industrial</span>
               <span className="px-2 py-0.5 bg-blue-50 rounded text-sm font-medium text-blue-700">Housing</span>
-              <span className="px-2 py-0.5 bg-blue-50 rounded text-sm font-medium text-blue-700">Multifamily</span>
+              <span className="px-2 py-0.5 bg-blue-50 rounded text-sm font-medium text-blue-700">New Multifamily Housing</span>
               <span className="px-2 py-0.5 bg-blue-50 rounded text-sm font-medium text-blue-700">Impact Fees</span>
               <span className="px-2 py-0.5 bg-blue-50 rounded text-sm font-medium text-blue-700">Data Centers</span>
             </div>
