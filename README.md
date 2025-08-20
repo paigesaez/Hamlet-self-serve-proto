@@ -186,7 +186,7 @@ Main application orchestrator handling:
 ### Success (`src/components/steps/Success.tsx`)
 - Subscription summary display
 - Selected states and jurisdiction counts
-- Topic badges (Industrial, Housing, Multifamily, Impact Fees, Data Centers)
+- Topic badges (Industrial, Housing, New Multifamily Housing, Impact Fees, Data Centers)
 - Call-to-action for dashboard access
 
 ## Testing the Prototype
