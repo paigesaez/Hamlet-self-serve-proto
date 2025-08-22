@@ -35,7 +35,7 @@ export const Success: React.FC<SuccessProps> = ({ selectedStates = [] }) => {
         
         <div className="flex items-center gap-3 mb-6">
           <CheckCircle className="w-10 h-10 text-green-600" />
-          <h1 className="text-3xl font-semibold text-gray-900">You're all set!</h1>
+          <h1 className="text-3xl font-semibold text-gray-900">Your 30-day free trial has started!</h1>
         </div>
 
         <div className="bg-white rounded-lg border border-gray-200 p-8">
@@ -75,7 +75,7 @@ export const Success: React.FC<SuccessProps> = ({ selectedStates = [] }) => {
 
           <div className="border-t mt-6 pt-6 flex items-center justify-between">
             <p className="text-base text-gray-500">
-              Check your email for login details
+              Your free trial ends in 30 days • Check email for login
             </p>
             <button className="px-6 py-2.5 bg-[#002147] text-white rounded-lg font-medium hover:bg-[#003a6b] transition-colors inline-flex items-center gap-2">
               Go to Dashboard

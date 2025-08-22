@@ -230,7 +230,7 @@ export const StateSelection: React.FC<StateSelectionProps> = ({
                 }`}
               >
                 {selectedStates.length > 0 
-                  ? `Start Free Trial`
+                  ? `Start 30-Day Free Trial`
                   : 'Select states to continue'
                 }
               </button>

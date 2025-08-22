@@ -84,11 +84,15 @@ export const EmailCapture: React.FC<EmailCaptureProps> = ({ email, setEmail, onB
         <div className="sticky top-6 space-y-6">
           {/* Account Benefits */}
           <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-            <h3 className="font-semibold text-gray-900 mb-4">Account benefits</h3>
+            <h3 className="font-semibold text-gray-900 mb-4">Free trial benefits</h3>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
-                <p className="text-sm text-gray-700">No password required</p>
+                <p className="text-sm text-gray-700">30 days completely free</p>
+              </div>
+              <div className="flex items-center gap-3">
+                <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
+                <p className="text-sm text-gray-700">No credit card required</p>
               </div>
               <div className="flex items-center gap-3">
                 <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
@@ -96,23 +100,19 @@ export const EmailCapture: React.FC<EmailCaptureProps> = ({ email, setEmail, onB
               </div>
               <div className="flex items-center gap-3">
                 <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
-                <p className="text-sm text-gray-700">Update preferences anytime</p>
-              </div>
-              <div className="flex items-center gap-3">
-                <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
-                <p className="text-sm text-gray-700">Add team members later</p>
+                <p className="text-sm text-gray-700">Full access to all features</p>
               </div>
             </div>
           </div>
 
           {/* Next Step */}
           <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg p-6 border border-amber-100">
-            <h4 className="font-semibold text-gray-900 mb-2">Next: Payment setup</h4>
+            <h4 className="font-semibold text-gray-900 mb-2">30-Day Free Trial</h4>
             <p className="text-sm text-gray-700 mb-4">
-              Complete your subscription to start receiving alerts within 24 hours.
+              No payment required • Start receiving alerts within 24 hours
             </p>
             <p className="text-xs text-gray-600">
-              Secure payment processing • Cancel anytime
+              Cancel anytime • No credit card needed
             </p>
           </div>
 
@@ -127,7 +127,7 @@ export const EmailCapture: React.FC<EmailCaptureProps> = ({ email, setEmail, onB
                   : 'bg-[#002147] text-white hover:bg-[#003a6b] shadow-md hover:shadow-lg'
               }`}
             >
-              Continue to Payment
+              Start 30-Day Free Trial
             </button>
             <button
               onClick={onBack}

@@ -572,7 +572,7 @@ export const JurisdictionSelectionV2: React.FC<JurisdictionSelectionProps> = ({
                 }`}
               >
                 {selectedLocations.length > 0 
-                  ? `Start Free Trial with ${selectedLocations.length} ${selectedLocations.length === 1 ? 'jurisdiction' : 'jurisdictions'}`
+                  ? `Start 30-Day Free Trial with ${selectedLocations.length} ${selectedLocations.length === 1 ? 'jurisdiction' : 'jurisdictions'}`
                   : 'Select jurisdictions to continue'
                 }
               </button>

@@ -596,7 +596,7 @@ export const JurisdictionSelection: React.FC<JurisdictionSelectionProps> = ({
               }`}
             >
               {selectedLocations.length > 0 
-                ? `Subscribe to ${selectedLocations.length} ${selectedLocations.length === 1 ? 'Jurisdiction' : 'Jurisdictions'}`
+                ? `Start 30-Day Free Trial with ${selectedLocations.length} ${selectedLocations.length === 1 ? 'Jurisdiction' : 'Jurisdictions'}`
                 : 'Select at least one jurisdiction'}
             </button>
           </div>
